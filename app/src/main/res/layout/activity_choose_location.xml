@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ChooseLocationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:textAlignment="center"
+        app:navigationIcon="@drawable/ic_close"
+        app:title="Please Select Area"/>
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_table"
+        android:stretchColumns="1"
+        android:shrinkColumns="0"
+        >
+        <!-- Row 1 with single column -->
+        <TableRow
+            android:showDividers="middle"
+            android:divider="@drawable/table_divider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ListView
+                android:layout_width="150dp"
+                android:layout_weight="1"
+                android:id="@+id/lvProvince">
+
+            </ListView>
+            <ListView
+                android:layout_weight="2"
+                android:id="@+id/lvDistrict"
+                >
+
+            </ListView>
+
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

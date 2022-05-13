@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/pageHome"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/pageFavorite"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_favorite"
+        android:title="Favorite"/>
+    <item
+        android:id="@+id/pageProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_profile"
+        android:title="Profile"/>
+</menu>
