@@ -10,4 +10,5 @@
     <color name="primary">#129BD6</color>
     <color name="blue">#C8F8FE</color>
     <color name="detail_color">#8F8F8F</color>
+    <color name="background">#FDFEFE</color>
 </resources>
