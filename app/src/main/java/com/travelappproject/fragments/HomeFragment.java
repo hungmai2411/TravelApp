@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,15 +114,32 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private boolean checkExist(List<Hotel> list, Hotel hotel){
+        for(Hotel hotel1 : list){
+            if(hotel1.getName() == hotel.getName())
+                return true;
+        }
+
+        return false;
+    }
+
     private void observedHotels() {
         hotelViewModel.observedHotelLiveData().observe(getViewLifecycleOwner(), new Observer<List<Hotel>>() {
             @Override
             public void onChanged(List<Hotel> listHotel) {
+                Log.d("size", String.valueOf(listHotel.size()));
+
                 for(Hotel hotel : listHotel){
-                    if(hotel.getStarRating() > 4)
+                    if(hotel.getStarRating() >= 4 && checkExist(listHotHotel,hotel) == false){
+                        Log.d("name", hotel.getName());
+                        Log.d("existHot", String.valueOf(checkExist(listHotHotel,hotel)));
                         listHotHotel.add(hotel);
-                    if(hotel.getNewHotel())
+                    }
+                    if(hotel.getNewHotel() && checkExist(listNewHotel,hotel) == false){
+                        Log.d("name", hotel.getName());
+                        Log.d("existNew", String.valueOf(checkExist(listNewHotel,hotel)));
                         listNewHotel.add(hotel);
+                    }
                 }
                 newHotelAdapter.setData(listNewHotel);
                 rcvNewHotel.setAdapter(newHotelAdapter);
