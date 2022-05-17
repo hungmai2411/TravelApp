@@ -37,10 +37,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.fragments.FavoriteFragment;
 import com.travelappproject.fragments.HomeFragment;
 import com.travelappproject.fragments.ProfileFragment;
 import com.travelappproject.R;
+import com.travelappproject.model.Hotel;
 
 import java.io.IOException;
 import java.util.List;
@@ -139,6 +142,24 @@ public class MainActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         intent = getIntent();
 
+//        firestore.collection("hotels")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            Log.d("amount", String.valueOf(task.getResult().size()));
+//
+////                            for (QueryDocumentSnapshot document : task.getResult()) {
+////                                Log.d("amount", document.get("provinceName").toString());
+////
+////                            }
+//
+//                        } else {
+//                            Log.d("HOMEVM", "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
 
 //        if(intent != null)
 //            state = intent.getStringExtra("state");
