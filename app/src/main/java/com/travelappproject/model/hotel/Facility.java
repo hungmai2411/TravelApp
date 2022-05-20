@@ -3,9 +3,10 @@ package com.travelappproject.model.hotel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Facility {
+public class Facility implements Serializable {
     private long id;
     private String name;
     private String nameVi;
@@ -13,6 +14,9 @@ public class Facility {
     private String code;
     private String type;
     private Date createdAt;
+
+    public Facility() {
+    }
 
     public Facility(long id, String name, String nameVi, long categoryId, String code, String type, Date createdAt) {
         this.id = id;
