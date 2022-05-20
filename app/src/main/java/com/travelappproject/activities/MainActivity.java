@@ -16,11 +16,8 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -35,15 +32,13 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.fragments.FavoriteFragment;
 import com.travelappproject.fragments.HomeFragment;
 import com.travelappproject.fragments.ProfileFragment;
 import com.travelappproject.R;
-import com.travelappproject.model.Hotel;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     Intent intent;
     String state;
-    int fragmentPosition;
     String finalState;
     private LocationRequest locationRequest;
     ProgressDialog progressDialog;
@@ -65,13 +59,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        addControls();
+//        addEvents();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         progressDialog.show();
         locationRequest = com.google.android.gms.location.LocationRequest.create();
         locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(500);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
 
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //granted
@@ -79,8 +76,10 @@ public class MainActivity extends AppCompatActivity {
                 getCurrentLocation(new IListenerLocation() {
                     @Override
                     public void onCallBack(String state1) {
-                        Log.d("state1", state1);
+                        progressDialog.dismiss();
                         state = state1;
+                        addControls();
+                        addEvents();
                     }
                 });
             } else {
@@ -90,20 +89,10 @@ public class MainActivity extends AppCompatActivity {
             //denied
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
-
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.dismiss();
-                addControls();
-                addEvents();
-            }
-        }, 6000);
     }
 
     private void addEvents() {
-        bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottom_navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
@@ -125,50 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        if (fragmentPosition == 0) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_container, new HomeFragment()).commit();
-            bottom_navigation.setSelectedItemId(R.id.pageHome);
-        }else if (fragmentPosition == 1) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_container, new FavoriteFragment()).commit();
-            bottom_navigation.setSelectedItemId(R.id.pageFavorite);
-        }
-
     }
 
     private void addControls() {
         bottom_navigation = findViewById(R.id.bottom_navigation);
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-        intent = getIntent();
 
-//        firestore.collection("hotels")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            Log.d("amount", String.valueOf(task.getResult().size()));
-//
-////                            for (QueryDocumentSnapshot document : task.getResult()) {
-////                                Log.d("amount", document.get("provinceName").toString());
-////
-////                            }
-//
-//                        } else {
-//                            Log.d("HOMEVM", "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-
-//        if(intent != null)
-//            state = intent.getStringExtra("state");
-
-        /**sliding between fragment and activity*/
-        fragmentPosition = intent.getIntExtra("fragmentPosition", 0);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_container, HomeFragment.newInstance(state)).commit();
-        bottom_navigation.setSelectedItemId(R.id.pageHome);
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_container, HomeFragment.newInstance(state),null).commit();
         finalState = state;
     }
 
