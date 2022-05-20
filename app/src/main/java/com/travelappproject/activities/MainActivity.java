@@ -59,36 +59,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        addControls();
-//        addEvents();
+        addControls();
+        addEvents();
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
-        locationRequest = com.google.android.gms.location.LocationRequest.create();
-        locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
-
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //granted
-            if (isGPSEnabled()) {
-                getCurrentLocation(new IListenerLocation() {
-                    @Override
-                    public void onCallBack(String state1) {
-                        progressDialog.dismiss();
-                        state = state1;
-                        addControls();
-                        addEvents();
-                    }
-                });
-            } else {
-                turnOnGPS();
-            }
-        } else {
-            //denied
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setTitle("Loading...");
+//        progressDialog.show();
+//        locationRequest = com.google.android.gms.location.LocationRequest.create();
+//        locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        locationRequest.setInterval(5000);
+//        locationRequest.setFastestInterval(2000);
+//
+//        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            //granted
+//            if (isGPSEnabled()) {
+//                getCurrentLocation(new IListenerLocation() {
+//                    @Override
+//                    public void onCallBack(String state1) {
+//                        progressDialog.dismiss();
+//                        state = state1;
+//                        addControls();
+//                        addEvents();
+//                    }
+//                });
+//            } else {
+//                turnOnGPS();
+//            }
+//        } else {
+//            //denied
+//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+//        }
     }
 
     private void addEvents() {

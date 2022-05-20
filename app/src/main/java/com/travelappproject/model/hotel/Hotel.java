@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-public class Hotel {
+public class Hotel implements Serializable {
     private long id;
     private long price;
     private String name;

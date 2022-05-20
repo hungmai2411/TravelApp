@@ -2,7 +2,9 @@ package com.travelappproject.model.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
     private long hotelId;
     private String name;
     private HotelImageType hotelImageType;

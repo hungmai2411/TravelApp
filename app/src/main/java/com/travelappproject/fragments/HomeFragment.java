@@ -22,7 +22,9 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.travelappproject.activities.ChooseLocationActivity;
 import com.travelappproject.R;
+import com.travelappproject.activities.ListHotelActivity;
 import com.travelappproject.adapter.HotelAdapter;
+import com.travelappproject.adapter.HotelAdapter1;
 import com.travelappproject.adapter.ThumbnailAdapter;
 import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.viewmodel.HotelViewModel;
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment {
     RecyclerView rcvNewHotel;
     LinearLayout btnChooseLocation;
     List<Hotel> listHotHotel;
+    HotelAdapter1 hotelAdapter1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -92,7 +95,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        hotelViewModel.getList((String) txtCurrentLocation.getText());
+        //hotelViewModel.getList((String) txtCurrentLocation.getText());
+        hotelViewModel.getList("TP Hồ Chí Minh");
         observedHotels();
 
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
@@ -117,7 +121,17 @@ public class HomeFragment extends Fragment {
         mListImages.add(R.drawable.nt_thumbnail);
         mListImages.add(R.drawable.dl_thumbnail);
 
-        thumbnailAdapter = new ThumbnailAdapter(mListLocation, mListImages, getContext());
+        thumbnailAdapter = new ThumbnailAdapter(mListLocation, mListImages, getContext(), new ThumbnailAdapter.IClickDestinationListener() {
+            @Override
+            public void onCallBack(String destination) {
+                if(destination == "Sài Gòn"){
+                    Intent intent = new Intent(getContext(), ListHotelActivity.class);
+                    intent.putExtra("destination","TP Hồ Chí Minh");
+                    startActivity(intent);
+                }
+            }
+        });
+
         rcvNewHotel.setAdapter(thumbnailAdapter);
 
         btnChooseLocation.setOnClickListener(new View.OnClickListener() {
@@ -142,19 +156,17 @@ public class HomeFragment extends Fragment {
         hotelViewModel.observedHotelLiveData().observe(getViewLifecycleOwner(), new Observer<List<Hotel>>() {
             @Override
             public void onChanged(List<Hotel> listHotel) {
-                Log.d("size", String.valueOf(listHotel.size()));
-
-                for (Hotel hotel : listHotel) {
-                    if (hotel.getStarRate() >= 4 && checkExist(listHotHotel, hotel) == false) {
-                        Log.d("name", hotel.getName());
-                        Log.d("existHot", String.valueOf(checkExist(listHotHotel, hotel)));
-                        listHotHotel.add(hotel);
-                    }
-
-                }
-
-                hotHotelAdapter.setData(listHotHotel);
-                rcvHotHotel.setAdapter(hotHotelAdapter);
+//                for (Hotel hotel : listHotel) {
+//                    if (hotel.getStarRate() >= 4 && checkExist(listHotHotel, hotel) == false) {
+//                        Log.d("name", hotel.getName());
+//                        Log.d("existHot", String.valueOf(checkExist(listHotHotel, hotel)));
+//                        listHotHotel.add(hotel);
+//                    }
+//
+//                }
+//
+//                hotHotelAdapter.setData(listHotHotel);
+//                rcvHotHotel.setAdapter(hotHotelAdapter);
             }
         });
     }

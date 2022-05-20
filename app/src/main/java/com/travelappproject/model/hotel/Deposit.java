@@ -2,7 +2,9 @@ package com.travelappproject.model.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Deposit {
+import java.io.Serializable;
+
+public class Deposit implements Serializable {
     private String amount;
     private String type;
 
