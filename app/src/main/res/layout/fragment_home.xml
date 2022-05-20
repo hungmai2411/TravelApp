@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="HOT HOTEL"
+            android:text="Hot Hotel"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="NEW HOTEL"
+            android:text="Popular destinations"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
