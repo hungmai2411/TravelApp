@@ -2,4 +2,11 @@
     <string name="app_name">TravelAppProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="facebook_app_id">573637724075693</string>
+    <string name="fb_login_protocol_scheme">fb573637724075693</string>
+    <string name="facebook_client_token">b1ed029252fec745acf1eafb8638d716</string>
+    <string name="web_client_id" translatable="false">208595860126-01grgtr12e7367v89f4n84b385trqe23.apps.googleusercontent.com</string>
+    <string name="default_web_client_id1" translatable="false">208595860126-qntkok3ud18to6ql0v55tjdfcrc8n6nn.apps.googleusercontent.com</string>
+
 </resources>

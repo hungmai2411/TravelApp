@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".activities.SignInActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/forgotpass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="630dp"
+            android:text="Forgot your password ? Click here"
+            android:textColor="@color/teal_700"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="450dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="SIGN IN"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:backgroundTint="@color/primary" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="285dp"
+            app:endIconMode="clear_text"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="     Email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="text"
+                android:id="@+id/txtEmail"
+                android:drawableLeft="@drawable/ic_action_email"
+                android:drawableTint="@color/teal_200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_Pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_action_pass"
+            app:startIconTint="@color/teal_200"
+            android:layout_marginVertical="360dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="     Password"
+            app:passwordToggleEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPassword"
+                android:id="@+id/txtPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--        <EditText-->
+        <!--            android:id="@+id/txtEmail"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="75dp"-->
+        <!--            android:layout_marginTop="280dp"-->
+        <!--            android:drawableLeft="@drawable/ic_action_email"-->
+        <!--            android:drawableTint="@color/teal_200"-->
+        <!--            android:hint="   Email"-->
+        <!--            android:inputType="text"-->
+        <!--            android:maxLines="1">-->
+
+
+        <!--        </EditText>-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/txtPass"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="75dp"-->
+        <!--            android:layout_marginTop="355dp"-->
+        <!--            android:drawableLeft="@drawable/ic_action_pass"-->
+        <!--            android:drawableTint="@color/teal_200"-->
+        <!--            android:hint="   Password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:maxLines="1">-->
+
+
+        <!--        </EditText>-->
+
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="560dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="SIGN UP"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:backgroundTint="@color/browser_actions_divider_color" />
+
+
+        <ImageButton
+            android:id="@+id/FBSignIn"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="510dp"
+            android:background="@drawable/rounded_coner_image_button"
+            android:backgroundTint="@color/teal_200"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/facebook">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/GGSignIn"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="510dp"
+            android:background="@drawable/rounded_coner_image_button"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/google"
+            android:backgroundTint="@color/teal_200">
+
+        </ImageButton>
+
+        <ImageView
+            android:id="@+id/Logo"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/applogo">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
