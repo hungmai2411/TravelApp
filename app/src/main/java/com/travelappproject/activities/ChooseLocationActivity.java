@@ -104,9 +104,6 @@ public class ChooseLocationActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
-                intent.putExtra("fragmentPosition", 0);
-                startActivity(intent);
                 finish();
             }
         });

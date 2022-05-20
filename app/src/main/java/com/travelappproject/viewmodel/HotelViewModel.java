@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,11 +21,9 @@ import java.util.List;
 public class HotelViewModel extends ViewModel {
     private MutableLiveData<List<Hotel>> listHotelLiveData;
     private MutableLiveData<List<Hotel>> listHotHotelLiveData;
-    private MutableLiveData<List<Hotel>> listNewHotelLiveData;
 
     List<Hotel> listHotel = new ArrayList<>();
     List<Hotel> listHot;
-    List<Hotel> listNew;
     List<Hotel> listTmp;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -32,7 +31,6 @@ public class HotelViewModel extends ViewModel {
     public HotelViewModel() {
         listHotelLiveData = new MutableLiveData<List<Hotel>>();
         listHotHotelLiveData = new MutableLiveData<List<Hotel>>();
-        listNewHotelLiveData = new MutableLiveData<List<Hotel>>();
     }
 
     boolean isExisted(long snHotel) {
@@ -67,28 +65,6 @@ public class HotelViewModel extends ViewModel {
                 });
     }
 
-    public void getListNewHotel(String state, IListenerListHotel iListenerListHotel) {
-        listNew = new ArrayList<>();
-
-        db.collection("hotels")
-                .whereEqualTo("newHotel", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                listNew.add(document.toObject(Hotel.class));
-                                Log.d("HOMEVM", document.getId() + " => " + document.getData());
-                            }
-                            iListenerListHotel.onCallBack(listNew);
-                        } else {
-                            Log.d("HOMEVM", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-
     public interface IListenerListHotel {
         void onCallBack(List<Hotel> list);
     }
@@ -96,7 +72,7 @@ public class HotelViewModel extends ViewModel {
     public void getListHotel(String state, IListenerListHotel iListenerListHotel) {
         listHotel = new ArrayList<>();
 
-        db.collection("hotels")
+        db.collection("Hotels")
                 .whereEqualTo("provinceName", state)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -111,6 +87,12 @@ public class HotelViewModel extends ViewModel {
                             Log.d("HOMEVM", "Error getting documents: ", task.getException());
                         }
                     }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("err", e.getMessage());
+                    }
                 });
     }
 
@@ -119,15 +101,6 @@ public class HotelViewModel extends ViewModel {
             @Override
             public void onCallBack(List<Hotel> list) {
                 listHotHotelLiveData.postValue(list);
-            }
-        });
-    }
-
-    public void getListNew(String state) {
-        getListNewHotel(state, new IListenerListHotel() {
-            @Override
-            public void onCallBack(List<Hotel> list) {
-                listNewHotelLiveData.postValue(list);
             }
         });
     }
@@ -147,10 +120,6 @@ public class HotelViewModel extends ViewModel {
 
     public LiveData<List<Hotel>> observedHotHotelLiveData() {
         return listHotHotelLiveData;
-    }
-
-    public LiveData<List<Hotel>> observedNewHotelLiveData() {
-        return listNewHotelLiveData;
     }
 }
 
