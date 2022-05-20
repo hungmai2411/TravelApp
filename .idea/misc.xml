@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/drawable/round_coner_imaga_button.xml" value="0.1465" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_forgot_pass.xml" value="0.264" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_logout.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_sign_in.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_sign_up.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/drawable/background_star_rating.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/custom_table.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable/item_navigation_selector.xml" value="0.1875" />

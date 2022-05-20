@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SignUpActivity"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+
+        <ImageView
+            android:id="@+id/logoSU"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/applogo">
+
+        </ImageView>
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_action_back"></ImageButton>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="285dp"
+            app:endIconMode="clear_text"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="     Email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="text"
+                android:id="@+id/txtEmailSU"
+                android:drawableLeft="@drawable/ic_action_email"
+                android:drawableTint="@color/teal_200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_Pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_action_pass"
+            app:startIconTint="@color/teal_200"
+            android:layout_marginVertical="360dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="     Password"
+            app:passwordToggleEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPassword"
+                android:id="@+id/txtPassSU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_RePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_action_pass"
+            app:startIconTint="@color/teal_200"
+            android:layout_marginVertical="435dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="     Rewrite  Password"
+            app:passwordToggleEnabled="true"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPassword"
+                android:id="@+id/txtRePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--        <EditText-->
+        <!--            android:id="@+id/txtEmailSU"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="75dp"-->
+        <!--            android:layout_marginTop="280dp"-->
+        <!--            android:drawableLeft="@drawable/ic_action_email"-->
+        <!--            android:drawableTint="@color/teal_200"-->
+        <!--            android:hint="   Email"-->
+        <!--            android:inputType="text"-->
+        <!--            android:maxLines="1"></EditText>-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/txtPassSU"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="75dp"-->
+        <!--            android:layout_marginTop="355dp"-->
+        <!--            android:drawableLeft="@drawable/ic_action_pass"-->
+        <!--            android:drawableTint="@color/teal_200"-->
+        <!--            android:hint="   Password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:maxLines="1">-->
+
+
+        <!--        </EditText>-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/txtRePass"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="75dp"-->
+        <!--            android:layout_marginTop="430dp"-->
+        <!--            android:drawableLeft="@drawable/ic_action_pass"-->
+        <!--            android:drawableTint="@color/teal_200"-->
+        <!--            android:hint="   Rewrite Password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:maxLines="1">-->
+
+
+        <!--        </EditText>-->
+
+        <Button
+            android:id="@+id/btnSignUpSU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="520dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="SIGN UP"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:backgroundTint="@color/primary" />
+
+    </RelativeLayout>
+
+</LinearLayout>
