@@ -2,7 +2,9 @@ package com.travelappproject.model.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DiscountMember {
+import java.io.Serializable;
+
+public class DiscountMember implements Serializable {
     private boolean discountActive;
 
     @JsonProperty("discount_active")

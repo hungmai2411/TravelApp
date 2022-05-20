@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public enum HotelImageType {
+public enum HotelImageType implements Serializable {
     ALL, OTHER_HOTEL_IMAGE, ROOM_IMAGE;
 
     @JsonValue

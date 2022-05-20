@@ -2,9 +2,10 @@ package com.travelappproject.model.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class HotelPolicies {
+public class HotelPolicies implements Serializable {
     private List<CancelPolicy> cancelPolicies;
     private String otherPolicies;
     private boolean refundable;
