@@ -4,9 +4,11 @@ package com.travelappproject.model.hotel.room;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class Photo {
+public class Photo implements Serializable {
 
     @SerializedName("order")
     private Long mOrder;

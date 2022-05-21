@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,11 +30,14 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
 import com.travelappproject.adapter.RoomAdapter;
 import com.travelappproject.adapter.ViewPageAdapter;
@@ -41,6 +45,7 @@ import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.model.hotel.Image;
 import com.travelappproject.model.hotel.room.Room;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +71,6 @@ public class HotelDetailActivity extends AppCompatActivity {
     RoomAdapter roomAdapter;
     long idHotel;
     ImageView btnViewMap;
-    long number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +87,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         txtNumReviews = findViewById(R.id.txtNumReviews);
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.view_pager2);
-        viewPageAdapter = new ViewPageAdapter(this);
-        viewPager2.setAdapter(viewPageAdapter);
         imageSlider = findViewById(R.id.image_slider);
         rcvRooms = findViewById(R.id.rcvRooms);
 
@@ -96,6 +98,10 @@ public class HotelDetailActivity extends AppCompatActivity {
 
         if (bundle != null) {
             hotel = (Hotel) bundle.getSerializable("hotel");
+
+            viewPageAdapter = new ViewPageAdapter(this, hotel);
+            viewPager2.setAdapter(viewPageAdapter);
+
             lat = String.valueOf(hotel.getLocation().getLat());
             lon = String.valueOf(hotel.getLocation().getLon());
 
@@ -119,65 +125,54 @@ public class HotelDetailActivity extends AppCompatActivity {
             roomAdapter = new RoomAdapter(this, new RoomAdapter.IClickRoomListener() {
                 @Override
                 public void onCallBack(Room room) {
-                    //DocumentReference docRef = mFireStore.collection("Hotels/" + idHotel + "/rooms").document(String.valueOf(room.getSn()));
-//                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                DocumentSnapshot document = task.getResult();
-//                                if (document != null) {
-////                                    number = (long) document.get("number");
-////
-////                                    if(number == 0){
-////                                        Toast.makeText(getActivity(), "Sold out", Toast.LENGTH_SHORT).show();
-////                                    }else{
-////                                        Intent intent = new Intent(getContext(), RoomDetailActivity.class);
-////                                        Bundle args = new Bundle();
-////                                        args.putString("hotelName",mHotel.getName());
-////                                        args.putString("addressHotel",mHotel.getAddress());
-////                                        args.putInt("firstHours",(int) mHotel.getFirstHours());
-////                                        args.putInt("idHotel", (int) mHotel.getSn());
-////                                        args.putSerializable("room",(Serializable)room);
-////                                        intent.putExtras(args);
-////                                        getContext().startActivity(intent);
-////                                    }
-//                                } else {
-//                                    Log.d("LOGGER", "No such document");
-//                                }
-//                            } else {
-//                                Log.d("LOGGER", "get failed with ", task.getException());
-//                            }
-//                        }
-//                    });
-
+                    DocumentReference docRef = mFireStore.collection("Hotels/" + idHotel + "/rooms").document(String.valueOf(room.getId()));
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document != null) {
+                                    Intent intent = new Intent(HotelDetailActivity.this, RoomDetailActivity.class);
+                                    Bundle args = new Bundle();
+                                    args.putString("timeCheckIn", hotel.getCheckInTime());
+                                    args.putString("timeCheckOut", hotel.getCheckOutTime());
+                                    args.putString("hotelName", hotel.getName());
+                                    args.putString("addressHotel", hotel.getFullAddress());
+                                    args.putInt("idHotel", (int) hotel.getId());
+                                    args.putSerializable("room", (Serializable) room);
+                                    intent.putExtras(args);
+                                    startActivity(intent);
+                                } else {
+                                    Log.d("LOGGER", "No such document");
+                                }
+                            } else {
+                                Log.d("LOGGER", "get failed with ", task.getException());
+                            }
+                        }
+                    });
                 }
             });
 
-//            mFireStore.collection("hotels/" + 5886 + "/rooms")
-//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                            if (error == null) {
-//                                if (!value.isEmpty()) {
-//                                    for (QueryDocumentSnapshot doc : value) {
-//                                        RoomTypeList room = doc.toObject(RoomTypeList.class);
-//                                        listRoom.add(room);
-//                                        Log.d("room2",room.getName());
-//                                    }
-//                                    roomAdapter.notifyDataSetChanged();
-//                                }
-//                            }
-//                        }
-//                    });
+            mFireStore.collection("Hotels/" + idHotel + "/rooms")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (error == null) {
+                                if (!value.isEmpty()) {
+                                    for (QueryDocumentSnapshot doc : value) {
+                                        Room room = doc.toObject(Room.class);
+                                        listRoom.add(room);
+                                    }
+                                    roomAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    });
 
             imageSlider.setImageList(slideModelList);
             roomAdapter.setData(listRoom);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
             rcvRooms.setLayoutManager(linearLayoutManager);
-//            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvRooms.getContext(),DividerItemDecoration.VERTICAL);
-//            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.table_divider_2));
-//            rcvRooms.addItemDecoration(dividerItemDecoration);
-
             rcvRooms.setAdapter(roomAdapter);
         }
 
@@ -224,8 +219,9 @@ public class HotelDetailActivity extends AppCompatActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_tool_bar, menu);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_tool_bar, menu);
         MenuItem favorite = menu.findItem(R.id.ic_favorite);
 
         mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(idHotel)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -240,6 +236,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -1,13 +1,14 @@
 
 package com.travelappproject.model.hotel.room;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class Room {
+public class Room implements Serializable {
     private long idHotel;
 
     public long getIdHotel() {

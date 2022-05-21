@@ -54,14 +54,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         if(mList == null)
             return;
         holder.txtTypeRoom.setText(mList.get(position).getName());
-        //Glide.with(mContext).load(mList.get(position)).into(holder.imgRoom);
-
-//        if(mList.get(position).getNumber() == 0){
-//            holder.btnSelectRoom.setEnabled(false);
-//            holder.imgRoom.setAlpha(100);
-//            holder.btnSelectRoom.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DADADA")));
-//        }
-
+        Glide.with(mContext).load(mList.get(position).getPhotos().get(0).getRoomImage()).into(holder.imgRoom);
         holder.btnSelectRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
