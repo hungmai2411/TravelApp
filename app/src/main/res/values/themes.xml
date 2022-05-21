@@ -20,7 +20,8 @@
     </style>
 
     <style name="Divider">
-        <item name="android:background">#CDCBCB</item> //you can give your color here. that will change all divider color in your app.
+        <item name="android:background">#CDCBCB</item>
+        //you can give your color here. that will change all divider color in your app.
     </style>
 
     <style name="Divider.Vertical" parent="Divider">
@@ -30,18 +31,30 @@
 
     <style name="Divider.Horizontal" parent="Divider">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item> // You can change thickness here.
+        <item name="android:layout_height">1dp</item>
+        // You can change thickness here.
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
+
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
         <item name="behavior_peekHeight">500dp</item>
     </style>
+
     <style name="ImageView.Corner" parent="">
         <item name="cornerSizeTopRight">25dp</item>
         <item name="cornerSizeTopLeft">25dp</item>
     </style>
+
+    <style name="NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

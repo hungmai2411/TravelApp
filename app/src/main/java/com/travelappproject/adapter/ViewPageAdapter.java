@@ -7,10 +7,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.travelappproject.fragments.AboutFragment;
 import com.travelappproject.fragments.ReviewFragment;
+import com.travelappproject.model.hotel.Hotel;
 
 public class ViewPageAdapter extends FragmentStateAdapter {
-    public ViewPageAdapter(@NonNull FragmentActivity fragmentActivity) {
+    Hotel hotel;
+    public ViewPageAdapter(@NonNull FragmentActivity fragmentActivity, Hotel hotel) {
         super(fragmentActivity);
+        this.hotel = hotel;
     }
 
     @NonNull
@@ -18,11 +21,11 @@ public class ViewPageAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new AboutFragment();
+                return AboutFragment.newInstance(hotel);
             case 1:
                 return new ReviewFragment();
         }
-        return new AboutFragment();
+        return AboutFragment.newInstance(hotel);
     }
 
     @Override

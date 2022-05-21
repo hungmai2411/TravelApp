@@ -4,14 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-anydpi/ic_star.xml" value="0.1875" />
+        <entry key="app/src/main/res/drawable/custom_shape.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/table_divider_2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_hotel_detail.xml" value="0.23666076660156252" />
         <entry key="app/src/main/res/layout/activity_list_hotel.xml" value="0.32840576171875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13697916666666668" />
+        <entry key="app/src/main/res/layout/activity_room_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.18187834827612484" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/layout/content_room_detail.xml" value="0.17427215576171876" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.12129629629629629" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.21217193603515624" />
         <entry key="app/src/main/res/layout/ic_half_star.xml" value="0.2477355072463768" />
+        <entry key="app/src/main/res/layout/item_facilities.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_hotel_1.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/item_room.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_star.xml" value="0.2477355072463768" />

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.RoomDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="center"
+            app:contentScrim="@color/primary"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:titleCollapseMode="fade">
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:iss_text_align="CENTER" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_action_back_2">
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:paddingHorizontal="15dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/txtType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DAILY"
+                    android:textColor="@color/primary"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phòng Đơn"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 days"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txtPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="330 000"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" đ"
+                        android:textColor="@color/black"
+                        android:textSize="22dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_shape"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+                <!-- Row 1 with single column -->
+                <TableRow
+                    android:showDividers="middle"
+                    android:divider="@drawable/table_divider_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_gravity="start"
+                            android:text="Check-In"
+                            android:textSize="17dp"
+                            android:textColor="#9B9797"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+                        <TextView
+                            android:id="@+id/txtDateCheckIn"
+                            android:layout_gravity="start"
+                            android:text="08/05/2022"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:layout_marginTop="3dp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+                        <TextView
+                            android:id="@+id/txtTimeCheckIn"
+                            android:layout_gravity="start"
+                            android:text="07:30"
+                            android:textColor="#000000"
+                            android:layout_marginTop="3dp"
+                            android:textStyle="bold"
+                            android:textSize="17dp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_gravity="start"
+                            android:text="Check-Out"
+                            android:textSize="17dp"
+                            android:textColor="#9B9797"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+                        <TextView
+                            android:id="@+id/txtDateCheckOut"
+                            android:layout_gravity="start"
+                            android:text="08/05/2022"
+                            android:layout_marginTop="3dp"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+                        <TextView
+                            android:id="@+id/txtTimeCheckOut"
+                            android:layout_gravity="start"
+                            android:text="07:30"
+                            android:textColor="#000000"
+                            android:layout_marginTop="3dp"
+                            android:textStyle="bold"
+                            android:textSize="17dp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom"
+        android:textColor="@color/white"
+        android:text="Book Now"
+        android:textAllCaps="false"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:textAlignment="center"
+        app:backgroundTint="@color/primary"
+        tools:ignore="RtlCompat" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
