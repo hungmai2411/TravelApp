@@ -2,48 +2,39 @@ package com.travelappproject.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.travelappproject.R;
+import com.travelappproject.adapter.FacilityAdapter;
+import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.viewmodel.HotelViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AboutFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AboutFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    Hotel mHotel;
+    RecyclerView rcvFacilities;
+    FacilityAdapter facilityAdapter;
+    TextView txtDetail;
 
     public AboutFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AboutFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AboutFragment newInstance(String param1, String param2) {
+    public static AboutFragment newInstance(Hotel hotel) {
         AboutFragment fragment = new AboutFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable("hotel",hotel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +43,8 @@ public class AboutFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mHotel = (Hotel) getArguments().getSerializable("hotel");
+            Log.d("name",mHotel.getName());
         }
     }
 
@@ -62,5 +53,23 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        rcvFacilities = view.findViewById(R.id.rcvFacilities);
+        facilityAdapter = new FacilityAdapter(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        rcvFacilities.setLayoutManager(linearLayoutManager);
+        txtDetail = view.findViewById(R.id.txtDetail);
+
+        if(mHotel.getDesContent() != null)
+            txtDetail.setText(Html.fromHtml(Html.fromHtml((String) mHotel.getDesContent()).toString()));
+        else
+            txtDetail.setText("Đang cập nhập thông tin về khách sạn");
+        facilityAdapter.setData(mHotel.getFacilities());
+        rcvFacilities.setAdapter(facilityAdapter);
     }
 }
