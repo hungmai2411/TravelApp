@@ -55,6 +55,7 @@ public class SignInActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN=100;
     private GoogleSignInClient gsc;
     private FirebaseFirestore firestore;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,24 +136,10 @@ public class SignInActivity extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
                 Toast.makeText(getApplicationContext(),"Đăng nhập thành công!!",Toast.LENGTH_SHORT).show();
-                Map<String,Object> user1 = new HashMap<>();
-                user1.put("type","Facebook");
-                firestore.collection("users").add(user1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                    }
-                });
-                Intent intent =new Intent(SignInActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
             }
 
             @Override
@@ -196,8 +183,24 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            userID=mAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference =firestore.collection("users").document(userID);
+                            Map<String,Object> user1 = new HashMap<>();
+                            user1.put("type","Facebook");
+                            documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                            Intent intent =new Intent(SignInActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getApplicationContext(), "Authentication failed.",
@@ -260,11 +263,13 @@ public class SignInActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"successful",Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    userID=mAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference =firestore.collection("users").document(userID);
                     Map<String,Object> user1 = new HashMap<>();
                     user1.put("type","Google");
-                    firestore.collection("users").add(user1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
+                        public void onSuccess(Void unused) {
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
