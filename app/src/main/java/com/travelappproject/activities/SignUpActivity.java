@@ -20,9 +20,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.R;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -30,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnsignup;
     private ImageButton btnBack;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestore;
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +49,15 @@ public class SignUpActivity extends AppCompatActivity {
         repassedit=findViewById(R.id.txtRePass);
         btnsignup=findViewById(R.id.btnSignUpSU);
         btnBack=findViewById(R.id.btnBack);
+        firestore=FirebaseFirestore.getInstance();
 
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email,pass;
+                String email,pass,repass;
                 email=emailedit.getText().toString();
                 pass=passedit.getText().toString();
+                repass=repassedit.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_LONG).show();
@@ -55,6 +65,10 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 if(TextUtils.isEmpty(pass)){
                     Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(pass.equals(repass)==false){
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập lại đúng pass",Toast.LENGTH_LONG).show();
                     return;
                 }
                 mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -71,6 +85,21 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(getApplicationContext(),"Verification Email has not been sent",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
+                            Map<String,Object> user1 = new HashMap<>();
+                            user1.put("type","Email and password");
+                            user1.put("hashpass",hashpass);
+                            firestore.collection("users").add(user1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
                                 }
                             });
                             Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_LONG).show();
