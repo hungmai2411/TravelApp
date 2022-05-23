@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.travelappproject.R;
-import com.travelappproject.model.Hotel;
+import com.travelappproject.model.hotel.Hotel;
 
 import java.util.List;
 
@@ -58,14 +58,13 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelAdapter
         });
 
         holder.txtNameHotel.setText(mHotelList.get(position).getName());
-        holder.textStarRating.setText(String.valueOf(mHotelList.get(position).getStarRating()));
+        holder.textStarRating.setText(String.valueOf(mHotelList.get(position).getStarRate()));
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.mipmap.ic_launcher_round)
                 .error(R.mipmap.ic_launcher_round);
 
-        String tmp = mHotelList.get(position).getImagePath();
-        String path = "https://go2joy.s3-ap-southeast-1.amazonaws.com/" + tmp;
+        String path = mHotelList.get(position).getThumbImage();
         Glide.with(mContext).load(path).apply(options).into(holder.imgHotel);
     }
 

@@ -1,6 +1,5 @@
 package com.travelappproject.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,14 +15,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.travelappproject.activities.ChooseLocationActivity;
 import com.travelappproject.R;
+import com.travelappproject.activities.ListHotelActivity;
 import com.travelappproject.adapter.HotelAdapter;
-import com.travelappproject.model.Hotel;
+import com.travelappproject.adapter.HotelAdapter1;
+import com.travelappproject.adapter.ThumbnailAdapter;
+import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.util.ArrayList;
@@ -35,12 +38,13 @@ public class HomeFragment extends Fragment {
     String uid;
     String state = "";
     HotelAdapter hotHotelAdapter;
-    HotelAdapter newHotelAdapter;
+    ThumbnailAdapter thumbnailAdapter;
     TextView txtCurrentLocation;
     RecyclerView rcvHotHotel;
     RecyclerView rcvNewHotel;
     LinearLayout btnChooseLocation;
-    List<Hotel> listHotHotel,listNewHotel;
+    List<Hotel> listHotHotel;
+    HotelAdapter1 hotelAdapter1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -57,7 +61,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         if (getArguments() != null) {
             state = getArguments().getString("state");
@@ -77,7 +80,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         listHotHotel = new ArrayList<>();
-        listNewHotel = new ArrayList<>();
         txtCurrentLocation = view.findViewById(R.id.txtCurrentLocation);
         txtCurrentLocation.setText(state);
         rcvHotHotel = view.findViewById(R.id.rcvHotHotel);
@@ -93,17 +95,44 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        hotelViewModel.getList((String) txtCurrentLocation.getText());
+        //hotelViewModel.getList((String) txtCurrentLocation.getText());
+        hotelViewModel.getList("TP Hồ Chí Minh");
         observedHotels();
 
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rcvNewHotel.setLayoutManager(linearLayoutManager1);
-        newHotelAdapter = new HotelAdapter(getContext(), new HotelAdapter.IClickItemListener() {
-            @Override
-            public void onClickItem(Hotel data) {
+        List<String> mListLocation = new ArrayList<String>();
 
+        mListLocation.add("Hà Nội");
+        mListLocation.add("Đà Nẵng");
+        mListLocation.add("Hội An");
+        mListLocation.add("Sài Gòn");
+        mListLocation.add("Phú Quốc");
+        mListLocation.add("Nha Trang");
+        mListLocation.add("Đà Lạt");
+
+        List<Integer> mListImages = new ArrayList<>();
+
+        mListImages.add(R.drawable.hn_thumbnail);
+        mListImages.add(R.drawable.dn_thumbnail);
+        mListImages.add(R.drawable.ha_thumbnail);
+        mListImages.add(R.drawable.hcm_thumbnail);
+        mListImages.add(R.drawable.pq_thumbnail);
+        mListImages.add(R.drawable.nt_thumbnail);
+        mListImages.add(R.drawable.dl_thumbnail);
+
+        thumbnailAdapter = new ThumbnailAdapter(mListLocation, mListImages, getContext(), new ThumbnailAdapter.IClickDestinationListener() {
+            @Override
+            public void onCallBack(String destination) {
+                if(destination == "Sài Gòn"){
+                    Intent intent = new Intent(getContext(), ListHotelActivity.class);
+                    intent.putExtra("destination","TP Hồ Chí Minh");
+                    startActivity(intent);
+                }
             }
         });
+
+        rcvNewHotel.setAdapter(thumbnailAdapter);
 
         btnChooseLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +143,9 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private boolean checkExist(List<Hotel> list, Hotel hotel){
-        for(Hotel hotel1 : list){
-            if(hotel1.getName() == hotel.getName())
+    private boolean checkExist(List<Hotel> list, Hotel hotel) {
+        for (Hotel hotel1 : list) {
+            if (hotel1.getName() == hotel.getName())
                 return true;
         }
 
@@ -127,25 +156,17 @@ public class HomeFragment extends Fragment {
         hotelViewModel.observedHotelLiveData().observe(getViewLifecycleOwner(), new Observer<List<Hotel>>() {
             @Override
             public void onChanged(List<Hotel> listHotel) {
-                Log.d("size", String.valueOf(listHotel.size()));
-
-                for(Hotel hotel : listHotel){
-                    if(hotel.getStarRating() >= 4 && checkExist(listHotHotel,hotel) == false){
-                        Log.d("name", hotel.getName());
-                        Log.d("existHot", String.valueOf(checkExist(listHotHotel,hotel)));
-                        listHotHotel.add(hotel);
-                    }
-                    if(hotel.getNewHotel() && checkExist(listNewHotel,hotel) == false){
-                        Log.d("name", hotel.getName());
-                        Log.d("existNew", String.valueOf(checkExist(listNewHotel,hotel)));
-                        listNewHotel.add(hotel);
-                    }
-                }
-                newHotelAdapter.setData(listNewHotel);
-                rcvNewHotel.setAdapter(newHotelAdapter);
-
-                hotHotelAdapter.setData(listHotHotel);
-                rcvHotHotel.setAdapter(hotHotelAdapter);
+//                for (Hotel hotel : listHotel) {
+//                    if (hotel.getStarRate() >= 4 && checkExist(listHotHotel, hotel) == false) {
+//                        Log.d("name", hotel.getName());
+//                        Log.d("existHot", String.valueOf(checkExist(listHotHotel, hotel)));
+//                        listHotHotel.add(hotel);
+//                    }
+//
+//                }
+//
+//                hotHotelAdapter.setData(listHotHotel);
+//                rcvHotHotel.setAdapter(hotHotelAdapter);
             }
         });
     }
