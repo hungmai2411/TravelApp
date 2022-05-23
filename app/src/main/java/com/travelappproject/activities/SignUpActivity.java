@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
+    private String userID;
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +89,14 @@ public class SignUpActivity extends AppCompatActivity {
                                 }
                             });
                             String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
+                            userID=mAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference =firestore.collection("users").document(userID);
                             Map<String,Object> user1 = new HashMap<>();
                             user1.put("type","Email and password");
                             user1.put("hashpass",hashpass);
-                            firestore.collection("users").add(user1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
+                                public void onSuccess(Void unused) {
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -102,6 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 }
                             });
+
                             Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
                                 startActivity(intent);
