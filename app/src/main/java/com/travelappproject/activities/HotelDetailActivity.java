@@ -200,59 +200,12 @@ public class HotelDetailActivity extends AppCompatActivity {
         }).attach();
     }
 
-    private boolean isSelected = false;
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ic_favorite:
-                isSelected = !isSelected;
-                if (isSelected) {
-                    item.setIcon(R.drawable.ic_favorite);
-                } else {
-                    item.setIcon(R.drawable.ic_action_favorite);
-                }
-                addToFavorite();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tool_bar, menu);
         MenuItem favorite = menu.findItem(R.id.ic_favorite);
 
-        mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(idHotel)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error == null) {
-                    if (value.exists()) {
-                        favorite.setIcon(R.drawable.ic_favorite);
-                    } else {
-                        favorite.setIcon(R.drawable.ic_action_favorite);
-                    }
-                }
-            }
-        });
-
         return super.onCreateOptionsMenu(menu);
-    }
-
-    void addToFavorite() {
-        mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(hotel.getId())).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (!task.getResult().exists()) {
-                    Map<String, Object> likesMap = new HashMap<>();
-                    likesMap.put("timestamp", FieldValue.serverTimestamp());
-                    mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(hotel.getId())).set(likesMap);
-                } else {
-                    mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(hotel.getId())).delete();
-                }
-            }
-        });
     }
 
     void initToolBar() {

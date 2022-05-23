@@ -15,6 +15,12 @@
         app:navigationIcon="@drawable/ic_action_back"
         app:title="Ho Chi Minh"/>
 
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
