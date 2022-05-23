@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-anydpi/ic_star.xml" value="0.1875" />
+        <entry key="app/src/main/res/drawable-anydpi/toolbar_dropshadow.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/custom_shape.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/table_divider_2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_forgot_pass.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/activity_hotel_detail.xml" value="0.23666076660156252" />
         <entry key="app/src/main/res/layout/activity_list_hotel.xml" value="0.32840576171875" />
+        <entry key="app/src/main/res/layout/activity_logout.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/activity_room_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.18187834827612484" />
@@ -25,6 +28,8 @@
         <entry key="app/src/main/res/layout/item_thumbnail.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/widget_in_app.xml" value="0.125" />
         <entry key="app/src/main/res/menu/menu_tool_bar.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>
