@@ -59,17 +59,11 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rcvFacilities = view.findViewById(R.id.rcvFacilities);
-        facilityAdapter = new FacilityAdapter(getActivity());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        rcvFacilities.setLayoutManager(linearLayoutManager);
         txtDetail = view.findViewById(R.id.txtDetail);
 
         if(mHotel.getDesContent() != null)
             txtDetail.setText(Html.fromHtml(Html.fromHtml((String) mHotel.getDesContent()).toString()));
         else
             txtDetail.setText("Đang cập nhập thông tin về khách sạn");
-        facilityAdapter.setData(mHotel.getFacilities());
-        rcvFacilities.setAdapter(facilityAdapter);
     }
 }
