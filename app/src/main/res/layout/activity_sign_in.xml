@@ -81,34 +81,6 @@
                 android:layout_height="wrap_content"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-        <!--        <EditText-->
-        <!--            android:id="@+id/txtEmail"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="75dp"-->
-        <!--            android:layout_marginTop="280dp"-->
-        <!--            android:drawableLeft="@drawable/ic_action_email"-->
-        <!--            android:drawableTint="@color/teal_200"-->
-        <!--            android:hint="   Email"-->
-        <!--            android:inputType="text"-->
-        <!--            android:maxLines="1">-->
-
-
-        <!--        </EditText>-->
-
-        <!--        <EditText-->
-        <!--            android:id="@+id/txtPass"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="75dp"-->
-        <!--            android:layout_marginTop="355dp"-->
-        <!--            android:drawableLeft="@drawable/ic_action_pass"-->
-        <!--            android:drawableTint="@color/teal_200"-->
-        <!--            android:hint="   Password"-->
-        <!--            android:inputType="textPassword"-->
-        <!--            android:maxLines="1">-->
-
-
-        <!--        </EditText>-->
-
 
         <Button
             android:id="@+id/btnSignUp"
