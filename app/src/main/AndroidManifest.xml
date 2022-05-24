@@ -47,7 +47,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.SignInActivity"
-
             android:exported="true" />
         <activity
             android:name=".activities.MainActivity"
