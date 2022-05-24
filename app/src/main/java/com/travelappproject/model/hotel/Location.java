@@ -2,9 +2,14 @@ package com.travelappproject.model.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private double lat;
     private double lon;
+
+    public Location() {
+    }
 
     public Location(double lat, double lon) {
         this.lat = lat;
