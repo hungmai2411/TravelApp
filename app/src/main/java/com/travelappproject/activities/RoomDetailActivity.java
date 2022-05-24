@@ -38,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.R;
 import com.travelappproject.model.hotel.room.Room;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class RoomDetailActivity extends AppCompatActivity {
     int idHotel;
     String hotelName;
     Room room;
-    TextView txtDateCheckIn,txtDateCheckOut,txtTimeCheckIn,txtTimeCheckOut;
+    TextView txtDateCheckIn,txtDateCheckOut,txtTimeCheckIn,txtTimeCheckOut,txtFacility;
     String timeCheckIn, timeCheckOut;
     String addressHotel;
     Toolbar toolbar;
@@ -88,6 +89,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         txtDateCheckOut = findViewById(R.id.txtDateCheckOut);
         txtTimeCheckIn = findViewById(R.id.txtTimeCheckIn);
         txtTimeCheckOut = findViewById(R.id.txtTimeCheckOut);
+        txtFacility = findViewById(R.id.txtFacility);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -97,6 +99,9 @@ public class RoomDetailActivity extends AppCompatActivity {
 
         txtDateCheckOut.setText(now.plusDays(1).format(dtf));
         txtTimeCheckOut.setText(timeCheckOut);
+
+        if(room.getFacilities() != null)
+            txtFacility.setText(room.getFacilities());
 
         TextView txtName = findViewById(R.id.txtName);
         ImageSlider imageSlider = findViewById(R.id.image_slider);
@@ -116,6 +121,20 @@ public class RoomDetailActivity extends AppCompatActivity {
         initToolBar();
 
         Button btnBookNow = findViewById(R.id.btnBook);
+        btnBookNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RoomDetailActivity.this,ConfirmActivity.class);
+
+                Bundle args = new Bundle();
+
+                args.putString("hotelName", hotelName);
+                args.putSerializable("room", (Serializable) room);
+                intent.putExtras(args);
+
+                startActivity(intent);
+            }
+        });
     }
 
     void initToolBar() {
