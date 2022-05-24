@@ -2,7 +2,9 @@ package com.travelappproject.model.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CancelPolicy {
+import java.io.Serializable;
+
+public class CancelPolicy implements Serializable {
     private String timeUnit;
     private String amount;
     private String penaltyType;

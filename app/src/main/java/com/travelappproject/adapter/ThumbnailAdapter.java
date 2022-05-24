@@ -20,11 +20,13 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.Thum
     List<String> mListLocation;
     List<Integer> mListImages;
     Context mContext;
+    IClickDestinationListener mIClickDestinationListener;
 
-    public ThumbnailAdapter(List<String> mListLocation, List<Integer> mListImages, Context mContext) {
+    public ThumbnailAdapter(List<String> mListLocation, List<Integer> mListImages, Context mContext,IClickDestinationListener iClickDestinationListener) {
         this.mListLocation = mListLocation;
         this.mListImages = mListImages;
         this.mContext = mContext;
+        this.mIClickDestinationListener = iClickDestinationListener;
     }
 
     @NonNull
@@ -44,6 +46,13 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.Thum
                 .error(R.mipmap.ic_launcher_round);
 
         holder.imgLocation.setImageResource(mListImages.get(position));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mIClickDestinationListener.onCallBack(mListLocation.get(position));
+            }
+        });
     }
 
     @Override
@@ -62,5 +71,9 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.Thum
             txtLocation = itemView.findViewById(R.id.textTitle);
             imgLocation = itemView.findViewById(R.id.imgLocation);
         }
+    }
+
+    public interface IClickDestinationListener{
+        public void onCallBack(String destination);
     }
 }
