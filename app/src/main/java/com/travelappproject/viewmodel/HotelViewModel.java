@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -21,6 +22,8 @@ import java.util.List;
 public class HotelViewModel extends ViewModel {
     private MutableLiveData<List<Hotel>> listHotelLiveData;
     private MutableLiveData<List<Hotel>> listHotHotelLiveData;
+    private int limit = 15;
+    private DocumentSnapshot lastVisible;
 
     List<Hotel> listHotel = new ArrayList<>();
     List<Hotel> listHot;
@@ -48,7 +51,7 @@ public class HotelViewModel extends ViewModel {
 
         db.collection("hotels")
                 .whereGreaterThan("starRating", 4)
-                .limit(10)
+                .limit(limit)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -74,6 +77,7 @@ public class HotelViewModel extends ViewModel {
 
         db.collection("Hotels")
                 .whereEqualTo("provinceName", state)
+                .limit(limit)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
