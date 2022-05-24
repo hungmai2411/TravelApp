@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,7 +45,9 @@ public class HomeFragment extends Fragment {
     RecyclerView rcvNewHotel;
     LinearLayout btnChooseLocation;
     List<Hotel> listHotHotel;
+    ImageButton btnSearch;
     HotelAdapter1 hotelAdapter1;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -85,6 +88,7 @@ public class HomeFragment extends Fragment {
         rcvHotHotel = view.findViewById(R.id.rcvHotHotel);
         rcvNewHotel = view.findViewById(R.id.rcvNewHotel);
         btnChooseLocation = view.findViewById(R.id.btnChooseLocation);
+        btnSearch = view.findViewById(R.id.btnSearch);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rcvHotHotel.setLayoutManager(linearLayoutManager);
@@ -138,6 +142,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), ChooseLocationActivity.class));
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchFragment searchFragment = new SearchFragment();
+                //startActivity(new Intent(getContext(), SearchFragment.class));
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_container, searchFragment).commit();
             }
         });
 

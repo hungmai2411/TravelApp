@@ -112,6 +112,11 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version"
 
 
+    //Algolia Search
+    implementation 'com.algolia:algoliasearch-core:3.16.5'
+    implementation 'com.algolia:algoliasearch-java-net:3.16.5'
+    implementation 'com.algolia:algoliasearch-android:3.+'
+//    implementation 'com.algolia:algoliasearch-apache:3.16.5'
 }
 apply plugin: 'com.android.application'
 apply plugin:'com.google.gms.google-services'
