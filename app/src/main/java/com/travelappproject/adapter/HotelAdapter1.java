@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,65 +21,85 @@ import com.travelappproject.model.hotel.Hotel;
 
 import java.util.List;
 
-public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.HotelAdapter1ViewHolder> {
+public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.Hotel1ViewHolder> {
     private Context mContext;
     private List<Hotel> mHotelList;
+    private static final int TYPE_ITEM = 1;
+    private static final int TYPE_LOADING = 2;
+    private boolean isLoadingAdd;
 
     public HotelAdapter1(Context mContext, HotelAdapter1.IClickItemListener listener) {
         this.mContext = mContext;
         this.mIClickItemListener = listener;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == mHotelList.size() - 1 && mHotelList != null && isLoadingAdd == true) {
+            return TYPE_LOADING;
+        }
+        return TYPE_ITEM;
+    }
+
     private HotelAdapter1.IClickItemListener mIClickItemListener;
 
-    public interface IClickItemListener{
+    public interface IClickItemListener {
         public void onClickItem(Hotel hotel);
     }
 
-    public void setData(List<Hotel> list){
+    public void setData(List<Hotel> list) {
         this.mHotelList = list;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public HotelAdapter1ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hotel_2,parent,false);
-        return new HotelAdapter1.HotelAdapter1ViewHolder(view);
+    public Hotel1ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (TYPE_ITEM == viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hotel_2, parent, false);
+            return new HotelAdapter1.Hotel1ViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loading, parent, false);
+            return new HotelAdapter1.Hotel1ViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelAdapter1ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        if(mHotelList == null)
+    public void onBindViewHolder(@NonNull Hotel1ViewHolder hotelViewHolder, @SuppressLint("RecyclerView") int position) {
+        if (mHotelList == null)
             return;
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mIClickItemListener.onClickItem(mHotelList.get(position));
-            }
-        });
+        if (hotelViewHolder.getItemViewType() == TYPE_ITEM) {
+            Hotel1ViewHolder hotelHolder = (Hotel1ViewHolder) hotelViewHolder;
 
-        double count = mHotelList.get(position).getStarRate();
+            hotelHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mIClickItemListener.onClickItem(mHotelList.get(position));
+                }
+            });
 
-        StarAdapter starAdapter = new StarAdapter(mContext);
+            double count = mHotelList.get(position).getStarRate();
 
-        starAdapter.setCount(count);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false);
-        holder.rcvStar.setLayoutManager(linearLayoutManager);
-        holder.rcvStar.setAdapter(starAdapter);
-        holder.txtNameHotel.setText(mHotelList.get(position).getName());
-        holder.txtLocation.setText(mHotelList.get(position).getFullAddress());
+            StarAdapter starAdapter = new StarAdapter(mContext);
 
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher_round)
-                .error(R.mipmap.ic_launcher_round);
+            starAdapter.setCount(count);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+            hotelHolder.rcvStar.setLayoutManager(linearLayoutManager);
+            hotelHolder.rcvStar.setAdapter(starAdapter);
+            hotelHolder.txtNameHotel.setText(mHotelList.get(position).getName());
+            hotelHolder.txtLocation.setText(mHotelList.get(position).getFullAddress());
 
-        String tmp = mHotelList.get(position).getThumbImage();
-        String path = "https://statics.vntrip.vn/data-v2/hotels/" + mHotelList.get(position).getId() + "/img_max/" + tmp;
-        holder.txtAmount.setText(String.valueOf(mHotelList.get(position).getPrice()));
-        Glide.with(mContext).load(path).apply(options).into(holder.imgHotel);
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.mipmap.ic_launcher_round)
+                    .error(R.mipmap.ic_launcher_round);
+
+            String tmp = mHotelList.get(position).getThumbImage();
+            String path = "https://statics.vntrip.vn/data-v2/hotels/" + mHotelList.get(position).getId() + "/img_max/" + tmp;
+            hotelHolder.txtAmount.setText(String.valueOf(mHotelList.get(position).getPrice()));
+            Glide.with(mContext).load(path).apply(options).into(hotelViewHolder.imgHotel);
+        }
     }
 
     @Override
@@ -86,7 +107,7 @@ public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.HotelAdapt
         return mHotelList.size();
     }
 
-    public class HotelAdapter1ViewHolder extends RecyclerView.ViewHolder{
+    public class Hotel1ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imgHotel;
         TextView txtNameHotel;
@@ -94,7 +115,7 @@ public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.HotelAdapt
         RecyclerView rcvStar;
         TextView txtAmount;
 
-        public HotelAdapter1ViewHolder(@NonNull View itemView) {
+        public Hotel1ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             rcvStar = itemView.findViewById(R.id.rcvStar);
@@ -104,4 +125,34 @@ public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.HotelAdapt
             txtLocation = itemView.findViewById(R.id.txtLocation);
         }
     }
+
+    public class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+        ProgressBar progressBar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            progressBar = itemView.findViewById(R.id.progress_bar);
+        }
+    }
+
+    public void addFooterLoading(){
+        isLoadingAdd = true;
+        mHotelList.add(new Hotel());
+    }
+
+    public void removeFooterLoading(){
+        isLoadingAdd = false;
+
+        int pos = mHotelList.size() - 1;
+        Hotel hotel = mHotelList.get(pos);
+
+        if(hotel != null){
+            mHotelList.remove(pos);
+            notifyItemRemoved(pos);
+        }
+    }
+
+
 }
