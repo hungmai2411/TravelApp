@@ -96,6 +96,11 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
+    //Algolia Search
+    implementation 'com.algolia:algoliasearch-core:3.16.5'
+    implementation 'com.algolia:algoliasearch-java-net:3.16.5'
+    implementation 'com.algolia:algoliasearch-android:3.+'
+//    implementation 'com.algolia:algoliasearch-apache:3.16.5'
 }
 apply plugin: 'com.android.application'
 apply plugin:'com.google.gms.google-services'
