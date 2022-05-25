@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.shuhart.stepview.StepView;
 import com.travelappproject.R;
 import com.travelappproject.activities.ConfirmActivity;
+
+import java.util.Date;
 
 public class ConfirmFragment0 extends Fragment {
     AppBarLayout appBarLayout;
@@ -73,14 +76,20 @@ public class ConfirmFragment0 extends Fragment {
             }
         });
 
-        TextView txtBookingType, txtHotelName, txtRoomType;
+        TextView txtBookingType, txtHotelName, txtRoomType,txtDateCheckIn,txtDateCheckOut;
 
         txtBookingType = view.findViewById(R.id.txtBookingType);
         txtHotelName = view.findViewById(R.id.nameHotel);
         txtRoomType = view.findViewById(R.id.txtTypeRoom);
+        txtDateCheckIn = view.findViewById(R.id.txtDateCheckIn);
+        txtDateCheckOut = view.findViewById(R.id.txtDateCheckOut);
 
+        txtDateCheckOut.setText(DateFormat.format("dd/MM/yyyy", new Date(confirmActivity.endDate)).toString());
+        txtDateCheckIn.setText(DateFormat.format("dd/MM/yyyy", new Date(confirmActivity.startDate)).toString());
         txtHotelName.setText(confirmActivity.hotelName);
         txtRoomType.setText(confirmActivity.room.getName());
+        txtBookingType.setText(String.valueOf(confirmActivity.daysDiff) + " night");
+
     }
 
     private void initToolBar() {

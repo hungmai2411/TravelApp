@@ -139,20 +139,9 @@ public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.Hotel1View
 
     public void addFooterLoading(){
         isLoadingAdd = true;
-        mHotelList.add(new Hotel());
     }
 
     public void removeFooterLoading(){
         isLoadingAdd = false;
-
-        int pos = mHotelList.size() - 1;
-        Hotel hotel = mHotelList.get(pos);
-
-        if(hotel != null){
-            mHotelList.remove(pos);
-            notifyItemRemoved(pos);
-        }
     }
-
-
 }
