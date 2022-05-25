@@ -163,7 +163,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginTop="3dp"
-                            android:text="07:30"
+                            android:text="14:00"
                             android:textColor="#000000"
                             android:textSize="17dp"
                             android:textStyle="bold" />
@@ -203,7 +203,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_marginTop="3dp"
-                            android:text="07:30"
+                            android:text="12:00"
                             android:textColor="#000000"
                             android:textSize="17dp"
                             android:textStyle="bold" />
