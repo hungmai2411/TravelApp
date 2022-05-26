@@ -5,71 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ForgotPassActivity"
-    android:orientation="vertical">
-    <RelativeLayout
+    android:orientation="vertical"
+    android:padding="15dp">
+    <ImageButton
+        android:id="@+id/btnBackFG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_action_back"></ImageButton>
+    <ImageView
+        android:id="@+id/logoFG"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/applogo"
+        android:layout_marginTop="10dp">
+
+    </ImageView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_Email"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp">
-        <ImageView
-            android:id="@+id/logoFG"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        app:endIconMode="clear_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="     Email">
 
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/applogo">
-
-        </ImageView>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_Email"
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="text"
+            android:id="@+id/txtEmailFG"
+            android:drawableLeft="@drawable/ic_action_email"
+            android:drawableTint="@color/teal_200"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="285dp"
-            app:endIconMode="clear_text"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="     Email">
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:inputType="text"
-                android:id="@+id/txtEmailFG"
-                android:drawableLeft="@drawable/ic_action_email"
-                android:drawableTint="@color/teal_200"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/btnBackFG"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_action_back"></ImageButton>
-
-<!--        <EditText-->
-<!--            android:id="@+id/txtEmailFG"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="75dp"-->
-<!--            android:layout_marginTop="280dp"-->
-<!--            android:drawableLeft="@drawable/ic_action_email"-->
-<!--            android:drawableTint="@color/teal_200"-->
-<!--            android:hint="   Email"-->
-<!--            android:padding="20dp"></EditText>-->
-
-        <Button
-            android:id="@+id/btnForgotPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="370dp"
-            android:background="@drawable/rounded_corner_button"
-            android:text="FORGOT PASSWORD"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            app:backgroundTint="@color/primary" />
-
-    </RelativeLayout>
-
+    <Button
+        android:id="@+id/btnForgotPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_corner_button"
+        android:text="FORGOT PASSWORD"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:backgroundTint="@color/primary" />
 
 </LinearLayout>

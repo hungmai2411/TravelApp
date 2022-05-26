@@ -3,9 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.30350404107685636" />
-        <entry key="app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/custom_input.xml" value="0.1705" />
+
         <entry key="app/src/main/res/drawable-anydpi/ic_star.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable-anydpi/toolbar_dropshadow.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable-hdpi/ic_success.xml" value="0.1" />
