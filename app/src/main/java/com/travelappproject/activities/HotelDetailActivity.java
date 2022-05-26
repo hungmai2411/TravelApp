@@ -165,6 +165,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                         MaterialDatePicker.Builder.dateRangePicker()
                                 .setCalendarConstraints(calendarConstraints.build())
                                 .setTitleText("Select dates")
+                                .setTheme(R.style.ThemeOverlay_App_DatePicker)
                                 .build();
                 dateRangePicker.show(getSupportFragmentManager(),"11");
                 dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {

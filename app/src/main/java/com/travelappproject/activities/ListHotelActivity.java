@@ -105,6 +105,10 @@ public class ListHotelActivity extends AppCompatActivity {
                         Hotel hotelModel = document.toObject(Hotel.class);
                         hotelList.add(hotelModel);
                     }
+
+//                    if(hotelList.size() == 0)
+//                        return;
+
                     hotelAdapter.notifyDataSetChanged();
                     lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
 
@@ -147,12 +151,12 @@ public class ListHotelActivity extends AppCompatActivity {
                                                     hotelAdapter.removeFooterLoading();
                                                     hotelList.addAll(hotelList2);
                                                     hotelAdapter.notifyDataSetChanged();
+
+
                                                     lastVisible = t.getResult().getDocuments().get(t.getResult().size() - 1);
 
                                                     if (t.getResult().size() < limit) {
                                                         isLastItemReached = true;
-                                                    } else {
-                                                        //hotelAdapter.addFooterLoading();
                                                     }
                                                 }
                                             }
