@@ -30,7 +30,7 @@
         android:layout_marginTop="45dp"
         app:endIconMode="clear_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="     Email">
+        android:hint="   Email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
