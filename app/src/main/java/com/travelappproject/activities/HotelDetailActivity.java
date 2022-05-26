@@ -207,9 +207,8 @@ public class HotelDetailActivity extends AppCompatActivity {
             idHotel = hotel.getId();
             List<SlideModel> slideModelList = new ArrayList<>();
             List<Image> hotelImageList = hotel.getImages();
-            //List<RoomSettingFormList> roomList = mHotel.getRoomSettingFormList();
 
-            for (int i = 0; i < hotelImageList.size(); i++) {
+            for (int i = 0; i < 20; i++) {
                 String path = "https://statics.vntrip.vn/data-v2/hotels/" + idHotel + "/img_max/" + hotelImageList.get(i).getSlug();
                 SlideModel slideModel = new SlideModel(path, null, ScaleTypes.FIT);
                 slideModelList.add(slideModel);
