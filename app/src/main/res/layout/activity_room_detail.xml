@@ -150,7 +150,7 @@
                         <TextView
                             android:id="@+id/txtTimeCheckIn"
                             android:layout_gravity="start"
-                            android:text="07:30"
+                            android:text="14:00"
                             android:textColor="#000000"
                             android:layout_marginTop="3dp"
                             android:textStyle="bold"
@@ -187,7 +187,7 @@
                         <TextView
                             android:id="@+id/txtTimeCheckOut"
                             android:layout_gravity="start"
-                            android:text="07:30"
+                            android:text="12:00"
                             android:textColor="#000000"
                             android:layout_marginTop="3dp"
                             android:textStyle="bold"
@@ -198,6 +198,24 @@
                     </LinearLayout>
                 </TableRow>
             </TableLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Facilities"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtFacility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
