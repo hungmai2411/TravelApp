@@ -20,11 +20,16 @@
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.SearchView
+            <ImageButton
+                android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="19dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:src="?android:attr/actionModeWebSearchDrawable" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
