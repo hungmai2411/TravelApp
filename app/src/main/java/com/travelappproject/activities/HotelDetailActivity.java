@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,13 +13,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -27,6 +32,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,9 +57,13 @@ import com.travelappproject.model.hotel.room.Room;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class HotelDetailActivity extends AppCompatActivity {
     Hotel hotel;
@@ -71,12 +85,36 @@ public class HotelDetailActivity extends AppCompatActivity {
     RoomAdapter roomAdapter;
     long idHotel;
     ImageView btnViewMap;
+    LinearLayout btnCheckOut,btnCheckIn;
+    TextView txtDateCheckOut,txtDateCheckIn,txtNumber;
+    Long startDate,endDate,numberNight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
 
+        startDate = MaterialDatePicker.todayInUtcMilliseconds();
+
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.add(Calendar.DATE, 1);
+        endDate = gc.getTimeInMillis();
+
+        long msDiff = endDate - startDate;
+        numberNight = TimeUnit.MILLISECONDS.toDays(msDiff);
+
+        txtDateCheckOut = findViewById(R.id.txtDateCheckOut);
+        txtDateCheckIn = findViewById(R.id.txtDateCheckIn);
+
+        txtDateCheckOut.setText(DateFormat.format("dd/MM", new Date(endDate)).toString());
+        txtDateCheckIn.setText(DateFormat.format("dd/MM", new Date(startDate)).toString());
+
+        txtNumber = findViewById(R.id.txtNumber);
+
+        txtNumber.setText("(" + numberNight + " night)");
+
+        btnCheckOut = findViewById(R.id.btnCheckOut);
+        btnCheckIn = findViewById(R.id.btnCheckIn);
         btnViewMap = findViewById(R.id.btnViewMap);
         appBarLayout = findViewById(R.id.app_bar);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
@@ -89,6 +127,63 @@ public class HotelDetailActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.view_pager2);
         imageSlider = findViewById(R.id.image_slider);
         rcvRooms = findViewById(R.id.rcvRooms);
+
+        btnCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CalendarConstraints.Builder calendarConstraints = new CalendarConstraints.Builder().setValidator(DateValidatorPointForward.from(MaterialDatePicker.todayInUtcMilliseconds()));
+
+                MaterialDatePicker<Pair<Long, Long>> dateRangePicker =
+                        MaterialDatePicker.Builder.dateRangePicker()
+                                .setCalendarConstraints(calendarConstraints.build())
+                                .setTitleText("Select dates")
+                                .build();
+                dateRangePicker.show(getSupportFragmentManager(),"11");
+                dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
+                    @Override
+                    public void onPositiveButtonClick(Pair<Long,Long> selection) {
+                        startDate = selection.first;
+                        endDate = selection.second;
+
+                        long msDiff = endDate - startDate;
+                        long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
+
+                        txtDateCheckOut.setText(DateFormat.format("dd/MM", new Date(endDate)).toString());
+                        txtDateCheckIn.setText(DateFormat.format("dd/MM", new Date(startDate)).toString());
+                        txtNumber.setText("(" + daysDiff + " night)");
+                    }
+                });
+            }
+        });
+
+        btnCheckIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CalendarConstraints.Builder calendarConstraints = new CalendarConstraints.Builder().setValidator(DateValidatorPointForward.from(MaterialDatePicker.todayInUtcMilliseconds()));
+
+                MaterialDatePicker<Pair<Long, Long>> dateRangePicker =
+                        MaterialDatePicker.Builder.dateRangePicker()
+                                .setCalendarConstraints(calendarConstraints.build())
+                                .setTitleText("Select dates")
+                                .setTheme(R.style.ThemeOverlay_App_DatePicker)
+                                .build();
+                dateRangePicker.show(getSupportFragmentManager(),"11");
+                dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
+                    @Override
+                    public void onPositiveButtonClick(Pair<Long,Long> selection) {
+                        startDate = selection.first;
+                        endDate = selection.second;
+
+                        long msDiff = endDate - startDate;
+                        long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
+
+                        txtDateCheckOut.setText(DateFormat.format("dd/MM", new Date(endDate)).toString());
+                        txtDateCheckIn.setText(DateFormat.format("dd/MM", new Date(startDate)).toString());
+                        txtNumber.setText("(" + daysDiff + " night)");
+                    }
+                });
+            }
+        });
 
         initToolBar();
         Intent intent = getIntent();
@@ -112,9 +207,8 @@ public class HotelDetailActivity extends AppCompatActivity {
             idHotel = hotel.getId();
             List<SlideModel> slideModelList = new ArrayList<>();
             List<Image> hotelImageList = hotel.getImages();
-            //List<RoomSettingFormList> roomList = mHotel.getRoomSettingFormList();
 
-            for (int i = 0; i < hotelImageList.size(); i++) {
+            for (int i = 0; i < 20; i++) {
                 String path = "https://statics.vntrip.vn/data-v2/hotels/" + idHotel + "/img_max/" + hotelImageList.get(i).getSlug();
                 SlideModel slideModel = new SlideModel(path, null, ScaleTypes.FIT);
                 slideModelList.add(slideModel);
@@ -134,6 +228,8 @@ public class HotelDetailActivity extends AppCompatActivity {
                                 if (document != null) {
                                     Intent intent = new Intent(HotelDetailActivity.this, RoomDetailActivity.class);
                                     Bundle args = new Bundle();
+                                    args.putLong("startDate",startDate);
+                                    args.putLong("endDate",endDate);
                                     args.putString("timeCheckIn", hotel.getCheckInTime());
                                     args.putString("timeCheckOut", hotel.getCheckOutTime());
                                     args.putString("hotelName", hotel.getName());
