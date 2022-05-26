@@ -105,7 +105,18 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
 
+    def paging_version = "3.1.1"
+    implementation 'com.ms-square:expandableTextView:0.1.4'
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+
+    //Algolia Search
+    implementation 'com.algolia:algoliasearch-core:3.16.5'
+    implementation 'com.algolia:algoliasearch-java-net:3.16.5'
+    implementation 'com.algolia:algoliasearch-android:3.+'
+//    implementation 'com.algolia:algoliasearch-apache:3.16.5'
 }
 apply plugin: 'com.android.application'
 apply plugin:'com.google.gms.google-services'
