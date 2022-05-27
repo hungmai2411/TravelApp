@@ -21,6 +21,8 @@
         android:id="@+id/layout_Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_action_email"
+        app:startIconTint="@color/teal_200"
         app:endIconMode="clear_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="   Email"
@@ -29,8 +31,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
             android:id="@+id/txtEmail"
-            android:drawableLeft="@drawable/ic_action_email"
-            android:drawableTint="@color/teal_200"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
