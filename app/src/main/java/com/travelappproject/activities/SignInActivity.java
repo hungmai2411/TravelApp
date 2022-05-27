@@ -223,7 +223,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if(currentUser!=null){
-            Intent intent =new Intent(SignInActivity.this,LogoutActivity.class);
+            Intent intent =new Intent(SignInActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -261,7 +261,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"successful",Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     userID=mAuth.getCurrentUser().getUid();
                     DocumentReference documentReference =firestore.collection("users").document(userID);
@@ -283,7 +282,6 @@ public class SignInActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"Failed!",Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }
