@@ -46,9 +46,9 @@ import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private TextView forgotpass;
+    private TextView forgotpass,SignUp;
     private EditText emailedit,passedit;
-    private Button btnsignin, btnsignup;
+    private Button btnsignin;
     private ImageButton btnFB,btnGG;
     private FirebaseAuth mAuth;
     private CallbackManager callbackManager;
@@ -66,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
         emailedit=findViewById(R.id.txtEmail);
         passedit=findViewById(R.id.txtPass);
         btnsignin=findViewById(R.id.btnSignIn);
-        btnsignup=findViewById(R.id.btnSignUp);
+        SignUp=findViewById(R.id.txtsignUp);
         btnFB=findViewById(R.id.FBSignIn);
         btnGG=findViewById(R.id.GGSignIn);
         forgotpass= findViewById(R.id.forgotpass);
@@ -115,7 +115,7 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         //Sign up
-        btnsignup.setOnClickListener(new View.OnClickListener() {
+        SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(SignInActivity.this,SignUpActivity.class);
@@ -261,7 +261,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"successful",Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     userID=mAuth.getCurrentUser().getUid();
                     DocumentReference documentReference =firestore.collection("users").document(userID);
@@ -283,7 +282,6 @@ public class SignInActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"Failed!",Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }
