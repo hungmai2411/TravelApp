@@ -61,15 +61,15 @@ public class SignUpActivity extends AppCompatActivity {
                 repass=repassedit.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(pass)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(pass.equals(repass)==false){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập lại đúng pass",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập lại đúng pass",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -80,12 +80,12 @@ public class SignUpActivity extends AppCompatActivity {
                             user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(),"Verification Email has been sent",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Verification Email has been sent",Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getApplicationContext(),"Verification Email has not been sent",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Verification Email has not been sent",Toast.LENGTH_SHORT).show();
                                 }
                             });
                             String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 }
                             });
 
-                            Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
                                 startActivity(intent);
 
