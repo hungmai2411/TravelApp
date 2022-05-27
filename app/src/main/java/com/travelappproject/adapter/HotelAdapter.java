@@ -64,7 +64,8 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelAdapter
                 .placeholder(R.mipmap.ic_launcher_round)
                 .error(R.mipmap.ic_launcher_round);
 
-        String path = mHotelList.get(position).getThumbImage();
+        String tmp = mHotelList.get(position).getThumbImage();
+        String path = "https://statics.vntrip.vn/data-v2/hotels/" + mHotelList.get(position).getId() + "/img_max/" + tmp;
         Glide.with(mContext).load(path).apply(options).into(holder.imgHotel);
     }
 

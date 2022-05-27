@@ -114,9 +114,10 @@ public class ConfirmFragment1 extends Fragment {
         txtCancelPolicy = view.findViewById(R.id.txtCancelPolicy);
 
         txtCancelPolicy.setText(confirmActivity.room.getCancelPolicies());
-        txtPrice.setText(String.valueOf(confirmActivity.room.getPrice()));
+        txtPrice.setText(String.valueOf(confirmActivity.room.getPrice() * confirmActivity.daysDiff));
         txtHotelName.setText(confirmActivity.hotelName);
         txtRoomType.setText(confirmActivity.room.getName());
+        txtBookingType.setText(String.valueOf(confirmActivity.daysDiff) + " night");
     }
 
     private void initToolBar() {

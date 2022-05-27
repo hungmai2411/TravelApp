@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +31,8 @@ import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ListHotelActivity extends AppCompatActivity {
     String destination;
@@ -38,12 +43,14 @@ public class ListHotelActivity extends AppCompatActivity {
     private DocumentSnapshot lastVisible;
     private boolean isScrolling = false;
     private boolean isLastItemReached = false;
+    ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_hotel);
 
+        executorService = Executors.newSingleThreadExecutor();
         //hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -73,7 +80,7 @@ public class ListHotelActivity extends AppCompatActivity {
         hotelAdapter = new HotelAdapter1(getApplicationContext(), new HotelAdapter1.IClickItemListener() {
             @Override
             public void onClickItem(Hotel hotel) {
-                Intent intent1 = new Intent(ListHotelActivity.this,HotelDetailActivity.class);
+                Intent intent1 = new Intent(ListHotelActivity.this, HotelDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hotel", hotel);
                 intent1.putExtras(bundle);
@@ -82,7 +89,6 @@ public class ListHotelActivity extends AppCompatActivity {
         });
 
         List<Hotel> hotelList = new ArrayList<>();
-        List<Hotel> hotelList2 = new ArrayList<>();
         hotelAdapter.setData(hotelList);
         rcvListHotel.setAdapter(hotelAdapter);
 
@@ -99,6 +105,10 @@ public class ListHotelActivity extends AppCompatActivity {
                         Hotel hotelModel = document.toObject(Hotel.class);
                         hotelList.add(hotelModel);
                     }
+
+//                    if(hotelList.size() == 0)
+//                        return;
+
                     hotelAdapter.notifyDataSetChanged();
                     lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
 
@@ -120,32 +130,39 @@ public class ListHotelActivity extends AppCompatActivity {
                             int visibleItemCount = linearLayoutManager.getChildCount(); //item co the nhin thay trong 1 trang
                             int totalItemCount = linearLayoutManager.getItemCount(); // so luong max item
 
-                            if (isScrolling && (firstVisibleItemPosition + visibleItemCount == totalItemCount) && !isLastItemReached) {
+                            if (isScrolling && (firstVisibleItemPosition + visibleItemCount >= totalItemCount) && !isLastItemReached) {
                                 isScrolling = false;
                                 hotelAdapter.addFooterLoading();
 
-                                Query nextQuery = productsRef
-                                        .whereEqualTo("provinceName", destination).startAfter(lastVisible).limit(limit);
-                                nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                new Handler().postDelayed(new Runnable() {
                                     @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> t) {
-                                        if (t.isSuccessful()) {
+                                    public void run() {
+                                        Query nextQuery = productsRef
+                                                .whereEqualTo("provinceName", destination).startAfter(lastVisible).limit(limit);
+                                        nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> t) {
+                                                if (t.isSuccessful()) {
+                                                    List<Hotel> hotelList2 = new ArrayList<>();
+                                                    for (DocumentSnapshot d : t.getResult()) {
+                                                        Hotel hotelModel = d.toObject(Hotel.class);
+                                                        hotelList2.add(hotelModel);
+                                                    }
+                                                    hotelAdapter.removeFooterLoading();
+                                                    hotelList.addAll(hotelList2);
+                                                    hotelAdapter.notifyDataSetChanged();
 
-                                            for (DocumentSnapshot d : t.getResult()) {
-                                                Hotel hotelModel = d.toObject(Hotel.class);
-                                                hotelList2.add(hotelModel);
-                                            }
-                                            hotelAdapter.removeFooterLoading();
-                                            hotelList.addAll(hotelList2);
-                                            hotelAdapter.notifyDataSetChanged();
-                                            lastVisible = t.getResult().getDocuments().get(t.getResult().size() - 1);
 
-                                            if (t.getResult().size() < limit) {
-                                                isLastItemReached = true;
+                                                    lastVisible = t.getResult().getDocuments().get(t.getResult().size() - 1);
+
+                                                    if (t.getResult().size() < limit) {
+                                                        isLastItemReached = true;
+                                                    }
+                                                }
                                             }
-                                        }
+                                        });
                                     }
-                                });
+                                },2000);
                             }
                         }
                     };
