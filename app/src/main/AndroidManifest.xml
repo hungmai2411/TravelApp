@@ -18,9 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
+            android:name=".activities.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.BookingDetailActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".activities.ConfirmActivity"
             android:exported="false" />
@@ -57,7 +59,6 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
-
         </activity>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
