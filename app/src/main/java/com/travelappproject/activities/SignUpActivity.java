@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
@@ -69,6 +70,10 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 if(TextUtils.isEmpty(pass)){
                     Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(pass.length()<6){
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập pass dài hơn 6 kí tự",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(pass.equals(repass)==false){
@@ -121,6 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+
                         }
                         else
                             Toast.makeText(getApplicationContext(),"Email has already verified",Toast.LENGTH_SHORT).show();
