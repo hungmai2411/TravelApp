@@ -26,7 +26,6 @@ public class HotelViewModel extends ViewModel {
     private DocumentSnapshot lastVisible;
 
     List<Hotel> listHotel = new ArrayList<>();
-    List<Hotel> listHot;
     List<Hotel> listTmp;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -34,38 +33,6 @@ public class HotelViewModel extends ViewModel {
     public HotelViewModel() {
         listHotelLiveData = new MutableLiveData<List<Hotel>>();
         listHotHotelLiveData = new MutableLiveData<List<Hotel>>();
-    }
-
-    boolean isExisted(long snHotel) {
-        for (int i = 0; i < listTmp.size(); i++) {
-            if (listTmp.get(i).getId() == snHotel) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public void getListHotHotel(String state, IListenerListHotel iListenerListHotel) {
-        listHot = new ArrayList<>();
-
-        db.collection("hotels")
-                .whereGreaterThan("starRating", 4)
-                .limit(limit)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                listHot.add(document.toObject(Hotel.class));
-                            }
-                            iListenerListHotel.onCallBack(listHot);
-                        } else {
-                            Log.d("HOMEVM", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
     }
 
     public interface IListenerListHotel {
@@ -100,15 +67,6 @@ public class HotelViewModel extends ViewModel {
                 });
     }
 
-    public void getListHot(String state) {
-        getListHotHotel(state, new IListenerListHotel() {
-            @Override
-            public void onCallBack(List<Hotel> list) {
-                listHotHotelLiveData.postValue(list);
-            }
-        });
-    }
-
     public void getList(String state) {
         getListHotel(state, new IListenerListHotel() {
             @Override
@@ -120,10 +78,6 @@ public class HotelViewModel extends ViewModel {
 
     public LiveData<List<Hotel>> observedHotelLiveData() {
         return listHotelLiveData;
-    }
-
-    public LiveData<List<Hotel>> observedHotHotelLiveData() {
-        return listHotHotelLiveData;
     }
 }
 
