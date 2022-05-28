@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ReviewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:textAlignment="center"
+            app:collapsedTitleGravity="center"
+            app:navigationIcon="@drawable/ic_action_back"
+            app:title="Review" />
+
+        <View
+            android:id="@+id/toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/toolbar_dropshadow" />
+
+        <include
+            android:id="@+id/review"
+            layout="@layout/item_review" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingHorizontal="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:background="@drawable/custom_edit_text"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:hint="Enter your review"
+            android:padding="10dp"
+            android:id="@+id/edtReview"
+            android:textSize="14sp"
+            android:layout_height="50dp" />
+
+        <ImageButton
+            android:id="@+id/btnSend"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:src="@drawable/ic_send"
+            android:layout_gravity="center_vertical"
+            app:tint="@color/primary"
+            android:background="@color/white"
+            android:layout_height="30dp"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>
