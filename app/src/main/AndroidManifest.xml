@@ -10,6 +10,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <queries>
+        <package android:name="vn.com.vng.zalopay"/>
+        <package android:name="vn.com.vng.zalopay.sbmc"/>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,6 +38,24 @@
         <activity
             android:name=".activities.ConfirmActivity"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".activities.ConfirmActivity"-->
+<!--            android:exported="true"-->
+<!--            android:launchMode="singleTask">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action."/>-->
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW"/>-->
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
+<!--                <data android:scheme="demozpdk"-->
+<!--                    android:host="app"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
         <activity
             android:name=".activities.RoomDetailActivity"
             android:exported="false" />

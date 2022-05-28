@@ -187,7 +187,7 @@ public class SignInActivity extends AppCompatActivity {
                             DocumentReference documentReference =firestore.collection("users").document(userID);
                             Map<String,Object> user1 = new HashMap<>();
                             user1.put("type","Facebook");
-                            documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            documentReference.update(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
 
@@ -266,7 +266,7 @@ public class SignInActivity extends AppCompatActivity {
                     DocumentReference documentReference =firestore.collection("users").document(userID);
                     Map<String,Object> user1 = new HashMap<>();
                     user1.put("type","Google");
-                    documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    documentReference.update(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
 
