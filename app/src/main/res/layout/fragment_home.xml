@@ -94,12 +94,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Hot Hotel"
+            android:text="@string/hot_hotel"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/shimmer"
+            android:visibility="visible"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/shimmer_item_hotel_2"/>
+                <include layout="@layout/shimmer_item_hotel_2"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
             android:id="@+id/rcvHotHotel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Popular destinations"
+            android:text="@string/popular_destinations"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
