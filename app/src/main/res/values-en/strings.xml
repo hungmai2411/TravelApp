@@ -1,4 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="hot_hotel">Hot hotel</string>
+    <string name="popular_destinations">Popular Destinations</string>
     <string name="app_name">TravelAppProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -25,7 +28,4 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_booking_detail">BookingDetailActivity</string>
-    <string name="hot_hotel">Khách sạn nổi tiếng</string>
-    <string name="popular_destinations">Địa điểm phổ biến</string>
-
 </resources>

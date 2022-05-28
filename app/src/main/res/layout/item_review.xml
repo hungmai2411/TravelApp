@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="13dp"
+    android:layout_marginHorizontal="5dp"
+    android:backgroundTint="@color/white"
+    android:layout_gravity="fill"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/applogo" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_toEndOf="@+id/imgLocation"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cox's Bazar Tourism"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtLocationAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Viet Nam"
+                    android:textColor="#807A7A"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.95"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/txtNumStar"
+                    android:textColor="#807A7A"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/Divider.Horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="15dp"
+            android:id="@+id/txtReview"
+            android:textColor="@color/detail_color"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
