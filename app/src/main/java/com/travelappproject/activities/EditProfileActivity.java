@@ -1,7 +1,5 @@
 package com.travelappproject.activities;
 
-import static android.app.PendingIntent.getActivity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -25,9 +24,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.algolia.search.models.mcm.UserId;
-import com.algolia.search.models.rules.Edit;
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,6 +43,8 @@ import com.travelappproject.fragments.ProfileFragment;
 import com.travelappproject.model.hotel.User;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -141,38 +139,46 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadPicture() {
-//        final String[] url = new String[1];
+
+        //final String[] url = new String[1];
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading...");
         pd.show();
 
         StorageReference riversRef = storageReference.child("image/" + UserID);
-        riversRef.putFile(mImageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> download = taskSnapshot.getStorage().getDownloadUrl();
-                url = download.getResult().toString();
-                pd.dismiss();
-                Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
+        if(mImageUri != null){
+            riversRef.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            Task<Uri> download = taskSnapshot.getStorage().getDownloadUrl();
+//                            url = download.getResult().toString();
+                            pd.dismiss();
+                            Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
+
+//                            getURL(url);
+//                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    pd.dismiss();
+                    Toast.makeText(EditProfileActivity.this, "Failed to upload image.", Toast.LENGTH_LONG).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                    pd.setMessage("Percentage: " + (int)progressPercent + "%");
+                }
+            });
+        }
 
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                pd.dismiss();
-                Toast.makeText(EditProfileActivity.this, "Failed to upload image.", Toast.LENGTH_LONG).show();
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                pd.setMessage("Percentage: " + (int)progressPercent + "%");
-            }
-        });
+    }
 
-
+    private String getURL(String url) {
+        return url;
     }
 
     private void saveToFireStore(String name, String about, String address, String phonenumber) {
@@ -182,16 +188,14 @@ public class EditProfileActivity extends AppCompatActivity {
         map.put("address", address);
         map.put("phonenumber", phonenumber);
         //map.put("image", URL);
-        firestore.collection("users").document(UserID).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        firestore.collection("users").document(UserID).update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-//                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(EditProfileActivity.this, "Profile Settings Saved", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
                     finish();
                 } else {
-//                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(EditProfileActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -215,6 +219,9 @@ public class EditProfileActivity extends AppCompatActivity {
                         edtAbout.setText(About);
                         edtPhoneNumber.setText(PhoneNumber);
                         //Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
+                        StorageReference ImageRef = FirebaseStorage.getInstance().getReference().child("image/" + UserID + ".jpeg");
+//                        Glide.with(EditProfileActivity.this).using(new FireBaseImageLoader());
+
                     }
                 }
             }
