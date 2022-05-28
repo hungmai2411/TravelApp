@@ -19,7 +19,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.R;
@@ -59,60 +62,77 @@ public class SignUpActivity extends AppCompatActivity {
                 email=emailedit.getText().toString();
                 pass=passedit.getText().toString();
                 repass=repassedit.getText().toString();
+                FirebaseUser fuser = mAuth.getCurrentUser();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(pass)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(pass.length()<6){
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập pass dài hơn 6 kí tự",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(pass.equals(repass)==false){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập lại đúng pass",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Vui lòng nhập lại đúng pass",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                     @Override
-                    public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user =mAuth.getCurrentUser();
-                            user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        boolean check = !task.getResult().getSignInMethods().isEmpty();
+                        if(!check){
+                            mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(),"Verification Email has been sent",Toast.LENGTH_LONG).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getApplicationContext(),"Verification Email has not been sent",Toast.LENGTH_LONG).show();
+                                public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        FirebaseUser user =mAuth.getCurrentUser();
+                                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(getApplicationContext(),"Verification Email has been sent",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getApplicationContext(),"Verification Email has not been sent",Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
+                                        userID=mAuth.getCurrentUser().getUid();
+                                        DocumentReference documentReference =firestore.collection("users").document(userID);
+                                        Map<String,Object> user1 = new HashMap<>();
+                                        user1.put("type","Email and password");
+                                        user1.put("hashpass",hashpass);
+                                        documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+
+                                        Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
+                                        startActivity(intent);
+
+                                    }
                                 }
                             });
-                            String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
-                            userID=mAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference =firestore.collection("users").document(userID);
-                            Map<String,Object> user1 = new HashMap<>();
-                            user1.put("type","Email and password");
-                            user1.put("hashpass",hashpass);
-                            documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
-                            });
-
-                            Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
-                                startActivity(intent);
 
                         }
+                        else
+                            Toast.makeText(getApplicationContext(),"Email has already verified",Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
 
