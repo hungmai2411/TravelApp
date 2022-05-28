@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.4'
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -117,7 +118,12 @@ dependencies {
     implementation 'com.algolia:algoliasearch-java-net:3.16.5'
     implementation 'com.algolia:algoliasearch-android:3.+'
 //    implementation 'com.algolia:algoliasearch-apache:3.16.5'
+
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+
 }
 apply plugin: 'com.android.application'
 apply plugin:'com.google.gms.google-services'
