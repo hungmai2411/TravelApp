@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.R;
 
@@ -183,19 +184,26 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            userID=mAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference =firestore.collection("users").document(userID);
                             Map<String,Object> user1 = new HashMap<>();
                             user1.put("type","Facebook");
-                            documentReference.update(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
+                            userID=mAuth.getCurrentUser().getUid();
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+                            firestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
-                                public void onFailure(@NonNull Exception e) {
-
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if(task.getResult().exists()){
+                                        firestore.collection("users").document(userID).update(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                            }
+                                        });
+                                    }else{
+                                        firestore.collection("users").document(userID).set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                            }
+                                        });
+                                    }
                                 }
                             });
                             Intent intent =new Intent(SignInActivity.this,MainActivity.class);
@@ -263,18 +271,24 @@ public class SignInActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     userID=mAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference =firestore.collection("users").document(userID);
                     Map<String,Object> user1 = new HashMap<>();
                     user1.put("type","Google");
-                    documentReference.update(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    firestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onSuccess(Void unused) {
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.getResult().exists()){
+                                firestore.collection("users").document(userID).update(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                    }
+                                });
+                            }else{
+                                firestore.collection("users").document(userID).set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                    }
+                                });
+                            }
                         }
                     });
                     Intent intent =new Intent(SignInActivity.this,MainActivity.class);
