@@ -85,15 +85,18 @@ public class HotelDetailActivity extends AppCompatActivity {
     RoomAdapter roomAdapter;
     long idHotel;
     ImageView btnViewMap;
-    LinearLayout btnCheckOut,btnCheckIn;
-    TextView txtDateCheckOut,txtDateCheckIn,txtNumber;
-    Long startDate,endDate,numberNight;
+    LinearLayout btnCheckOut, btnCheckIn;
+    TextView txtDateCheckOut, txtDateCheckIn, txtNumber;
+    Long startDate, endDate, numberNight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
 
+        if (mAuth.getCurrentUser() != null) {
+            uidUser = mAuth.getUid();
+        }
         startDate = MaterialDatePicker.todayInUtcMilliseconds();
 
         GregorianCalendar gc = new GregorianCalendar();
@@ -138,10 +141,10 @@ public class HotelDetailActivity extends AppCompatActivity {
                                 .setCalendarConstraints(calendarConstraints.build())
                                 .setTitleText("Select dates")
                                 .build();
-                dateRangePicker.show(getSupportFragmentManager(),"11");
-                dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
+                dateRangePicker.show(getSupportFragmentManager(), "11");
+                dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
-                    public void onPositiveButtonClick(Pair<Long,Long> selection) {
+                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
                         startDate = selection.first;
                         endDate = selection.second;
 
@@ -167,10 +170,10 @@ public class HotelDetailActivity extends AppCompatActivity {
                                 .setTitleText("Select dates")
                                 .setTheme(R.style.ThemeOverlay_App_DatePicker)
                                 .build();
-                dateRangePicker.show(getSupportFragmentManager(),"11");
-                dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
+                dateRangePicker.show(getSupportFragmentManager(), "11");
+                dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
-                    public void onPositiveButtonClick(Pair<Long,Long> selection) {
+                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
                         startDate = selection.first;
                         endDate = selection.second;
 
@@ -208,9 +211,13 @@ public class HotelDetailActivity extends AppCompatActivity {
             List<SlideModel> slideModelList = new ArrayList<>();
             List<Image> hotelImageList = hotel.getImages();
 
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < hotelImageList.size(); i++) {
                 String path = "https://statics.vntrip.vn/data-v2/hotels/" + idHotel + "/img_max/" + hotelImageList.get(i).getSlug();
                 SlideModel slideModel = new SlideModel(path, null, ScaleTypes.FIT);
+
+                if (i == 20) {
+                    break;
+                }
                 slideModelList.add(slideModel);
             }
 
@@ -228,8 +235,8 @@ public class HotelDetailActivity extends AppCompatActivity {
                                 if (document != null) {
                                     Intent intent = new Intent(HotelDetailActivity.this, RoomDetailActivity.class);
                                     Bundle args = new Bundle();
-                                    args.putLong("startDate",startDate);
-                                    args.putLong("endDate",endDate);
+                                    args.putLong("startDate", startDate);
+                                    args.putLong("endDate", endDate);
                                     args.putString("timeCheckIn", hotel.getCheckInTime());
                                     args.putString("timeCheckOut", hotel.getCheckOutTime());
                                     args.putString("hotelName", hotel.getName());
@@ -301,7 +308,55 @@ public class HotelDetailActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_tool_bar, menu);
         MenuItem favorite = menu.findItem(R.id.ic_favorite);
 
+        if (uidUser != null) {
+            mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(idHotel)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error == null) {
+                        if (value.exists()) {
+                            favorite.setIcon(R.drawable.ic_favorite);
+                        } else {
+                            favorite.setIcon(R.drawable.ic_action_favorite);
+                        }
+                    }
+                }
+            });
+        }
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private boolean isSelected = false;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ic_favorite:
+                isSelected = !isSelected;
+                if (isSelected) {
+                    item.setIcon(R.drawable.ic_favorite);
+                } else {
+                    item.setIcon(R.drawable.ic_action_favorite);
+                }
+                addToFavorite();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    void addToFavorite() {
+        mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(hotel.getId())).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (!task.getResult().exists()) {
+                    Map<String, Object> likesMap = new HashMap<>();
+                    likesMap.put("timestamp", FieldValue.serverTimestamp());
+                    mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(hotel.getId())).set(likesMap);
+                } else {
+                    mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(hotel.getId())).delete();
+                }
+            }
+        });
     }
 
     void initToolBar() {
