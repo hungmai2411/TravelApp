@@ -213,110 +213,115 @@
             </TableLayout>
 
             <View
-                android:layout_marginVertical="15dp"
+                style="@style/Divider.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                style="@style/Divider.Horizontal"/>
+                android:layout_marginVertical="15dp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Booking type"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
+                    android:text="Booking type" />
+
+                <TextView
                     android:id="@+id/txtBookingType"
-                    android:text="One night"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="One night"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hotel name"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
+                    android:text="Hotel name" />
+
+                <TextView
                     android:id="@+id/nameHotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Kieu Hoang Yen Hotel"
+                    android:textColor="@color/black"
                     android:textDirection="rtl"
-                    android:text="Kieu Hoang Yen Hotel"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Room type"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
+                    android:text="Room type" />
+
+                <TextView
                     android:id="@+id/txtTypeRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Kieu Hoang Yen Hotel"
+                    android:textColor="@color/black"
                     android:textDirection="rtl"
-                    android:text="Kieu Hoang Yen Hotel"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <View
-                android:layout_marginVertical="15dp"
+                style="@style/Divider.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                style="@style/Divider.Horizontal"/>
+                android:layout_marginVertical="15dp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
+                    android:text="Your name" />
+
+                <TextView
                     android:id="@+id/txtName"
-                    android:text="One night"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="One night"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mobile Number"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
+                    android:text="Mobile Number" />
+
+                <TextView
                     android:id="@+id/txtNumber"
-                    android:text="One night"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="One night"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -11,6 +11,8 @@ import com.travelappproject.model.hotel.room.Room;
 
 import java.util.concurrent.TimeUnit;
 
+import vn.zalopay.sdk.ZaloPaySDK;
+
 public class ConfirmActivity extends AppCompatActivity {
     public Room room;
     public String hotelName;
@@ -33,5 +35,11 @@ public class ConfirmActivity extends AppCompatActivity {
         msDiff = endDate - startDate;
         daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
         getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment0()).commit();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ZaloPaySDK.getInstance().onResult(intent);
     }
 }
