@@ -83,6 +83,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setUserInformation() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         firestore.collection("users").document(UserID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -95,7 +96,16 @@ public class ProfileFragment extends Fragment {
                         String PhoneNumber = task.getResult().getString("phonenumber");
                         String ImageURL = task.getResult().getString("image");
 
-                        txtName.setText(Name);
+                        if(Name == ""){
+                            if(user.getEmail().isEmpty()){
+                                txtName.setText(user.getDisplayName());
+                            }else{
+                                txtName.setText(user.getEmail().substring(0, user.getEmail().indexOf("@")));
+                            }
+                        }else{
+                            txtName.setText(Name);
+                        }
+
                         txtAddress.setText(Address);
                         txtPhoneNumber.setText(PhoneNumber);
                         txtAbout.setText(About);

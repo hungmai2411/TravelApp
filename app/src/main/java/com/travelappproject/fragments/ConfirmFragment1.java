@@ -1,9 +1,11 @@
 package com.travelappproject.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -32,10 +36,19 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.shuhart.stepview.StepView;
 import com.travelappproject.activities.ConfirmActivity;
 import com.travelappproject.adapter.PaymentAdapter;
+import com.travelappproject.helperforzalopay.CreateOrder;
 import com.travelappproject.model.hotel.Payment;
+
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPayError;
+import vn.zalopay.sdk.ZaloPaySDK;
+import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class ConfirmFragment1 extends Fragment {
     AppBarLayout appBarLayout;
@@ -43,6 +56,8 @@ public class ConfirmFragment1 extends Fragment {
     Toolbar toolbar;
     RecyclerView rcvPaymentMethod;
     ConfirmActivity confirmActivity;
+    TextView txtPrice;
+
 
     public ConfirmFragment1() {
         // Required empty public constructor
@@ -60,9 +75,15 @@ public class ConfirmFragment1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         confirmActivity = (ConfirmActivity) getActivity();
         if (getArguments() != null) {
         }
+
+        ZaloPaySDK.init(554, Environment.SANDBOX);
     }
 
     @Override
@@ -79,6 +100,8 @@ public class ConfirmFragment1 extends Fragment {
         appBarLayout = view.findViewById(R.id.app_bar);
         collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar);
         toolbar = view.findViewById(R.id.toolbar);
+        txtPrice = view.findViewById(R.id.txtPrice);
+
 
         initToolBar();
 
@@ -91,9 +114,34 @@ public class ConfirmFragment1 extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
+                CreateOrder orderApi = new CreateOrder();
+                try{
+                    JSONObject data = orderApi.createOrder(txtPrice.getText().toString());
+                    String token = data.getString("zp_trans_token");
+                    ZaloPaySDK.getInstance().payOrder(getActivity(), token, "demozpdk://app", new PayOrderListener() {
+                        @Override
+                        public void onPaymentSucceeded(String s, String s1, String s2) {
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
+                            Toast.makeText(getActivity(), "Thanh toán thành công.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onPaymentCanceled(String s, String s1) {
+                            Toast.makeText(getActivity(), "Thanh toán bị huỷ.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
+                            Toast.makeText(getActivity(), "Thanh toán không thành công.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
+
 
         rcvPaymentMethod = view.findViewById(R.id.rcvPaymentMethod);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
@@ -128,4 +176,5 @@ public class ConfirmFragment1 extends Fragment {
             }
         });
     }
+
 }
