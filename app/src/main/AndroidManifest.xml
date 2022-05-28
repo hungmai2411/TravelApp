@@ -18,8 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
+
+            android:name=".activities.ReviewActivity"
+            android:exported="true" >
+
+        </activity>
+
             android:name=".activities.EditProfileActivity"
             android:exported="false" />
+
         <activity
             android:name=".activities.BookingDetailActivity"
             android:exported="false" />
@@ -56,10 +63,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
         </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -83,7 +92,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <service android:name="com.travelappproject.FetchAddressIntentService"/>
+
+        <service android:name=".FetchAddressIntentService" />
     </application>
 
 </manifest>

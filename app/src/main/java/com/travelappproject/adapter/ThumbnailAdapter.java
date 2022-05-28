@@ -1,5 +1,6 @@
 package com.travelappproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.Thum
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ThumbnailViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ThumbnailViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtLocation.setText(mListLocation.get(position));
 
         RequestOptions options = new RequestOptions()
@@ -57,7 +58,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.Thum
 
     @Override
     public int getItemCount() {
-        return 7;
+        return 6;
     }
 
     public class ThumbnailViewHolder extends RecyclerView.ViewHolder{

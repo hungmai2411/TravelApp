@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -51,12 +53,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.Constants;
 import com.travelappproject.FetchAddressIntentService;
+import com.travelappproject.LocationUtils;
 import com.travelappproject.fragments.FavoriteFragment;
 import com.travelappproject.fragments.HomeFragment;
 import com.travelappproject.fragments.ProfileFragment;
 import com.travelappproject.R;
+import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -67,25 +73,23 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottom_navigation;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
-    Intent intent;
+    private HotelViewModel hotelViewModel;
     String state;
     String finalState;
-    private LocationRequest locationRequest;
     ProgressDialog progressDialog;
-
-    private FusedLocationProviderClient fusedLocationClient;
     ExecutorService executorService;
-    ResultReceiver resultReceiver;
+
+    LocationUtils locationUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        resultReceiver = new AddressResultReceiver(new Handler());
-        executorService = Executors.newSingleThreadExecutor();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        locationUtils = new LocationUtils(getApplicationContext());
 
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
+        executorService = Executors.newSingleThreadExecutor();
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
@@ -94,10 +98,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getCurrentLocation() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
+    public void showDialog(Context context) {
+        //setting up progress dialog
+        progressDialog = new ProgressDialog(context);
         progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
+
+    public void dismissDialog() {
+        progressDialog.dismiss();
+    }
+
+    private void getCurrentLocation() {
+        showDialog(this);
 
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
@@ -118,18 +133,11 @@ public class MainActivity extends AppCompatActivity {
                             double latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
                             double longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
 
-                            Location location = new Location("providerNA");
-                            location.setLongitude(longitude);
-                            location.setLatitude(latitude);
-
-                            Log.d("111", "long: " + longitude + " lat: " + latitude);
-
-                            executorService.execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    fetchAddressFronLatLong(location);
-                                }
-                            });
+                            state = locationUtils.getState(latitude,longitude);
+                            hotelViewModel.getList(state);
+                            addControls();
+                            addEvents();
+                            dismissDialog();
                         } else {
                             Log.d("111", "null");
                             progressDialog.dismiss();
@@ -149,13 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void fetchAddressFronLatLong(Location location) {
-        Intent intent = new Intent(this, FetchAddressIntentService.class);
-        intent.putExtra(Constants.RECEIVER, resultReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
-        startService(intent);
     }
 
     private void addEvents() {
@@ -190,27 +191,5 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_container, HomeFragment.newInstance(state), null).commit();
         finalState = state;
-    }
-
-    private class AddressResultReceiver extends ResultReceiver {
-        AddressResultReceiver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            super.onReceiveResult(resultCode, resultData);
-            if (resultCode == Constants.SUCCESS_RESULT) {
-                String[] list = resultData.getString(Constants.RESULT_DATA_KEY).split(",");
-                String s = list[3];
-                state = s.trim();
-                addControls();
-                addEvents();
-                Log.d("111", resultData.getString(Constants.RESULT_DATA_KEY));
-            } else {
-                Log.d("111", resultData.getString(Constants.RESULT_DATA_KEY));
-            }
-            progressDialog.dismiss();
-        }
     }
 }

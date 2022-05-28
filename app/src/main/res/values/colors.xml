@@ -12,5 +12,7 @@
     <color name="detail_color">#8F8F8F</color>
     <color name="background">#FDFEFE</color>
     <color name="gray">#efefef</color>
+    <color name="shimmer_color">#BFBDBD</color>
+    <color name="light_primary">#ecf9fd</color>
     <color name="grey">#E3E3E3</color>
 </resources>

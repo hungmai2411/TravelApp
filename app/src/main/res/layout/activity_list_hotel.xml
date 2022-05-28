@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,23 +7,119 @@
     android:orientation="vertical"
     tools:context=".activities.ListHotelActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:id="@+id/toolbar"
-        android:textAlignment="center"
-        app:navigationIcon="@drawable/ic_action_back"
-        app:title="Ho Chi Minh"/>
-
-    <View
-        android:id="@+id/toolbar_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@drawable/toolbar_dropshadow" />
-
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rcvListHotel"/>
+        android:orientation="vertical">
 
-</LinearLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_action_back">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Ho Chi Minh" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/toolbar_dropshadow" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/shimmer">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <include layout="@layout/shimmer_item_hotel"/>
+                <include layout="@layout/shimmer_item_hotel"/>
+                <include layout="@layout/shimmer_item_hotel"/>
+                <include layout="@layout/shimmer_item_hotel"/>
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvListHotel"
+            android:visibility="gone"
+            android:paddingHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <TableLayout
+        android:visibility="gone"
+        android:id="@+id/table"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_shape_2"
+        android:shrinkColumns="*"
+        android:stretchColumns="2">
+        <!-- Row 1 with single column -->
+        <TableRow
+            android:showDividers="middle"
+            android:divider="@drawable/table_divider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
+                android:clickable="true"
+                android:id="@+id/btnFilter"
+                android:paddingVertical="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    app:tint="@color/primary"
+                    android:src="@drawable/filter"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="Filter"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:clickable="true"
+                android:id="@+id/btnSort"
+                android:paddingVertical="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    app:tint="@color/primary"
+                    android:src="@drawable/sort"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="Sort"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
