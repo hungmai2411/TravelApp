@@ -1,5 +1,7 @@
 package com.travelappproject.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,12 +29,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.R;
 import com.travelappproject.activities.EditProfileActivity;
+import com.travelappproject.activities.LogoutActivity;
+import com.travelappproject.activities.MainActivity;
+import com.travelappproject.activities.SignInActivity;
 import com.travelappproject.model.hotel.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
-    Button btnEditProfile;
+    Button btnEditProfile,btnSignOut;
     FirebaseFirestore firestore;
     FirebaseUser user;
     User mUser;
@@ -37,6 +46,9 @@ public class ProfileFragment extends Fragment {
     TextView txtName, txtEmail, txtAbout, txtPhoneNumber, txtAddress;
     ImageView imgUser;
     CircleImageView imgAvatar;
+    private GoogleSignInClient gsc;
+    private GoogleSignInOptions gso;
+    GoogleSignInAccount account;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -51,7 +63,9 @@ public class ProfileFragment extends Fragment {
             UserID = auth.getCurrentUser().getUid();
         }
         firestore = FirebaseFirestore.getInstance();
-
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc= GoogleSignIn.getClient(getActivity(),gso);
+        account=GoogleSignIn.getLastSignedInAccount(getActivity());
         setUserInformation();
     }
 
@@ -73,6 +87,7 @@ public class ProfileFragment extends Fragment {
         txtAddress = view.findViewById(R.id.txtAddress);
         imgUser = view.findViewById(R.id.imgUser);
         imgAvatar = view.findViewById(R.id.imgAvatar);
+        btnSignOut = view.findViewById(R.id.btnSignOut);
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +95,43 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(), EditProfileActivity.class));
             }
         });
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                XacNhanThoat();
+            }
+        });
+    }
+
+    private void XacNhanThoat() {
+        AlertDialog.Builder alertdialog = new AlertDialog.Builder(getActivity());
+        alertdialog.setTitle("Thông Báo");
+        alertdialog.setMessage("Bạn có muốn thoát ?");
+        alertdialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(account!=null){
+                    gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                        }
+                    });
+                }else{
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+
+                }
+            }
+        });
+        alertdialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                return;
+            }
+        });
+        alertdialog.show();
     }
 
     private void setUserInformation() {
