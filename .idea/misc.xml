@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/drawable/rounded_corner_image.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/search_view_background.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/table_divider.xml" value="0.1015" />
+        <entry key="app/src/main/res/layout/activity_booking_detail.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/activity_choose_location.xml" value="0.12129629629629629" />
         <entry key="app/src/main/res/layout/activity_confirm.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.2953125" />
