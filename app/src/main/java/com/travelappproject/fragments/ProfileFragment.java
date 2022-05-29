@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth auth;
     String UserID;
     TextView txtName, txtEmail, txtAbout, txtPhoneNumber, txtAddress;
-    ImageView imgUser;
+    CircleImageView imgUser;
     CircleImageView imgAvatar;
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
@@ -59,7 +60,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        if(user != null){
+        if (user != null) {
             UserID = auth.getCurrentUser().getUid();
         }
         firestore = FirebaseFirestore.getInstance();
@@ -140,33 +141,33 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 txtEmail.setText(user.getEmail());
-                if(task.isSuccessful()){
-                    if(task.getResult().exists()){
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
                         String Name = task.getResult().getString("name");
                         String Address = task.getResult().getString("address");
                         String About = task.getResult().getString("about");
                         String PhoneNumber = task.getResult().getString("phonenumber");
-                        String ImageURL = task.getResult().getString("image");
+                        String ImageURL = task.getResult().getString("avatar");
 
-                        if(Name == ""){
-                            if(user.getEmail().isEmpty()){
+                        if (Name == "") {
+                            if (user.getEmail().isEmpty()) {
                                 txtName.setText(user.getDisplayName());
-                            }else{
+                            } else {
                                 txtName.setText(user.getEmail().substring(0, user.getEmail().indexOf("@")));
                             }
-                        }else{
+                        } else {
                             txtName.setText(Name);
                         }
 
+                        Log.d("img",ImageURL);
                         txtAddress.setText(Address);
                         txtPhoneNumber.setText(PhoneNumber);
                         txtAbout.setText(About);
-//                            Glide.with(getContext()).load(user.getPhotoUrl()).error(R.drawable.profile).into(imgAvatar);
-//                            Glide.with(getContext()).load(user.getPhotoUrl()).error(R.drawable.profile).into(imgUser);
+                        Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgAvatar);
+                        Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgUser);
                     }
                 }
             }
         });
-
     }
 }

@@ -61,6 +61,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.4.2'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation fileTree(dir: '/Users/nguyenduylinh/Downloads', include: ['*.aar', '*.jar'], exclude: [])
+    implementation fileTree(dir: '/Users/quochung/Downloads/DemoZPDK_Android 2/ZPDK-Android', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
