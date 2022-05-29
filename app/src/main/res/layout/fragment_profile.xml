@@ -132,6 +132,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="41 Lê Hồng Phong" />
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rounded_corner_button"
+            android:paddingHorizontal="40dp"
+            android:layout_gravity="center_horizontal"
+            android:text="SIGN OUT"
+            android:textAllCaps="false"
+            android:layout_marginTop="50dp"
+            app:backgroundTint="@color/primary"
+            >
+
+        </Button>
 
     </LinearLayout>
 </ScrollView>
