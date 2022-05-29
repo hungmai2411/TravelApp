@@ -23,39 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
-
             android:name=".activities.ReviewActivity"
             android:exported="true" >
-
         </activity>
         <activity
             android:name=".activities.EditProfileActivity"
             android:exported="false" />
-
         <activity
             android:name=".activities.BookingDetailActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ConfirmActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".activities.ConfirmActivity"-->
-<!--            android:exported="true"-->
-<!--            android:launchMode="singleTask">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action."/>-->
-<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-<!--            </intent-filter>-->
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW"/>-->
-<!--                <category android:name="android.intent.category.DEFAULT"/>-->
-<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
-<!--                <data android:scheme="demozpdk"-->
-<!--                    android:host="app"/>-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
         <activity
             android:name=".activities.RoomDetailActivity"
             android:exported="false" />

@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.travelappproject.R;
@@ -60,9 +62,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private boolean isPhotoSelected = false;
     private Uri mImageUri = null;
     String url;
+    private StorageTask mUploadTask;
 
-    //UploadTask uploadTask;
-//    private ProgressBar progressBar;
+    String name,address,about,phonenumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +83,6 @@ public class EditProfileActivity extends AppCompatActivity {
         //storageReference = storage.getReference();
         storageReference = storage.getReferenceFromUrl("gs://travel-81548.appspot.com");
 
-
-
         imgAvatar = (CircularImageView) findViewById(R.id.img_profile);
         imgAdd = (CircularImageView) findViewById(R.id.img_add);
         edtName = (EditText) findViewById(R.id.edtName);
@@ -95,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditProfileActivity.this, ProfileFragment.class));
+                finish();
             }
         });
 
@@ -104,12 +104,11 @@ public class EditProfileActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = edtName.getText().toString();
-                String address = edtAddress.getText().toString();
-                String about = edtAbout.getText().toString();
-                String phonenumber = edtPhoneNumber.getText().toString();
+                name = edtName.getText().toString();
+                address = edtAddress.getText().toString();
+                about = edtAbout.getText().toString();
+                phonenumber = edtPhoneNumber.getText().toString();
                 uploadPicture();
-                saveToFireStore(name, about, address, phonenumber);
             }
         });
 
@@ -139,8 +138,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadPicture() {
-
-        //final String[] url = new String[1];
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading...");
         pd.show();
@@ -151,13 +148,10 @@ public class EditProfileActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Task<Uri> download = taskSnapshot.getStorage().getDownloadUrl();
-//                            url = download.getResult().toString();
+                            url = taskSnapshot.getUploadSessionUri().toString();
+                            saveToFireStore(name, about, address, phonenumber,url);
                             pd.dismiss();
                             Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
-
-//                            getURL(url);
-//                            finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -181,19 +175,18 @@ public class EditProfileActivity extends AppCompatActivity {
         return url;
     }
 
-    private void saveToFireStore(String name, String about, String address, String phonenumber) {
+    private void saveToFireStore(String name, String about, String address, String phonenumber,String url) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("about", about);
         map.put("address", address);
         map.put("phonenumber", phonenumber);
-        //map.put("image", URL);
+        map.put("image", url);
         firestore.collection("users").document(UserID).update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(EditProfileActivity.this, "Profile Settings Saved", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
                     finish();
                 } else {
                     Toast.makeText(EditProfileActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
@@ -212,16 +205,13 @@ public class EditProfileActivity extends AppCompatActivity {
                         String Address = task.getResult().getString("address");
                         String About = task.getResult().getString("about");
                         String PhoneNumber = task.getResult().getString("phonenumber");
-                        String image = task.getResult().getString("image");
+                        String image = task.getResult().getString("avatar");
 
                         edtName.setText(UserName);
                         edtAddress.setText(Address);
                         edtAbout.setText(About);
                         edtPhoneNumber.setText(PhoneNumber);
-                        //Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
-                        StorageReference ImageRef = FirebaseStorage.getInstance().getReference().child("image/" + UserID + ".jpeg");
-//                        Glide.with(EditProfileActivity.this).using(new FireBaseImageLoader());
-
+                        Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
                     }
                 }
             }
