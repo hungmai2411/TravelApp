@@ -25,7 +25,7 @@
         app:startIconTint="@color/teal_200"
         app:endIconMode="clear_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="   Email"
+        android:hint="Email"
         android:layout_marginTop="25dp">
 
         <com.google.android.material.textfield.TextInputEditText
