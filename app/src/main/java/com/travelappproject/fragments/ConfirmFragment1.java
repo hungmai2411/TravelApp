@@ -1,10 +1,14 @@
 package com.travelappproject.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +87,7 @@ public class ConfirmFragment1 extends Fragment {
         if (getArguments() != null) {
         }
 
-        ZaloPaySDK.init(554, Environment.SANDBOX);
+        ZaloPaySDK.init(2554, Environment.SANDBOX);
     }
 
     @Override
@@ -114,26 +118,53 @@ public class ConfirmFragment1 extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
                 CreateOrder orderApi = new CreateOrder();
                 try{
                     JSONObject data = orderApi.createOrder(txtPrice.getText().toString());
                     String token = data.getString("zp_trans_token");
                     ZaloPaySDK.getInstance().payOrder(getActivity(), token, "demozpdk://app", new PayOrderListener() {
                         @Override
-                        public void onPaymentSucceeded(String s, String s1, String s2) {
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
-                            Toast.makeText(getActivity(), "Thanh toán thành công.", Toast.LENGTH_SHORT).show();
+                        public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+
                         }
 
                         @Override
-                        public void onPaymentCanceled(String s, String s1) {
-                            Toast.makeText(getActivity(), "Thanh toán bị huỷ.", Toast.LENGTH_SHORT).show();
+                        public void onPaymentCanceled(String zpTransToken, String appTransID) {
+
                         }
 
                         @Override
-                        public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
-                            Toast.makeText(getActivity(), "Thanh toán không thành công.", Toast.LENGTH_SHORT).show();
+                        public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
+                            //Toast.makeText(getActivity(), "Thanh toán không thành công.", Toast.LENGTH_SHORT).show();
+                            if (zaloPayError == ZaloPayError.PAYMENT_APP_NOT_FOUND) {
+                                final Handler handler = new Handler(Looper.getMainLooper());
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        new AlertDialog.Builder(getContext())
+                                                .setTitle("Lỗi thanh toán")
+                                                .setMessage("Ứng dụng ZaloPay chưa được cài đặt trên thiết bị này.")
+                                                .setPositiveButton("Mở cửa hàng ứng dụng", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        ZaloPaySDK.getInstance().navigateToZaloPayOnStore(getContext());
+                                                    }
+                                                })
+                                                .setNegativeButton("Trở về", null).show();
+
+                                    }
+                                }, 500);
+                            } else {
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle("Lỗi thanh toán")
+                                        .setMessage(String.format("Mã lỗi: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        })
+                                        .setNegativeButton("Thoát", null).show();
+                            }
                         }
                     });
                 }catch (Exception e){
@@ -141,7 +172,6 @@ public class ConfirmFragment1 extends Fragment {
                 }
             }
         });
-
 
         rcvPaymentMethod = view.findViewById(R.id.rcvPaymentMethod);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
