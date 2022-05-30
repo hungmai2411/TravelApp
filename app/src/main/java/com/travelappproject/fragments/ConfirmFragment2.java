@@ -77,7 +77,6 @@ public class ConfirmFragment2 extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), BookingDetailActivity.class));
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
             }
         });
 

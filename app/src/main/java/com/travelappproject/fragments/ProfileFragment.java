@@ -147,7 +147,7 @@ public class ProfileFragment extends Fragment {
                         String Address = task.getResult().getString("address");
                         String About = task.getResult().getString("about");
                         String PhoneNumber = task.getResult().getString("phonenumber");
-                        String ImageURL = task.getResult().getString("avatar");
+                        String ImageURL = task.getResult().getString("image");
 
                         if (Name == "") {
                             if (user.getEmail().isEmpty()) {
@@ -159,7 +159,6 @@ public class ProfileFragment extends Fragment {
                             txtName.setText(Name);
                         }
 
-                        Log.d("img",ImageURL);
                         txtAddress.setText(Address);
                         txtPhoneNumber.setText(PhoneNumber);
                         txtAbout.setText(About);

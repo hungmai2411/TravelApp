@@ -27,6 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
+import com.travelappproject.activities.HotelDetailActivity;
+import com.travelappproject.activities.ListHotelActivity;
 import com.travelappproject.activities.SignInActivity;
 import com.travelappproject.adapter.FavoriteAdapter;
 import com.travelappproject.model.hotel.Hotel;
@@ -85,7 +87,11 @@ public class FavoriteFragment extends Fragment {
             favoriteAdapter = new FavoriteAdapter(getActivity(), uid, new FavoriteAdapter.IClickItemListener() {
                 @Override
                 public void onClickItem(Hotel hotel) {
-
+                    Intent intent1 = new Intent(getContext(), HotelDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("hotel", hotel);
+                    intent1.putExtras(bundle);
+                    startActivity(intent1);
                 }
             });
 

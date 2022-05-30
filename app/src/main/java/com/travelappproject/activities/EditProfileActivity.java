@@ -133,7 +133,9 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data.getData() != null){
             mImageUri = data.getData();
-            imgAvatar.setImageURI(mImageUri);
+            Glide.with(EditProfileActivity.this).load(mImageUri).error(R.drawable.profile).into(imgAvatar);
+
+            //imgAvatar.setImageURI(mImageUri);
         }
     }
 
@@ -148,10 +150,19 @@ public class EditProfileActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            url = taskSnapshot.getUploadSessionUri().toString();
-                            saveToFireStore(name, about, address, phonenumber,url);
-                            pd.dismiss();
-                            Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
+                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    url = uri.toString();
+                                    saveToFireStore(name, about, address, phonenumber,url);
+                                    pd.dismiss();
+                                    Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
+
+//                                    String ref = yourStorageReference.getName();
+//                                    Log.e("TAG:", "the ref is: " + ref);
+                                }
+                            });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
