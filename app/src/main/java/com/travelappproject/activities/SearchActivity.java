@@ -8,8 +8,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.algolia.search.DefaultSearchClient;
 import com.algolia.search.SearchClient;
@@ -37,6 +39,9 @@ public class SearchActivity extends AppCompatActivity {
     ImageView btnBack;
     EditText edtSearch;
     Client client;
+    ListView lvSearch;
+    ArrayAdapter<String> adapterSearch;
+    List<String> listSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,34 +51,15 @@ public class SearchActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
         edtSearch = findViewById(R.id.edtSearch);
+        lvSearch = findViewById(R.id.lvSearch);
+        listSearch = new ArrayList<>();
+        adapterSearch = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listSearch);
+        lvSearch.setAdapter(adapterSearch);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Index index = client.getIndex("hotels");
-                com.algolia.search.saas.Query query = new Query(edtSearch.getText().toString())
-                        .setAttributesToRetrieve("*")
-                        .setHitsPerPage(10)
-                        .setPage(0);
-
-
-                index.searchAsync(query, new CompletionHandler() {
-                    @Override
-                    public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
-                        try {
-                            JSONArray hits = jsonObject.getJSONArray("hits");
-                            List<String> list = new ArrayList<>();
-                            for (int i = 0; i < hits.length(); i++){
-                                JSONObject jsonObject1 = hits.getJSONObject(i);
-                                String id = jsonObject1.getString("name");
-                                Log.d("result1",id);
-                            }
-                        } catch (JSONException jsonException) {
-                            jsonException.printStackTrace();
-                        }
-                    }
-                });
+                finish();
             }
         });
         edtSearch.addTextChangedListener(new TextWatcher() {
@@ -89,7 +75,32 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                listSearch.clear();
+                adapterSearch.notifyDataSetChanged();
 
+                Index index = client.getIndex("hotels");
+                com.algolia.search.saas.Query query = new Query(editable.toString())
+                        .setAttributesToRetrieve("*")
+                        .setHitsPerPage(10)
+                        .setPage(0);
+
+                index.searchAsync(query, new CompletionHandler() {
+                    @Override
+                    public void requestCompleted(@Nullable JSONObject jsonObject, @Nullable AlgoliaException e) {
+                        try {
+                            JSONArray hits = jsonObject.getJSONArray("hits");
+                            List<String> list = new ArrayList<>();
+                            for (int i = 0; i < hits.length(); i++){
+                                JSONObject jsonObject1 = hits.getJSONObject(i);
+                                String name = jsonObject1.getString("name");
+                                listSearch.add(name);
+                            }
+                            adapterSearch.notifyDataSetChanged();
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                    }
+                });
             }
         });
     }
