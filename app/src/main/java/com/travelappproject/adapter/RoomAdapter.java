@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.travelappproject.HandleCurrency;
 import com.travelappproject.R;
 import com.travelappproject.model.hotel.room.Room;
 
@@ -62,7 +63,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             }
         });
 
-        holder.txtPrice.setText(String.valueOf(mList.get(position).getPrice()));
+        holder.txtPrice.setText(new HandleCurrency().handle(mList.get(position).getPrice()));
     }
 
     @Override

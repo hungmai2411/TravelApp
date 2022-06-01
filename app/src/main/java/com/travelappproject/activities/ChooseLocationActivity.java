@@ -37,7 +37,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         lvProvince = findViewById(R.id.lvProvince);
         lvDistrict = findViewById(R.id.lvDistrict);
 
