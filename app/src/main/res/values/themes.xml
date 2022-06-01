@@ -37,6 +37,12 @@
         // You can change thickness here.
     </style>
 
+    <style name="Divider.Horizontal.Big" parent="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        // You can change thickness here.
+    </style>
+
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>

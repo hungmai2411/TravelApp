@@ -11,11 +11,23 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        app:elevation="10dp"
-        app:navigationIcon="@drawable/ic_action_back"
-        app:title="Booking" />
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_action_back">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="My Booking" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,13 +93,13 @@
                 android:text="Booking Time"/>
 
             <TextView
+                android:id="@+id/dateBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_alignParentRight="true"
-                android:textStyle="bold"
-                android:id="@+id/dateBooking"
-                android:text="09:10 05/05/2022"/>
+                android:text="09:10 05/05/2022"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <TableLayout
@@ -131,7 +143,7 @@
                     <TextView
                         android:id="@+id/txtTimeCheckIn"
                         android:layout_gravity="start"
-                        android:text="07:30"
+                        android:text="14:00"
                         android:textColor="#000000"
                         android:layout_marginTop="3dp"
                         android:textStyle="bold"
@@ -168,7 +180,7 @@
                     <TextView
                         android:id="@+id/txtTimeCheckOut"
                         android:layout_gravity="start"
-                        android:text="07:30"
+                        android:text="12:00"
                         android:textColor="#000000"
                         android:layout_marginTop="3dp"
                         android:textStyle="bold"
@@ -221,5 +233,87 @@
                 android:id="@+id/txtTypeRoom"
                 android:text="PHONG MAY LANH"/>
         </RelativeLayout>
+
+        <View
+            android:layout_marginVertical="20dp"
+            style="@style/Divider.Horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Thanh toán"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_marginVertical="10dp"
+            style="@style/Divider.Horizontal"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng cộng"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="330 000"
+                android:textColor="@color/primary"
+                android:textSize="25dp"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <View
+            android:layout_marginVertical="20dp"
+            style="@style/Divider.Horizontal"/>
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái thanh toán"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:id="@+id/txtStatus"
+                android:text="Đang chờ thanh toán"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phương thức thanh toán"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:id="@+id/txtChoice"
+                android:text="Kieu Hoang Yen Hotel"/>
+        </RelativeLayout>
+
     </LinearLayout>
 </LinearLayout>

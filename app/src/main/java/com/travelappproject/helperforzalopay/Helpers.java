@@ -2,8 +2,6 @@ package com.travelappproject.helperforzalopay;
 
 import android.annotation.SuppressLint;
 
-import com.travelappproject.helperforzalopay.HMacUtil;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.security.InvalidKeyException;
