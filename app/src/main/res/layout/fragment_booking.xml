@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragments.FavoriteFragment">
+    tools:context=".fragments.BookingFragment">
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Favorites" />
+                android:text="Bookings" />
         </androidx.appcompat.widget.Toolbar>
 
         <View
@@ -36,14 +36,12 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="visible"
-        android:layout_marginTop="5dp"
+        android:visibility="gone"
         android:layout_below="@+id/layout"
-        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rcvFavorite"/>
+        android:id="@+id/rcvBookings"/>
 
     <LinearLayout
         android:id="@+id/layoutSignIn"

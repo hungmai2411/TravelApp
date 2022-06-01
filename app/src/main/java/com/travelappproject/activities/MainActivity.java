@@ -54,6 +54,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.Constants;
 import com.travelappproject.FetchAddressIntentService;
 import com.travelappproject.LocationUtils;
+import com.travelappproject.fragments.BookingFragment;
 import com.travelappproject.fragments.FavoriteFragment;
 import com.travelappproject.fragments.HomeFragment;
 import com.travelappproject.fragments.ProfileFragment;
@@ -174,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.pageProfile:
                         fragment = new ProfileFragment();
+                        break;
+                    case R.id.pageBooking:
+                        fragment = new BookingFragment();
                         break;
                 }
 
