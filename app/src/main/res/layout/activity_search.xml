@@ -33,8 +33,8 @@
         </EditText>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lvSearch"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvSearch"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

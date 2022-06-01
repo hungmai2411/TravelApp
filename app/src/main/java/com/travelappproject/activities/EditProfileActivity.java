@@ -63,6 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Uri mImageUri = null;
     String url;
     private StorageTask mUploadTask;
+    ProgressDialog progressDialog;
 
     String name,address,about,phonenumber;
 
@@ -139,10 +140,21 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void showDialog(Context context) {
+        //setting up progress dialog
+        progressDialog = new ProgressDialog(context);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
+
+    public void dismissDialog() {
+        progressDialog.dismiss();
+    }
+
     private void uploadPicture() {
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading...");
-        pd.show();
+        showDialog(this);
 
         StorageReference riversRef = storageReference.child("image/" + UserID);
         if(mImageUri != null){
@@ -156,25 +168,22 @@ public class EditProfileActivity extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     url = uri.toString();
                                     saveToFireStore(name, about, address, phonenumber,url);
-                                    pd.dismiss();
+                                    dismissDialog();
                                     Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
-
-//                                    String ref = yourStorageReference.getName();
-//                                    Log.e("TAG:", "the ref is: " + ref);
                                 }
                             });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    pd.dismiss();
+                    dismissDialog();
                     Toast.makeText(EditProfileActivity.this, "Failed to upload image.", Toast.LENGTH_LONG).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                     double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                    pd.setMessage("Percentage: " + (int)progressPercent + "%");
+                    progressDialog.setMessage("Percentage: " + (int)progressPercent + "%");
                 }
             });
         }
@@ -216,7 +225,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         String Address = task.getResult().getString("address");
                         String About = task.getResult().getString("about");
                         String PhoneNumber = task.getResult().getString("phonenumber");
-                        String image = task.getResult().getString("avatar");
+                        String image = task.getResult().getString("image");
 
                         edtName.setText(UserName);
                         edtAddress.setText(Address);

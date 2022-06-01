@@ -12,6 +12,11 @@
         android:icon="@drawable/ic_action_favorite"
         android:title="Favorite"/>
     <item
+        android:id="@+id/pageBooking"
+        android:enabled="true"
+        android:icon="@drawable/booking"
+        android:title="Booking"/>
+    <item
         android:id="@+id/pageProfile"
         android:enabled="true"
         android:icon="@drawable/ic_action_profile"

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -50,6 +51,7 @@ public class ProfileFragment extends Fragment {
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
     GoogleSignInAccount account;
+    Toolbar toolbar;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,14 +62,15 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        firestore = FirebaseFirestore.getInstance();
         if (user != null) {
             UserID = auth.getCurrentUser().getUid();
+            setUserInformation();
         }
-        firestore = FirebaseFirestore.getInstance();
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc= GoogleSignIn.getClient(getActivity(),gso);
         account=GoogleSignIn.getLastSignedInAccount(getActivity());
-        setUserInformation();
     }
 
     @Override
@@ -159,11 +162,11 @@ public class ProfileFragment extends Fragment {
                             txtName.setText(Name);
                         }
 
-                        txtAddress.setText(Address);
-                        txtPhoneNumber.setText(PhoneNumber);
-                        txtAbout.setText(About);
-                        Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgAvatar);
-                        Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgUser);
+                        //txtAddress.setText(Address);
+                        //txtPhoneNumber.setText(PhoneNumber);
+                        //txtAbout.setText(About);
+                        //Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgAvatar);
+                        //Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgUser);
                     }
                 }
             }
