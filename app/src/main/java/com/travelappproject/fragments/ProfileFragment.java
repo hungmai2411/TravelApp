@@ -25,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.divider.MaterialDivider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,14 +40,13 @@ import com.travelappproject.model.hotel.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
-    Button btnEditProfile,btnSignOut;
+    Button btnEditProfile, btnSignOut, btnLanguage, btnContact, btnSignin;
     FirebaseFirestore firestore;
     FirebaseUser user;
-    User mUser;
+    MaterialDivider divider;
     FirebaseAuth auth;
     String UserID;
-    TextView txtName, txtEmail, txtAbout, txtPhoneNumber, txtAddress;
-    CircleImageView imgUser;
+    TextView txtName, txtEmail, txtDes;
     CircleImageView imgAvatar;
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
@@ -62,15 +62,17 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+
         firestore = FirebaseFirestore.getInstance();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(getActivity(),gso);
+        account=GoogleSignIn.getLastSignedInAccount(getActivity());
+
         if (user != null) {
             UserID = auth.getCurrentUser().getUid();
             setUserInformation();
         }
-
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc= GoogleSignIn.getClient(getActivity(),gso);
-        account=GoogleSignIn.getLastSignedInAccount(getActivity());
     }
 
     @Override
@@ -86,12 +88,33 @@ public class ProfileFragment extends Fragment {
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         txtName = view.findViewById(R.id.txtName);
         txtEmail = view.findViewById(R.id.txtEmail);
-        txtAbout = view.findViewById(R.id.txtAbout);
-        txtPhoneNumber = view.findViewById(R.id.txtPhone);
-        txtAddress = view.findViewById(R.id.txtAddress);
-        imgUser = view.findViewById(R.id.imgUser);
         imgAvatar = view.findViewById(R.id.imgAvatar);
         btnSignOut = view.findViewById(R.id.btnSignOut);
+        btnLanguage = view.findViewById(R.id.btnLanguage);
+        btnContact = view.findViewById(R.id.btnContact);
+        btnSignin = view.findViewById(R.id.btnSignIn);
+        divider = view.findViewById(R.id.divider);
+        txtDes = view.findViewById(R.id.txtDescription);
+
+        if(user == null){
+            imgAvatar.setVisibility(View.GONE);
+            txtName.setVisibility(View.GONE);
+            txtEmail.setVisibility(View.GONE);
+            btnEditProfile.setVisibility(View.GONE);
+            btnSignOut.setVisibility(View.GONE);
+            divider.setVisibility(View.GONE);
+        }else{
+            btnSignin.setVisibility(View.GONE);
+            txtDes.setVisibility(View.GONE);
+
+        }
+
+        btnSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SignInActivity.class));
+            }
+        });
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +148,6 @@ public class ProfileFragment extends Fragment {
                 }else{
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(getActivity(), MainActivity.class));
-
                 }
             }
         });
@@ -144,6 +166,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 txtEmail.setText(user.getEmail());
+                //String Name, Address, About, PhoneNumber, ImageURL, type;
+                //String Name = "";
                 if (task.isSuccessful()) {
                     if (task.getResult().exists()) {
                         String Name = task.getResult().getString("name");
@@ -151,22 +175,18 @@ public class ProfileFragment extends Fragment {
                         String About = task.getResult().getString("about");
                         String PhoneNumber = task.getResult().getString("phonenumber");
                         String ImageURL = task.getResult().getString("image");
+                        String type = task.getResult().getString("type");
 
-                        if (Name == "") {
-                            if (user.getEmail().isEmpty()) {
-                                txtName.setText(user.getDisplayName());
-                            } else {
-                                txtName.setText(user.getEmail().substring(0, user.getEmail().indexOf("@")));
+                        if(type.equals("Email and password") || type.equals("Google")){
+                            if(Name == null || Name.equals("")){
+                                Name = user.getEmail().replaceAll("@.*","").replaceAll("[^a-zA-Z]+", " ").trim();
                             }
-                        } else {
-                            txtName.setText(Name);
+                        }else if(type.equals("Facebook")){
+                            if(Name == null || Name.equals(""))
+                                Name = user.getDisplayName();
                         }
-
-                        //txtAddress.setText(Address);
-                        //txtPhoneNumber.setText(PhoneNumber);
-                        //txtAbout.setText(About);
-                        //Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgAvatar);
-                        //Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgUser);
+                        txtName.setText(Name);
+                        Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgAvatar);
                     }
                 }
             }
