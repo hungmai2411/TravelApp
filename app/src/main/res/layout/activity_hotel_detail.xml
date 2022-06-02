@@ -7,11 +7,19 @@
     android:orientation="vertical"
     tools:context=".activities.HotelDetailActivity">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/shimmer_item_hotel_detail" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:visibility="gone">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -26,10 +34,10 @@
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slider"
                 android:layout_width="match_parent"
-                app:iss_auto_cycle="true"
-                app:iss_period="1000"
-                app:iss_delay="0"
                 android:layout_height="match_parent"
+                app:iss_auto_cycle="true"
+                app:iss_delay="0"
+                app:iss_period="1000"
                 app:iss_text_align="CENTER" />
 
             <androidx.appcompat.widget.Toolbar
@@ -45,8 +53,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
@@ -167,8 +177,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/custom_shape"
-                    android:shrinkColumns="*"
-                    >
+                    android:shrinkColumns="*">
                     <!-- Row 1 with single column -->
                     <TableRow
                         android:layout_width="0dp"
@@ -178,20 +187,20 @@
                         android:showDividers="middle">
 
                         <LinearLayout
-                            android:clickable="true"
+                            android:id="@+id/btnCheckIn"
                             android:layout_gravity="center"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
-                            android:id="@+id/btnCheckIn"
+                            android:clickable="true"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:text="Check-In"
+                                android:text="@string/check_in"
                                 android:textColor="#9B9797"
                                 android:textSize="17dp" />
 
@@ -221,29 +230,30 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:clickable="true"
                             android:layout_weight="1"
+                            android:clickable="true"
                             android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal">
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Check-Out "
-                                android:textColor="#9B9797"
-                                android:textSize="17dp" />
+                                android:layout_gravity="center_horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:id="@+id/txtNumber"
-                                android:textColor="#9B9797"
-                                android:textSize="17dp" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/check_out"
+                                    android:textColor="#9B9797"
+                                    android:textSize="17dp" />
+
+                                <TextView
+                                    android:id="@+id/txtNumber"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="#9B9797"
+                                    android:textSize="17dp" />
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -272,7 +282,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingHorizontal="15dp"
-                    android:text="Select Room"
+                    android:text="@string/select_room"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />

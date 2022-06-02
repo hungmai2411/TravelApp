@@ -16,16 +16,39 @@
     <string name="nha_trang">Nha Trang</string>
     <string name="da_lat">Đà Lạt</string>
     <string name="title_activity_room_detail">RoomDetailActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_booking_detail">BookingDetailActivity</string>
     <string name="hot_hotel">Khách sạn nổi tiếng</string>
     <string name="popular_destinations">Địa điểm phổ biến</string>
+    <string name="booking">Đặt phòng</string>
+    <string name="booking_id">Mã đặt phòng</string>
+    <string name="booking_time">Thời gian đặt phòng</string>
+    <string name="check_in">Nhận phòng</string>
+    <string name="check_out">Trả phòng</string>
+    <string name="hotel_name">Tên khách sạn</string>
+    <string name="room_type">Loại phòng</string>
+    <string name="thanh_toan">Thanh toán</string>
+    <string name="tong_cong">Tổng cộng</string>
+    <string name="trang_thai_thanh_toan">Trạng thái thanh toán</string>
+    <string name="trang_thai">Đang chờ thanh toán</string>
+    <string name="phuong_thuc">Thanh toán tại khách sạn</string>
+    <string name="ph_ng_th_c_thanh_to_n">Phương thức thanh toán</string>
+    <string name="please_select_area">Vui lòng chọn khu vực</string>
+    <string name="confirm_information">Xác nhận thông tin</string>
+    <string name="booking_type">Hình thức đặt phòng</string>
+    <string name="your_name">Tên của bạn</string>
+    <string name="mobile_number">Số điện thoại</string>
+    <string name="next">Tiếp theo</string>
+    <string name="choose_payment">Tiến hành thanh t</string>
+    <string name="ch_n_ph_ng_th_c_thanh_to_n">Chọn phương thức thanh toán</string>
+    <string name="ch_nh_s_ch_amp_i_u_kho_n"><![CDATA[Chính sách & Điều khoản]]></string>
+    <string name="ch_nh_s_ch_hu_ph_ng">Chính sách huỷ phòng</string>
+    <string name="x_c_nh_n">Xác nhận</string>
+    <string name="booked">Đã đặt</string>
+    <string name="t_ph_ng_th_nh_c_ng">Đặt phòng thành công!</string>
+    <string name="b_n_t_ph_ng_th_nh_c_ng_t_i_kh_ch_s_n">Bạn đã đặt phòng thành công tại khách sạn</string>
+    <string name="c_m_n_v_ch_c_b_n_vui_v">Cảm ơn và chúc bạn vui vẻ</string>
+    <string name="chi_ti_t_t_ph_ng">Chi tiết đặt phòng</string>
+    <string name="select_room">Chọn phòng</string>
+    <string name="ki_m_tra_t_ph_ng_c_a_b_n">Kiểm tra đặt phòng của bạn</string>
 
 </resources>
