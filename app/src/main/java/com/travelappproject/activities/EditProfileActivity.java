@@ -61,7 +61,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private boolean isPhotoSelected = false;
     private Uri mImageUri = null;
     String url;
-
+    ProgressDialog progressDialog;
     String name,address,about,phonenumber;
 
     @Override
