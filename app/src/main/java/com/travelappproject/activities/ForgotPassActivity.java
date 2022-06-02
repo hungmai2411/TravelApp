@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.travelappproject.R;
 
+import vn.thanguit.toastperfect.ToastPerfect;
+
 public class ForgotPassActivity extends AppCompatActivity {
 
     private Button forgotpass;
@@ -37,7 +39,7 @@ public class ForgotPassActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email=txtforgot.getText().toString();
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!!",Toast.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập email!", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                     return;
                 }
                 else{
@@ -45,12 +47,12 @@ public class ForgotPassActivity extends AppCompatActivity {
                     mauth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(getApplicationContext(),"Reset link sent to your email.",Toast.LENGTH_LONG).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.INFORMATION, "Reset link sent to your email", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),"Error! Reset link is not sent to your email. "+e.getMessage(),Toast.LENGTH_LONG).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, "Error! " + e.getMessage(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                         }
                     });
                 }
