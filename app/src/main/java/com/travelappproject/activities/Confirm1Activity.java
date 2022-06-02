@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.thanguit.toastperfect.ToastPerfect;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
@@ -152,12 +153,12 @@ public class Confirm1Activity extends AppCompatActivity {
 
                                     @Override
                                     public void onPaymentCanceled(String zpTransToken, String appTransID) {
-                                        Toast.makeText(Confirm1Activity.this, "Thanh toán bị hủy", Toast.LENGTH_SHORT).show();
+                                        ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, "Thanh toán bị hủy", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-                                        Toast.makeText(Confirm1Activity.this, "Thanh toán thất bại", Toast.LENGTH_SHORT).show();
+                                        ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, "Thanh toán thất bại", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
                                 });
                             }
