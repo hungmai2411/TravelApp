@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="My Booking" />
+            android:text="@string/booking" />
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -68,10 +68,11 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Booking ID"/>
+                android:text="@string/booking_id" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Booking Time"/>
+                android:text="@string/booking_time"/>
 
             <TextView
                 android:id="@+id/dateBooking"
@@ -126,7 +127,7 @@
                     android:orientation="vertical">
                     <TextView
                         android:layout_gravity="start"
-                        android:text="Check-In"
+                        android:text="@string/check_in"
                         android:textSize="17dp"
                         android:textColor="#9B9797"
                         android:layout_height="wrap_content"
@@ -163,7 +164,7 @@
                     android:orientation="vertical">
                     <TextView
                         android:layout_gravity="start"
-                        android:text="Check-Out"
+                        android:text="@string/check_out"
                         android:textSize="17dp"
                         android:textColor="#9B9797"
                         android:layout_height="wrap_content"
@@ -200,10 +201,11 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hotel name"/>
+                android:text="@string/hotel_name" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -219,10 +221,11 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Room type"/>
+                android:text="@string/room_type" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -243,7 +246,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:text="Thanh toán"
+            android:text="@string/thanh_toan"
             android:textColor="@color/black" />
 
         <View
@@ -257,7 +260,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tổng cộng"
+                android:text="@string/tong_cong"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -281,10 +284,11 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trạng thái thanh toán"/>
+                android:text="@string/trang_thai_thanh_toan" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -300,10 +304,11 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phương thức thanh toán"/>
+                android:text="@string/ph_ng_th_c_thanh_to_n" />
 
             <TextView
                 android:layout_width="wrap_content"

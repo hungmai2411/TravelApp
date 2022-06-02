@@ -62,7 +62,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dp"
-                                android:text="Đã đặt"
+                                android:text="@string/booked"
                                 android:textColor="@color/black"
                                 android:textSize="15dp" />
 
@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="Đặt phòng thành công!"
+                        android:text="@string/t_ph_ng_th_nh_c_ng"
                         android:textSize="30dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -143,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bạn đã đặt phòng thành công tại khách sạn"
+                        android:text="@string/b_n_t_ph_ng_th_nh_c_ng_t_i_kh_ch_s_n"
                         android:textColor="@color/black"
                         android:textSize="17dp"
                         android:textStyle="bold" />
@@ -160,7 +160,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cảm ơn và chúc bạn vui vẻ"
+                        android:text="@string/c_m_n_v_ch_c_b_n_vui_v"
                         android:textColor="@color/black"
                         android:textSize="17dp"
                         android:textStyle="bold" />
@@ -178,7 +178,7 @@
         android:layout_margin="16dp"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
-        android:text="Chi tiết đặt phòng"
+        android:text="@string/chi_ti_t_t_ph_ng"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
