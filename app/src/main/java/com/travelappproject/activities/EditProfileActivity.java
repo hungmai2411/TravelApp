@@ -56,14 +56,11 @@ public class EditProfileActivity extends AppCompatActivity {
     ImageButton btnBack;
     String UserID;
     FirebaseFirestore firestore;
-    User mUser;
     private FirebaseStorage storage;
     StorageReference storageReference;
     private boolean isPhotoSelected = false;
     private Uri mImageUri = null;
     String url;
-    private StorageTask mUploadTask;
-    ProgressDialog progressDialog;
 
     String name,address,about,phonenumber;
 
@@ -77,11 +74,9 @@ public class EditProfileActivity extends AppCompatActivity {
         {
             UserID = user.getUid();
         }
-        //UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         firestore = FirebaseFirestore.getInstance();
 
         storage = FirebaseStorage.getInstance();
-        //storageReference = storage.getReference();
         storageReference = storage.getReferenceFromUrl("gs://travel-81548.appspot.com");
 
         imgAvatar = (CircularImageView) findViewById(R.id.img_profile);
@@ -121,7 +116,6 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-
     private void choosePicture(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -154,7 +148,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadPicture() {
-        showDialog(this);
+
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("Uploading...");
+        pd.show();
 
         StorageReference riversRef = storageReference.child("image/" + UserID);
         if(mImageUri != null){
@@ -162,40 +159,31 @@ public class EditProfileActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-                            firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     url = uri.toString();
                                     saveToFireStore(name, about, address, phonenumber,url);
-                                    dismissDialog();
-                                    Snackbar.make(findViewById(android.R.id.content), "Image uploaded.", Snackbar.LENGTH_LONG).show();
                                 }
                             });
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
+                    });
+        }else if(mImageUri == null){
+            firestore.collection("users").document(UserID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onFailure(@NonNull Exception e) {
-                    dismissDialog();
-                    Toast.makeText(EditProfileActivity.this, "Failed to upload image.", Toast.LENGTH_LONG).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                    progressDialog.setMessage("Percentage: " + (int)progressPercent + "%");
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    url = documentSnapshot.getString("image");
+                    saveToFireStore(name, about, address, phonenumber,url);
                 }
             });
         }
-
-
-    }
-
-    private String getURL(String url) {
-        return url;
     }
 
     private void saveToFireStore(String name, String about, String address, String phonenumber,String url) {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("Uploading...");
+        pd.show();
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("about", about);
@@ -206,16 +194,25 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(EditProfileActivity.this, "Profile Settings Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "Profile Saved", Toast.LENGTH_SHORT).show();
                     finish();
-                } else {
+                    pd.dismiss();
+                } else{
                     Toast.makeText(EditProfileActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(EditProfileActivity.this, "Failed to upload image.", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void setUserInformation() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         firestore.collection("users").document(UserID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -227,16 +224,30 @@ public class EditProfileActivity extends AppCompatActivity {
                         String PhoneNumber = task.getResult().getString("phonenumber");
                         String image = task.getResult().getString("image");
 
+                        String type = task.getResult().getString("type");
+
+                        if(type.equals("Email and password") || type.equals("Google")){
+                            if(UserName == null || UserName.equals("")){
+                                UserName = user.getEmail().replaceAll("@.*","").replaceAll("[^a-zA-Z]+", " ").trim();
+                            }
+                        }else if(UserName == null || type.equals("Facebook")){
+                            if(UserName == "")
+                                UserName = user.getDisplayName();
+                        }
+
                         edtName.setText(UserName);
                         edtAddress.setText(Address);
                         edtAbout.setText(About);
                         edtPhoneNumber.setText(PhoneNumber);
                         Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
+//                        if(image == null || image.equals("")){
+//                            imgAvatar.setImageURI(mImageUri);
+//                        }else{
+//                            Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
+//                        }
                     }
                 }
             }
         });
-
     }
-
 }
