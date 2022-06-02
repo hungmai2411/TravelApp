@@ -57,7 +57,7 @@
             android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SignInActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,7 +67,7 @@
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.SignInActivity"
             android:exported="true">
         </activity>
 
@@ -77,6 +77,9 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
