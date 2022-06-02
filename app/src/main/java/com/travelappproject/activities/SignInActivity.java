@@ -186,7 +186,7 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Map<String,Object> user1 = new HashMap<>();
                             user1.put("type","Facebook");
-                            userID=mAuth.getCurrentUser().getUid();
+                            userID = mAuth.getCurrentUser().getUid();
 
                             firestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -273,6 +273,7 @@ public class SignInActivity extends AppCompatActivity {
                     userID=mAuth.getCurrentUser().getUid();
                     Map<String,Object> user1 = new HashMap<>();
                     user1.put("type","Google");
+
                     firestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
