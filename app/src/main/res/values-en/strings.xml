@@ -19,13 +19,37 @@
     <string name="nha_trang">Nha Trang</string>
     <string name="da_lat">Đà Lạt</string>
     <string name="title_activity_room_detail">RoomDetailActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="booking">My Booking</string>
+    <string name="booking_id">Booking ID</string>
+    <string name="booking_time">Booking Time</string>
+    <string name="check_in">Check-In</string>
+    <string name="check_out">Check-Out</string>
+    <string name="hotel_name">Hotel name</string>
+    <string name="room_type">Room type</string>
+    <string name="thanh_toan">Payment</string>
+    <string name="tong_cong">Total</string>
+    <string name="trang_thai_thanh_toan">Payment Status</string>
+    <string name="ph_ng_th_c_thanh_to_n">Payment Method</string>
+    <string name="please_select_area">Please Select Area</string>
+    <string name="confirm_information">Confirm information</string>
+    <string name="booking_type">Booking type</string>
+    <string name="your_name">Your name</string>
+    <string name="mobile_number">Mobile Number</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="choose_payment">Choose Payment</string>
+    <string name="ch_n_ph_ng_th_c_thanh_to_n">Choose Payment Method</string>
+    <string name="ch_nh_s_ch_amp_i_u_kho_n">Policies and Rules</string>
+    <string name="ch_nh_s_ch_hu_ph_ng">Cancellation Policy</string>
+    <string name="x_c_nh_n">Confirm</string>
+    <string name="booked">Booked</string>
+    <string name="t_ph_ng_th_nh_c_ng">Booking Successfully!</string>
+    <string name="b_n_t_ph_ng_th_nh_c_ng_t_i_kh_ch_s_n">You have successfully booked at</string>
+    <string name="c_m_n_v_ch_c_b_n_vui_v">Thank you and enjoy your time.</string>
+    <string name="chi_ti_t_t_ph_ng">Booking details</string>
+    <string name="select_room">Select Room</string>
+    <string name="trang_thai">Waiting for Payment</string>
+    <string name="phuong_thuc">Pay at hotel</string>
+    <string name="ki_m_tra_t_ph_ng_c_a_b_n">Check your reservation</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_booking_detail">BookingDetailActivity</string>
+
 </resources>
