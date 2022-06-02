@@ -119,6 +119,7 @@ public class ListHotelActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hotel", hotel);
                 intent1.putExtras(bundle);
+                intent1.putExtra("id",hotel.getId());
                 startActivity(intent1);
             }
         });

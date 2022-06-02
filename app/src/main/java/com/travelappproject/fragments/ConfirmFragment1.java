@@ -125,7 +125,7 @@ public class ConfirmFragment1 extends Fragment {
                     ZaloPaySDK.getInstance().payOrder(getActivity(), token, "demozpdk://app", new PayOrderListener() {
                         @Override
                         public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
-
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.confirm_container, new ConfirmFragment2()).commit();
                         }
 
                         @Override

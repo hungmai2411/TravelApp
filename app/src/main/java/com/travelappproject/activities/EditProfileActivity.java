@@ -128,14 +128,31 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data.getData() != null){
             mImageUri = data.getData();
-            imgAvatar.setImageURI(mImageUri);
+            Glide.with(EditProfileActivity.this).load(mImageUri).error(R.drawable.profile).into(imgAvatar);
+
+            //imgAvatar.setImageURI(mImageUri);
         }
     }
 
+    public void showDialog(Context context) {
+        //setting up progress dialog
+        progressDialog = new ProgressDialog(context);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
+
+    public void dismissDialog() {
+        progressDialog.dismiss();
+    }
+
     private void uploadPicture() {
+
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading...");
         pd.show();
+
         StorageReference riversRef = storageReference.child("image/" + UserID);
         if(mImageUri != null){
             riversRef.putFile(mImageUri)
@@ -206,6 +223,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         String About = task.getResult().getString("about");
                         String PhoneNumber = task.getResult().getString("phonenumber");
                         String image = task.getResult().getString("image");
+
                         String type = task.getResult().getString("type");
 
                         if(type.equals("Email and password") || type.equals("Google")){

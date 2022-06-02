@@ -36,7 +36,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.travelappproject.HandleCurrency;
 import com.travelappproject.R;
+import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.model.hotel.room.Room;
 
 import java.io.Serializable;
@@ -52,16 +54,13 @@ public class RoomDetailActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String uid;
-    int idHotel;
-    String hotelName;
     Room room;
     TextView txtDateCheckIn,txtDateCheckOut,txtTimeCheckIn,txtTimeCheckOut,txtFacility;
-    String timeCheckIn, timeCheckOut;
-    String addressHotel;
     Toolbar toolbar;
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Long startDate, endDate;
+    Hotel mHotel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -81,13 +80,9 @@ public class RoomDetailActivity extends AppCompatActivity {
         if (bundle == null)
             return;
 
+        mHotel = (Hotel) bundle.get("hotel");
         startDate = bundle.getLong("startDate");
         endDate = bundle.getLong("endDate");
-        timeCheckIn = bundle.getString("timeCheckIn");
-        timeCheckOut = bundle.getString("timeCheckOut");
-        addressHotel = bundle.getString("addressHotel");
-        hotelName = bundle.getString("hotelName");
-        idHotel = bundle.getInt("idHotel");
         room = (Room) bundle.get("room");
 
         txtDateCheckIn = findViewById(R.id.txtDateCheckIn);
@@ -114,7 +109,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         }
 
         TextView txtPrice = findViewById(R.id.txtPrice);
-        txtPrice.setText(String.valueOf(room.getPrice()));
+        txtPrice.setText(new HandleCurrency().handle(room.getPrice()));
         imageSlider.setImageList(slideModelList);
 
         initToolBar();
@@ -127,7 +122,7 @@ public class RoomDetailActivity extends AppCompatActivity {
 
                 Bundle args = new Bundle();
 
-                args.putString("hotelName", hotelName);
+                args.putSerializable("hotel",mHotel);
                 args.putSerializable("room", (Serializable) room);
                 args.putLong("startDate",startDate);
                 args.putLong("endDate",endDate);
