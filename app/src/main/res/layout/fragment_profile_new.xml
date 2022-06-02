@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:src="@drawable/profile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"/>
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baskervville"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/advent_pro_medium"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnEditProfile"
+            app:cornerRadius="@dimen/fab_margin"
+            android:textAllCaps="false"
+            android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:textAlignment="viewStart"
+            android:text="Edit profile"
+            android:drawableLeft="@drawable/ic_baseline_person_24"
+            android:backgroundTint="@color/primary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        <Button
+            android:id="@+id/btnLanguage"
+            app:cornerRadius="@dimen/fab_margin"
+            android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:text="Language"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:drawableLeft="@drawable/ic_baseline_language_24"
+            android:backgroundTint="@color/primary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+    </LinearLayout>
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_marginTop="15dp"
+            android:shadowColor="@color/gray"
+            android:shadowDy="4"
+            android:shadowDx="4"
+            android:shadowRadius="8"
+            android:textColor="#FF603A"
+            android:drawableLeft="@drawable/logout"
+            android:textAllCaps="false"
+            android:text="Sign out"
+            app:cornerRadius="20dp"
+            android:backgroundTint="@color/white"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
