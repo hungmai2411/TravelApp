@@ -23,16 +23,18 @@
         <entry key="app/src/main/res/drawable/table_divider.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable/table_divider_2.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/table_divider_3.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.1259259259259259" />
         <entry key="app/src/main/res/layout/activity_booking_detail.xml" value="0.25925925925925924" />
-        <entry key="app/src/main/res/layout/activity_choose_location.xml" value="0.12129629629629629" />
-        <entry key="app/src/main/res/layout/activity_confirm.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/activity_choose_location.xml" value="0.16495321768301505" />
+        <entry key="app/src/main/res/layout/activity_confirm.xml" value="0.2525921544284685" />
         <entry key="app/src/main/res/layout/activity_confirm1.xml" value="0.3029342651367188" />
-        <entry key="app/src/main/res/layout/activity_confirm2.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_confirm2.xml" value="0.20162200927734375" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.2953125" />
-        <entry key="app/src/main/res/layout/activity_hotel_detail.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_list_hotel.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/activity_hotel_detail.xml" value="0.2025711059570313" />
+        <entry key="app/src/main/res/layout/activity_list_hotel.xml" value="0.14292113392065603" />
         <entry key="app/src/main/res/layout/activity_logout.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13697916666666668" />
+        <entry key="app/src/main/res/layout/activity_main_partner.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_room_detail.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.22783203125000004" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.14361702127659576" />
@@ -47,20 +49,27 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/fragment_review.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_room.xml" value="0.21349792480468752" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.30350404107685636" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_booking.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_facilities.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/item_favorite.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/item_hotel_1.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_hotel_2.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_payment.xml" value="0.29582945911596853" />
-        <entry key="app/src/main/res/layout/item_room.xml" value="0.3535551478918321" />
+        <entry key="app/src/main/res/layout/item_room.xml" value="0.2572178477690289" />
+        <entry key="app/src/main/res/layout/item_room_2.xml" value="0.1259259259259259" />
         <entry key="app/src/main/res/layout/item_search.xml" value="0.2724960327148438" />
         <entry key="app/src/main/res/layout/item_star.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/shimmer_item_hotel.xml" value="0.2953125" />
+        <entry key="app/src/main/res/layout/shimmer_item_hotel_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/widget_in_app.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu_partner.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/menu/menu_room.xml" value="0.2571428571428571" />
+        <entry key="app/src/main/res/menu/menu_tool_bar.xml" value="0.1" />
       </map>
     </option>
   </component>

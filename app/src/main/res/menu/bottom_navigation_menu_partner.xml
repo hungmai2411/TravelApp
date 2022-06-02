@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/pageHome"
+        android:id="@+id/pageRoom"
         android:enabled="true"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/bed"
         android:title="Home"/>
     <item
-        android:id="@+id/pageFavorite"
+        android:id="@+id/pageStatistic"
         android:enabled="true"
-        android:icon="@drawable/ic_action_favorite"
+        android:icon="@drawable/trend"
         android:title="Favorite"/>
     <item
         android:id="@+id/pageBooking"

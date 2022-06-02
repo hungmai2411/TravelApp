@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
         }
 
         languageManager = new LanguageManager(getContext());
-        languageManager.updateResource("vi");
+        languageManager.updateResource("en");
         getFragmentManager().beginTransaction().detach(HomeFragment.this).attach(HomeFragment.this).commit();
 
         hotelViewModel = new ViewModelProvider(getActivity()).get(HotelViewModel.class);

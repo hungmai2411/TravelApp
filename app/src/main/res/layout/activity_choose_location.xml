@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Please Select Area" />
+                android:text="@string/please_select_area" />
         </androidx.appcompat.widget.Toolbar>
 
         <View
@@ -57,13 +57,6 @@
                 android:id="@+id/lvProvince">
 
             </ListView>
-            <ListView
-                android:layout_weight="2"
-                android:id="@+id/lvDistrict"
-                >
-
-            </ListView>
-
 
         </TableRow>
     </TableLayout>
