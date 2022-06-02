@@ -6,14 +6,47 @@ import java.util.Date;
 public class Booking implements Serializable {
     private String idBooking;
     private String hotelName;
-    private String roomName;
+    private String nameRoom;
     private long price;
     private Date date;
     private long idHotel;
     private long idRoom;
     private String addressHotel;
-    private String dateCheckIn, dateCheckOut;
+    private String dateCheckIn, dateCheckOut, choice;
     private String timeCheckIn, timeCheckOut;
+    private long daysdiff,startDate,endDate;
+
+    public String getChoice() {
+        return choice;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
+
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
+    }
+
+    public long getDaysdiff() {
+        return daysdiff;
+    }
+
+    public void setDaysdiff(long daysdiff) {
+        this.daysdiff = daysdiff;
+    }
 
     public String getDateCheckIn() {
         return dateCheckIn;
@@ -87,12 +120,12 @@ public class Booking implements Serializable {
         this.hotelName = hotelName;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getNameRoom() {
+        return nameRoom;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setNameRoom(String roomName) {
+        this.nameRoom = roomName;
     }
 
     public long getPrice() {

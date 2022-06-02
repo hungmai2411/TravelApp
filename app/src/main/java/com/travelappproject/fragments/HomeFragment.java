@@ -32,6 +32,7 @@ import com.travelappproject.activities.ChooseLocationActivity;
 import com.travelappproject.R;
 import com.travelappproject.activities.HotelDetailActivity;
 import com.travelappproject.activities.ListHotelActivity;
+import com.travelappproject.activities.SearchActivity;
 import com.travelappproject.adapter.HotelAdapter;
 import com.travelappproject.adapter.HotelAdapter1;
 import com.travelappproject.adapter.ThumbnailAdapter;
@@ -117,6 +118,7 @@ public class HomeFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hotel", hotel);
                 intent1.putExtras(bundle);
+                intent1.putExtra("id",hotel.getId());
                 startActivity(intent1);
             }
         });
@@ -185,8 +187,7 @@ public class HomeFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SearchFragment searchFragment = new SearchFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_container, searchFragment).commit();
+                startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
     }

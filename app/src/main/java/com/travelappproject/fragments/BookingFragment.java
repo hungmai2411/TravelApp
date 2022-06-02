@@ -6,20 +6,21 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,48 +29,54 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
+import com.travelappproject.activities.BookingDetailActivity;
 import com.travelappproject.activities.HotelDetailActivity;
-import com.travelappproject.activities.ListHotelActivity;
 import com.travelappproject.activities.SignInActivity;
+import com.travelappproject.adapter.BookingAdapter;
 import com.travelappproject.adapter.FavoriteAdapter;
+import com.travelappproject.model.hotel.Booking;
 import com.travelappproject.model.hotel.Hotel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FavoriteFragment extends Fragment {
+public class BookingFragment extends Fragment {
     LinearLayout layoutSignIn;
     Button btnLogin;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    RecyclerView rcvFavorite;
-    FavoriteAdapter favoriteAdapter;
+    RecyclerView rcvBookings;
+    BookingAdapter bookingAdapter;
     String uid;
-    List<Hotel> listTmp = new ArrayList<>();
+    List<Booking> listTmp = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ExecutorService executorService;
     Toolbar toolbar;
 
-    public FavoriteFragment() {
+    public BookingFragment() {
         // Required empty public constructor
     }
 
-    public static FavoriteFragment newInstance(String param1, String param2) {
-        return new FavoriteFragment();
+    public static BookingFragment newInstance(String param1, String param2) {
+        BookingFragment fragment = new BookingFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         executorService = Executors.newSingleThreadExecutor();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        return inflater.inflate(R.layout.fragment_booking, container, false);
     }
 
     @Override
@@ -79,31 +86,36 @@ public class FavoriteFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         layoutSignIn = view.findViewById(R.id.layoutSignIn);
         btnLogin = view.findViewById(R.id.btnLogin);
-        rcvFavorite = view.findViewById(R.id.rcvFavorite);
+        rcvBookings = view.findViewById(R.id.rcvBookings);
 
         if (mAuth.getCurrentUser() == null) {
             layoutSignIn.setVisibility(View.VISIBLE);
         } else {
             uid = mAuth.getUid();
             layoutSignIn.setVisibility(View.GONE);
+            rcvBookings.setVisibility(View.VISIBLE);
 
-            favoriteAdapter = new FavoriteAdapter(getActivity(), uid, new FavoriteAdapter.IClickItemListener() {
+            bookingAdapter = new BookingAdapter(getActivity(), new BookingAdapter.IClickBookingListener() {
                 @Override
-                public void onClickItem(Hotel hotel) {
-                    Intent intent1 = new Intent(getContext(), HotelDetailActivity.class);
+                public void onCallBack(Booking booking) {
+                    Intent intent = new Intent(getContext(), BookingDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("hotel", hotel);
-                    intent1.putExtras(bundle);
-                    startActivity(intent1);
+                    bundle.putSerializable("booking",booking);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             });
 
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false);
-            rcvFavorite.setLayoutManager(gridLayoutManager);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+            rcvBookings.setLayoutManager(linearLayoutManager);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvBookings.getContext(), DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.divider));
+            rcvBookings.addItemDecoration(dividerItemDecoration);
+
+            bookingAdapter.addData(listTmp);
+            rcvBookings.setAdapter(bookingAdapter);
 
             getData();
-            favoriteAdapter.setData(listTmp);
-            rcvFavorite.setAdapter(favoriteAdapter);
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +129,7 @@ public class FavoriteFragment extends Fragment {
     void getData() {
         listTmp.clear();
 
-        db.collection("users/" + uid + "/favorites")
+        db.collection("users/" + uid + "/booked")
                 .orderBy("timestamp")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -125,40 +137,17 @@ public class FavoriteFragment extends Fragment {
                         if (error == null) {
                             if (!value.isEmpty()) {
                                 for (QueryDocumentSnapshot doc : value) {
-                                    int sn = Integer.valueOf(doc.getId());
-
-                                    executorService.execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            db.collection("Hotels")
-                                                    .document(String.valueOf(sn))
-                                                    .get()
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                            Hotel hotel = documentSnapshot.toObject(Hotel.class);
-                                                            if (!isExisted(hotel)) {
-                                                                listTmp.add(hotel);
-                                                            }
-                                                            favoriteAdapter.notifyDataSetChanged();
-                                                        }
-                                                    });
-                                        }
-                                    });
+                                    Booking booking = doc.toObject(Booking.class);
+                                    Timestamp timestamp = (Timestamp) doc.get("timestamp");
+                                    Date date = timestamp.toDate();
+                                    booking.setDate(date);
+                                    booking.setIdBooking(doc.getId());
+                                    listTmp.add(booking);
                                 }
-                                favoriteAdapter.notifyDataSetChanged();
+                                bookingAdapter.notifyDataSetChanged();
                             }
                         }
                     }
                 });
-    }
-
-    private boolean isExisted(Hotel hotel) {
-        for (Hotel data : listTmp) {
-            if (hotel.getId() == data.getId()) {
-                return true;
-            }
-        }
-        return false;
     }
 }

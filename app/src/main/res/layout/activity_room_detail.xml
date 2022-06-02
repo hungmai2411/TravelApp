@@ -88,28 +88,14 @@
                     android:textColor="@color/black"
                     android:textSize="25dp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txtPrice"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/txtPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="330 000"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" đ"
-                        android:textColor="@color/black"
-                        android:textSize="22dp" />
-
-                </LinearLayout>
-
+                    android:layout_height="wrap_content"
+                    android:text="330 000"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
             </LinearLayout>
 
             <TableLayout

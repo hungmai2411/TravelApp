@@ -11,21 +11,51 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <queries>
-        <package android:name="vn.com.vng.zalopay"/>
-        <package android:name="vn.com.vng.zalopay.sbmc"/>
+        <package android:name="vn.com.vng.zalopay" />
+        <package android:name="vn.com.vng.zalopay.sbmc" />
     </queries>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="UitTrip"
+        android:name=".MyApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <service
+            android:enabled="true"
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".activities.Confirm2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Confirm1Activity"
+            android:launchMode="singleTask"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app"
+                    android:scheme="demozpdk" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.ReviewActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activities.EditProfileActivity"
             android:exported="false" />
@@ -34,7 +64,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.ConfirmActivity"
-            android:exported="false" />
+            android:exported="true">
+        </activity>
         <activity
             android:name=".activities.RoomDetailActivity"
             android:exported="false" />
@@ -65,7 +96,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SignInActivity"
             android:exported="true">

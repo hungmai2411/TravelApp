@@ -31,33 +31,16 @@
         android:layout_marginTop="8dp"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtPrice"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="600 000"
+            android:textColor="@color/black"
+            android:textSize="18dp"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/txtPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="600 000"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:text=" đ"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-
+            android:textStyle="bold" />
         <Button
             android:id="@+id/btnSelectRoom"
             android:layout_width="wrap_content"
