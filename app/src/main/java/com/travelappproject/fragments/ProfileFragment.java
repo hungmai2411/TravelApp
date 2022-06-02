@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.travelappproject.LanguageManager;
 import com.travelappproject.R;
 import com.travelappproject.activities.EditProfileActivity;
 import com.travelappproject.activities.LogoutActivity;
@@ -52,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private GoogleSignInOptions gso;
     GoogleSignInAccount account;
     Toolbar toolbar;
+    LanguageManager languageManager;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -126,6 +129,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 XacNhanThoat();
+            }
+        });
+
+        btnLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                languageManager = new LanguageManager(getContext());
+                languageManager.updateResource("vi");
+                Toast.makeText(getContext(), "Change language successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }

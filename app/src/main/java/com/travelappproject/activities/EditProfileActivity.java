@@ -64,7 +64,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private Uri mImageUri = null;
     String url;
     ProgressDialog progressDialog;
-
     String name,address,about,phonenumber;
 
     @Override
@@ -241,11 +240,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         edtAbout.setText(About);
                         edtPhoneNumber.setText(PhoneNumber);
                         Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
-//                        if(image == null || image.equals("")){
-//                            imgAvatar.setImageURI(mImageUri);
-//                        }else{
-//                            Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
-//                        }
+
                     }
                 }
             }

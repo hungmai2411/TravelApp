@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseLocationActivity extends AppCompatActivity {
-    ListView lvProvince, lvDistrict;
+    ListView lvProvince;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -39,10 +39,9 @@ public class ChooseLocationActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         lvProvince = findViewById(R.id.lvProvince);
-        lvDistrict = findViewById(R.id.lvDistrict);
 
         List<String> listProvince = new ArrayList<>();
-        ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listProvince);
+        ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listProvince);
 
         db.collection("regions")
                 .orderBy("id")
@@ -64,40 +63,21 @@ public class ChooseLocationActivity extends AppCompatActivity {
 
         lvProvince.setAdapter(provinceAdapter);
 
-        List<String> listDistricts = new ArrayList<>();
-        ArrayAdapter<String> districtAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listDistricts);
 
         lvProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int sn = i + 1;
-                districtAdapter.clear();
+                TextView text = (TextView) getViewByPosition(i, lvProvince);
 
-                for (int index = 0; index < lvProvince.getCount(); index++) {
-                    TextView text = (TextView) getViewByPosition(index,lvProvince);
-                    text.setTextColor(Color.rgb(0, 0, 0));
+                if (text.getText().equals("Hồ Chí Minh")) {
+                    Intent intent = new Intent(ChooseLocationActivity.this, ListHotelActivity.class);
+                    intent.putExtra("destination", "TP Hồ Chí Minh");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ChooseLocationActivity.this, ListHotelActivity.class);
+                    intent.putExtra("destination", text.getText());
+                    startActivity(intent);
                 }
-
-                TextView text = (TextView) getViewByPosition(i,lvProvince);
-                text.setTextColor(Color.rgb(0,154,203));
-
-                db.collection("regions/" + sn + "/districts")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        listDistricts.add(document.get("name").toString());
-                                        Log.d("districts", document.getId() + " => " + document.getData());
-                                    }
-                                    districtAdapter.notifyDataSetChanged();
-                                } else {
-                                    Log.d("districts", "Error getting documents: ", task.getException());
-                                }
-                            }
-                        });
-                lvDistrict.setAdapter(districtAdapter);
             }
         });
 
@@ -113,7 +93,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         final int firstListItemPosition = listView.getFirstVisiblePosition();
         final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
 
-        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+        if (pos < firstListItemPosition || pos > lastListItemPosition) {
             return listView.getAdapter().getView(pos, null, listView);
         } else {
             final int childIndex = pos - firstListItemPosition;

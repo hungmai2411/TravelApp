@@ -56,7 +56,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:text="Confirm information"
+                            android:text="@string/confirm_information"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Kiểm tra đặt phòng của bạn"
+                android:text="@string/ki_m_tra_t_ph_ng_c_a_b_n"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
@@ -143,7 +143,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:text="Check-In"
+                            android:text="@string/check_in"
                             android:textColor="#9B9797"
                             android:textSize="17dp" />
 
@@ -183,7 +183,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:text="Check-Out"
+                            android:text="@string/check_out"
                             android:textColor="#9B9797"
                             android:textSize="17dp" />
 
@@ -225,7 +225,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Booking type" />
+                    android:text="@string/booking_type" />
 
                 <TextView
                     android:id="@+id/txtBookingType"
@@ -245,7 +245,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hotel name" />
+                    android:text="@string/hotel_name" />
 
                 <TextView
                     android:id="@+id/nameHotel"
@@ -266,7 +266,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Room type" />
+                    android:text="@string/room_type" />
 
                 <TextView
                     android:id="@+id/txtTypeRoom"
@@ -292,7 +292,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your name" />
+                    android:text="@string/your_name" />
 
                 <TextView
                     android:id="@+id/txtName"
@@ -312,7 +312,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mobile Number" />
+                    android:text="@string/mobile_number" />
 
                 <TextView
                     android:id="@+id/txtNumber"
@@ -334,7 +334,7 @@
         android:layout_margin="16dp"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
-        android:text="Next"
+        android:text="@string/next"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"

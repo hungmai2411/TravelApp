@@ -91,9 +91,7 @@ public class FavoriteFragment extends Fragment {
                 @Override
                 public void onClickItem(Hotel hotel) {
                     Intent intent1 = new Intent(getContext(), HotelDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("hotel", hotel);
-                    intent1.putExtras(bundle);
+                    intent1.putExtra("id",hotel.getId());
                     startActivity(intent1);
                 }
             });
