@@ -133,6 +133,7 @@ dependencies {
 
     //Toast Perfect
     implementation 'io.github.thang-uit:toastperfectlibrary:1.0.1'
+
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -92,7 +94,9 @@ public class HotelDetailActivity extends AppCompatActivity {
     TextView txtDateCheckOut, txtDateCheckIn, txtNumber;
     Long startDate, endDate, numberNight;
     String lat = "";
+    NestedScrollView nestedScrollView;
     String lon = "";
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +115,10 @@ public class HotelDetailActivity extends AppCompatActivity {
         long msDiff = endDate - startDate;
         numberNight = TimeUnit.MILLISECONDS.toDays(msDiff);
 
+        shimmerFrameLayout = findViewById(R.id.shimmer);
+        shimmerFrameLayout.startShimmer();
+
+        nestedScrollView = findViewById(R.id.nestedScrollView);
         txtDateCheckOut = findViewById(R.id.txtDateCheckOut);
         txtDateCheckIn = findViewById(R.id.txtDateCheckIn);
 
@@ -197,7 +205,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-
         if (bundle != null) {
             //hotel = (Hotel) bundle.getSerializable("hotel");
             Long id = intent.getLongExtra("id",0);
@@ -273,6 +280,10 @@ public class HotelDetailActivity extends AppCompatActivity {
                                                 listRoom.add(room);
                                             }
                                             roomAdapter.notifyDataSetChanged();
+                                            shimmerFrameLayout.stopShimmer();
+                                            shimmerFrameLayout.setVisibility(View.GONE);
+                                            appBarLayout.setVisibility(View.VISIBLE);
+                                            nestedScrollView.setVisibility(View.VISIBLE);
                                         }
                                     }
                                 }
@@ -297,6 +308,8 @@ public class HotelDetailActivity extends AppCompatActivity {
                     }).attach();
                 }
             });
+
+
         }
 
         String finalLat = lat;
