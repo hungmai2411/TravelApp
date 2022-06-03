@@ -36,6 +36,16 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:text="Cancelled"
+            android:textColor="@color/cancelled_text"
+            android:background="@color/cancelled_color"
+            android:id="@+id/txtStatus"/>
+
+        <TextView
             android:id="@+id/txtNameHotel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,13 +85,13 @@
                 android:text="@string/booking_id" />
 
             <TextView
+                android:id="@+id/idBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_alignParentRight="true"
-                android:id="@+id/idBooking"
-                android:textStyle="bold"
-                android:text="914982"/>
+                android:text="914982aaaaaa"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -208,13 +218,13 @@
                 android:text="@string/hotel_name" />
 
             <TextView
+                android:id="@+id/nameHotel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_alignParentRight="true"
-                android:textStyle="bold"
-                android:id="@+id/nameHotel"
-                android:text="Kieu Hoang Yen Hotel"/>
+                android:text="Kieu Hoang Yen"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -291,13 +301,13 @@
                 android:text="@string/trang_thai_thanh_toan" />
 
             <TextView
+                android:id="@+id/txtStatusPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_alignParentRight="true"
-                android:textStyle="bold"
-                android:id="@+id/txtStatus"
-                android:text="Đang chờ thanh toán"/>
+                android:text="Đang chờ thanh toán"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -320,5 +330,32 @@
                 android:text="Kieu Hoang Yen Hotel"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/relative"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/rounded_corner_button"
+                android:text="Cancel Booking"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/primary" />
+
+            <Button
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/primary"
+                android:background="@drawable/rounded_corner_button"
+                android:text="QR Check-in"
+                android:id="@+id/btnCheckQr"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

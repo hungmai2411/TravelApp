@@ -142,12 +142,24 @@ public class BookingFragment extends Fragment {
                                     Date date = timestamp.toDate();
                                     booking.setDate(date);
                                     booking.setIdBooking(doc.getId());
-                                    listTmp.add(booking);
+
+                                    if(!checkExist(booking.getIdBooking()))
+                                        listTmp.add(booking);
                                 }
                                 bookingAdapter.notifyDataSetChanged();
                             }
                         }
                     }
                 });
+    }
+
+    private boolean checkExist(String id){
+        for (Booking booking : listTmp){
+            if(booking.getIdBooking().equals(id)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

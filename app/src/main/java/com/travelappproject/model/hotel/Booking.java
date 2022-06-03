@@ -10,9 +10,35 @@ public class Booking implements Serializable {
     private long price;
     private Date date;
     private long idHotel;
-    private long idRoom;
+    private String idRoom;
     private String addressHotel;
-    private String dateCheckIn, dateCheckOut, choice;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    private String dateCheckIn, dateCheckOut, choice,username,phonenumber;
     private String timeCheckIn, timeCheckOut;
     private long daysdiff,startDate,endDate;
 
@@ -96,11 +122,11 @@ public class Booking implements Serializable {
         this.idHotel = idHotel;
     }
 
-    public long getIdRoom() {
+    public String getIdRoom() {
         return idRoom;
     }
 
-    public void setIdRoom(long idRoom) {
+    public void setIdRoom(String idRoom) {
         this.idRoom = idRoom;
     }
 
