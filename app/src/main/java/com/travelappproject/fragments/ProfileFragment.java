@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.LanguageManager;
 import com.travelappproject.R;
+import com.travelappproject.SharedPreferences.LocalDataManager;
 import com.travelappproject.activities.EditProfileActivity;
 import com.travelappproject.activities.LogoutActivity;
 import com.travelappproject.activities.MainActivity;
@@ -40,15 +44,17 @@ import com.travelappproject.activities.SignInActivity;
 import com.travelappproject.model.hotel.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import vn.thanguit.toastperfect.ToastPerfect;
 
 public class ProfileFragment extends Fragment {
-    Button btnEditProfile, btnSignOut, btnLanguage, btnContact, btnSignin;
+    Button btnEditProfile, btnSignOut, btnContact, btnSignin;
+    LinearLayout btnLanguage;
     FirebaseFirestore firestore;
     FirebaseUser user;
     MaterialDivider divider;
     FirebaseAuth auth;
     String UserID;
-    TextView txtName, txtEmail, txtDes;
+    TextView txtName, txtEmail, txtDes, txtLanguage;
     CircleImageView imgAvatar;
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
@@ -65,7 +71,6 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
 
         firestore = FirebaseFirestore.getInstance();
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -98,6 +103,12 @@ public class ProfileFragment extends Fragment {
         btnSignin = view.findViewById(R.id.btnSignIn);
         divider = view.findViewById(R.id.divider);
         txtDes = view.findViewById(R.id.txtDescription);
+        txtLanguage = view.findViewById(R.id.txtCurrentlanguage);
+
+        if(LocalDataManager.getLanguage().equals("vi"))
+            txtLanguage.setText("Tiếng Việt");
+        else
+            txtLanguage.setText("English");
 
         if(user == null){
             imgAvatar.setVisibility(View.GONE);
@@ -136,17 +147,31 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 languageManager = new LanguageManager(getContext());
-                languageManager.updateResource("vi");
-                Toast.makeText(getContext(), "Change language successfully", Toast.LENGTH_SHORT).show();
+                if(LocalDataManager.getLanguage().equals("vi")){
+                    languageManager.updateResource("en");
+                    LocalDataManager.setLanguage("en");
+                    refresh();
+                    ToastPerfect.makeText(getContext(), ToastPerfect.SUCCESS, getString(R.string.ChangeLanguage), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                }else{
+                    languageManager.updateResource("vi");
+                    LocalDataManager.setLanguage("vi");
+                    refresh();
+                    ToastPerfect.makeText(getContext(), ToastPerfect.SUCCESS, getString(R.string.ChangeLanguage), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    private void refresh(){
+        Fragment profile = new ProfileFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_container, profile).commit();
+    }
+
     private void XacNhanThoat() {
         AlertDialog.Builder alertdialog = new AlertDialog.Builder(getActivity());
-        alertdialog.setTitle("Thông Báo");
-        alertdialog.setMessage("Bạn có muốn thoát ?");
-        alertdialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+        alertdialog.setTitle(R.string.notification);
+        alertdialog.setMessage(R.string.WantToExit);
+        alertdialog.setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(account!=null){
@@ -163,7 +188,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        alertdialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+        alertdialog.setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 return;
@@ -178,8 +203,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 txtEmail.setText(user.getEmail());
-                //String Name, Address, About, PhoneNumber, ImageURL, type;
-                //String Name = "";
                 if (task.isSuccessful()) {
                     if (task.getResult().exists()) {
                         String Name = task.getResult().getString("name");

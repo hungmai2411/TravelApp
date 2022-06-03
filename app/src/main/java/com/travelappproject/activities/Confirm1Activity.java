@@ -107,8 +107,8 @@ public class Confirm1Activity extends AppCompatActivity {
         rcvPaymentMethod.setLayoutManager(linearLayoutManager1);
         PaymentAdapter paymentAdapter = new PaymentAdapter(this);
         List<Payment> paymentList = new ArrayList<>();
-        paymentList.add(new Payment("Payment at hotel", R.drawable.review));
-        paymentList.add(new Payment("Payment with Zalo Pay", R.drawable.zalopay));
+        paymentList.add(new Payment(getString(R.string.pay_at_hotel), R.drawable.review));
+        paymentList.add(new Payment(getString(R.string.pay_with_zalo_pay), R.drawable.zalopay));
         paymentAdapter.setData(paymentList);
         rcvPaymentMethod.setAdapter(paymentAdapter);
 
@@ -124,7 +124,7 @@ public class Confirm1Activity extends AppCompatActivity {
         txtPrice.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
         txtHotelName.setText(mHotel.getName());
         txtRoomType.setText(room.getName());
-        txtBookingType.setText(String.valueOf(daysDiff) + " night");
+        txtBookingType.setText(String.valueOf(daysDiff) + " " + getString(R.string.night));
 
         Button btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class Confirm1Activity extends AppCompatActivity {
                 Payment payment = paymentAdapter.getItemSelected();
                 choice = payment.getPaymentMethod();
 
-                if(choice.equals("Payment at hotel")){
+                if(choice.equals(getString(R.string.pay_at_hotel))){
                     addToBooked();
                 }else {
                     if (check == 0) {
@@ -156,12 +156,12 @@ public class Confirm1Activity extends AppCompatActivity {
 
                                     @Override
                                     public void onPaymentCanceled(String zpTransToken, String appTransID) {
-                                        ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, "Thanh toán bị hủy", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                                        ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, getString(R.string.paymentcancel), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-                                        ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, "Thanh toán thất bại", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                                        ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, getString(R.string.paymenterror), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
                                 });
                             }

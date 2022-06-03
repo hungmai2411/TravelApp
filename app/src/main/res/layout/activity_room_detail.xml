@@ -69,7 +69,7 @@
                     android:id="@+id/txtType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DAILY"
+                    android:text="@string/daily"
                     android:textColor="@color/primary"
                     android:textSize="25dp" />
 
@@ -77,14 +77,14 @@
                     android:id="@+id/txtName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phòng Đơn"
+                    android:text="@string/ph_ng_n"
                     android:textColor="@color/black"
                     android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 days"
+                    android:text="@string/_1_days"
                     android:textColor="@color/black"
                     android:textSize="25dp" />
 
@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Facilities"
+                android:text="@string/facilities"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -215,7 +215,7 @@
         android:layout_margin="16dp"
         android:layout_gravity="bottom"
         android:textColor="@color/white"
-        android:text="Book Now"
+        android:text="@string/book_now"
         android:textAllCaps="false"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"

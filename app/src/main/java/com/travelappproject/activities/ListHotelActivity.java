@@ -99,11 +99,11 @@ public class ListHotelActivity extends AppCompatActivity {
             destination = intent.getStringExtra("destination");
 
             if(destination.equals("Kiên Giang"))
-                txtTitle.setText("Phú Quốc");
+                txtTitle.setText(getString(R.string.phu_quoc));
             else if (destination.equals("Khánh Hòa"))
-                txtTitle.setText("Nha Trang");
+                txtTitle.setText(getString(R.string.nha_trang));
             else if(destination.equals("Lâm Đồng"))
-                txtTitle.setText("Đà Lạt");
+                txtTitle.setText(getString(R.string.da_lat));
             else
                 txtTitle.setText(destination);
         }
