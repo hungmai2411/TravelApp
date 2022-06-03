@@ -305,7 +305,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:textStyle="bold"
-                android:id="@+id/txtStatus"
+                android:id="@+id/txtStatusPayment"
                 android:text="@string/ang_ch_thanh_to_n"
                 android:textColor="@color/black"/>
 
