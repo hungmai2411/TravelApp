@@ -30,6 +30,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -58,6 +59,7 @@ import com.travelappproject.adapter.ViewPageAdapter;
 import com.travelappproject.model.hotel.Booking;
 import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.model.hotel.Image;
+import com.travelappproject.model.hotel.room.Photo;
 import com.travelappproject.model.hotel.room.Room;
 
 import java.io.Serializable;
@@ -275,8 +277,30 @@ public class HotelDetailActivity extends AppCompatActivity {
                                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                     if (error == null) {
                                         if (!value.isEmpty()) {
-                                            for (QueryDocumentSnapshot doc : value) {
-                                                Room room = doc.toObject(Room.class);
+                                            for (QueryDocumentSnapshot document : value) {
+                                                Room room = new Room();
+
+                                                List<Photo> list = (List<Photo>) document.get("photos");
+                                                List<Photo> listTmp = new ArrayList<>();
+
+                                                for (int i = 0; i < list.size(); i++) {
+                                                    final ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
+                                                    final Photo pojo = mapper.convertValue(list.get(i), Photo.class);
+                                                    listTmp.add(pojo);
+                                                }
+
+                                                room.setId(document.getId());
+                                                room.setName(document.getString("name"));
+                                                room.setCancelPolicies(document.getString("cancelPolicies"));
+                                                room.setFacilities(document.getString("facilities"));
+                                                room.setRoomArea(document.getString("roomArea"));
+
+                                                if (document.get("number") != null)
+                                                    room.setNumber((Long) document.get("number"));
+
+                                                room.setPhotos(listTmp);
+                                                room.setPrice((Long) document.get("price"));
+
                                                 listRoom.add(room);
                                             }
                                             roomAdapter.notifyDataSetChanged();
