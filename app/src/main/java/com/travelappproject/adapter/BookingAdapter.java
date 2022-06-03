@@ -68,19 +68,32 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.txtNameRoom.setText(bookingList.get(position).getNameRoom());
         holder.txtDate.setText(strDate);
         holder.txtTime.setText(strTime);
+
+        if(bookingList.get(position).getStatus().equals("Booked")){
+            holder.txtStatus.setTextColor(mContext.getResources().getColor(R.color.booked_text));
+            holder.txtStatus.setBackgroundColor(mContext.getResources().getColor(R.color.booked_color));
+        }else{
+            holder.txtStatus.setTextColor(mContext.getResources().getColor(R.color.cancelled_text));
+            holder.txtStatus.setBackgroundColor(mContext.getResources().getColor(R.color.cancelled_color));
+        }
+        holder.txtStatus.setText(bookingList.get(position).getStatus());
     }
 
     @Override
     public int getItemCount() {
+        if(bookingList == null)
+            return 0;
+
         return bookingList.size();
     }
 
     public class BookingViewHolder extends RecyclerView.ViewHolder{
-        TextView txtDate,txtTime,txtNameHotel,txtNameRoom,txtPrice,txtNumber;
+        TextView txtDate,txtTime,txtNameHotel,txtNameRoom,txtPrice,txtNumber,txtStatus;
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            txtStatus = itemView.findViewById(R.id.txtStatus);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtTime = itemView.findViewById(R.id.txtTime);
             txtNameHotel = itemView.findViewById(R.id.txtNameHotel);
