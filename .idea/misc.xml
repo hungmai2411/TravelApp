@@ -8,13 +8,20 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_logout.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_sign_in.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/HotelBooking/app/src/main/res/layout/activity_sign_up.xml" value="0.20742753623188406" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_action_back.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_add.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_delete.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_edit .xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/background_star_rating.xml" value="0.1875" />
+        <entry key="app/src/main/res/drawable/custom_dialog_background.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/custom_input.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/custom_table.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1705" />
+        <entry key="app/src/main/res/drawable/ic_warning.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/item_navigation_selector.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/rounded_coner_image_button.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/rounded_corner_button.xml" value="0.1875" />
@@ -23,8 +30,8 @@
         <entry key="app/src/main/res/drawable/table_divider.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable/table_divider_2.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/table_divider_3.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.1259259259259259" />
-        <entry key="app/src/main/res/layout/activity_booking_detail.xml" value="0.25925925925925924" />
+        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.28081484194155093" />
+        <entry key="app/src/main/res/layout/activity_booking_detail.xml" value="0.22871116355613424" />
         <entry key="app/src/main/res/layout/activity_choose_location.xml" value="0.16495321768301505" />
         <entry key="app/src/main/res/layout/activity_confirm.xml" value="0.2525921544284685" />
         <entry key="app/src/main/res/layout/activity_confirm1.xml" value="0.3029342651367188" />
@@ -40,8 +47,11 @@
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.3744461059570313" />
+        <entry key="app/src/main/res/layout/custom_dialog_cancel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_booking.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/fragment_booking_partner.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/fragment_confirm0.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_confirm1.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_confirm2.xml" value="0.2953125" />
@@ -53,14 +63,16 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.30350404107685636" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_booking.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_booking.xml" value="0.25937042236328123" />
+        <entry key="app/src/main/res/layout/item_booking_partner.xml" value="0.34181944935034353" />
         <entry key="app/src/main/res/layout/item_facilities.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/item_favorite.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/item_hotel_1.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_hotel_2.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_payment.xml" value="0.29582945911596853" />
+        <entry key="app/src/main/res/layout/item_photo.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_room.xml" value="0.2572178477690289" />
-        <entry key="app/src/main/res/layout/item_room_2.xml" value="0.1259259259259259" />
+        <entry key="app/src/main/res/layout/item_room_2.xml" value="0.2589276349103009" />
         <entry key="app/src/main/res/layout/item_search.xml" value="0.2724960327148438" />
         <entry key="app/src/main/res/layout/item_star.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/shimmer_item_hotel.xml" value="0.2953125" />
@@ -70,6 +82,7 @@
         <entry key="app/src/main/res/menu/bottom_navigation_menu_partner.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/menu/menu_room.xml" value="0.2571428571428571" />
         <entry key="app/src/main/res/menu/menu_tool_bar.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>
