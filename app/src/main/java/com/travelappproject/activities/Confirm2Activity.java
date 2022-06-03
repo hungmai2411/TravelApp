@@ -26,6 +26,7 @@ import com.shuhart.stepview.StepView;
 import com.travelappproject.R;
 import com.travelappproject.model.hotel.Booking;
 import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.model.hotel.User;
 import com.travelappproject.model.hotel.room.Room;
 
 import java.util.Date;
@@ -41,6 +42,7 @@ public class Confirm2Activity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String uid;
     Booking booking;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class Confirm2Activity extends AppCompatActivity {
 
         if (intent != null) {
             Bundle bundle = intent.getExtras();
-
+            user = (User) bundle.getSerializable("user");
             bookingID = intent.getStringExtra("idBooking");
             mHotel = (Hotel) bundle.getSerializable("hotel");
         }
@@ -87,6 +89,7 @@ public class Confirm2Activity extends AppCompatActivity {
                         booking.setIdBooking(documentSnapshot.getId());
 
                         Bundle bundle = new Bundle();
+                        bundle.putSerializable("user",user);
                         bundle.putSerializable("booking", booking);
                         intent1.putExtras(bundle);
 

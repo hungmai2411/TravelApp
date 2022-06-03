@@ -9,13 +9,22 @@ import com.google.gson.annotations.SerializedName;
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class Room implements Serializable {
-    private long idHotel;
+    private String idHotel;
+    private long number;
 
-    public long getIdHotel() {
+    public long getNumber() {
+        return number;
+    }
+
+    public void setNumber(long number) {
+        this.number = number;
+    }
+
+    public String getIdHotel() {
         return idHotel;
     }
 
-    public void setIdHotel(long idHotel) {
+    public void setIdHotel(String idHotel) {
         this.idHotel = idHotel;
     }
 
@@ -26,7 +35,7 @@ public class Room implements Serializable {
     @SerializedName("facilities")
     private String mFacilities;
     @SerializedName("id")
-    private Long mId;
+    private String mId;
     @SerializedName("meal_plan")
     private String mMealPlan;
     @SerializedName("name")
@@ -64,11 +73,11 @@ public class Room implements Serializable {
         mFacilities = facilities;
     }
 
-    public Long getId() {
+    public String getId() {
         return mId;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         mId = id;
     }
 
