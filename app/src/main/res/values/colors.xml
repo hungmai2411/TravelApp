@@ -15,4 +15,10 @@
     <color name="shimmer_color">#BFBDBD</color>
     <color name="light_primary">#ecf9fd</color>
     <color name="grey">#E3E3E3</color>
+    <color name="recycler_view_item_swipe_left_background">#FF0000</color>
+    <color name="booked_color">#F0F9F1</color>
+    <color name="cancelled_color">#FFF4F4</color>
+    <color name="booked_text">#3DBD46</color>
+    <color name="cancelled_text">#FF1616</color>
+
 </resources>
