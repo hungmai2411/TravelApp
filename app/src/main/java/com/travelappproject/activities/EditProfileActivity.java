@@ -49,6 +49,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 
+import vn.thanguit.toastperfect.ToastPerfect;
+
 public class EditProfileActivity extends AppCompatActivity {
     CircularImageView imgAvatar, imgAdd;
     EditText edtName, edtAddress, edtAbout, edtPhoneNumber;
@@ -129,8 +131,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if(requestCode == 1 && resultCode == RESULT_OK && data.getData() != null){
             mImageUri = data.getData();
             Glide.with(EditProfileActivity.this).load(mImageUri).error(R.drawable.profile).into(imgAvatar);
-
-            //imgAvatar.setImageURI(mImageUri);
         }
     }
 
@@ -194,18 +194,18 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(EditProfileActivity.this, "Profile Saved", Toast.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.SUCCESS, "Profile Saved", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                     finish();
                     pd.dismiss();
                 } else{
-                    Toast.makeText(EditProfileActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.ERROR, task.getException().toString(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(EditProfileActivity.this, "Failed to upload image.", Toast.LENGTH_LONG).show();
+                ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.ERROR, "Failed to upload image", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
             }
         });
     }
@@ -240,11 +240,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         edtAbout.setText(About);
                         edtPhoneNumber.setText(PhoneNumber);
                         Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
-//                        if(image == null || image.equals("")){
-//                            imgAvatar.setImageURI(mImageUri);
-//                        }else{
-//                            Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
-//                        }
+
                     }
                 }
             }

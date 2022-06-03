@@ -44,6 +44,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.thanguit.toastperfect.ToastPerfect;
+
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -90,24 +92,24 @@ public class SignInActivity extends AppCompatActivity {
                 pass=passedit.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập email!", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(pass)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập password!", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                     return;
                 }
                 mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"Đăng nhập thành công!!",Toast.LENGTH_SHORT).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, "Đăng nhập thành công", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                             Intent intent =new Intent(SignInActivity.this,MainActivity.class);
                             startActivity(intent);
 
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Đăng nhập không thành công!!",Toast.LENGTH_SHORT).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, "Đăng nhập không thành công", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
@@ -137,7 +139,7 @@ public class SignInActivity extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(),"Đăng nhập thành công!!",Toast.LENGTH_SHORT).show();
+                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, "Đăng nhập thành công", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
 
@@ -211,8 +213,7 @@ public class SignInActivity extends AppCompatActivity {
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, "Đăng nhập không thành công", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
@@ -244,13 +245,13 @@ public class SignInActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Toast.makeText(getApplicationContext(),"Signed In successfully",Toast.LENGTH_SHORT).show();
+                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, "Đăng nhập thành công", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                 //SignIn successful now show authentication
                 FirebaseGoogleAuth(account);
 
             } catch (ApiException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(),"SignIn Failed!!! code: "+e.getStatusCode(),Toast.LENGTH_SHORT).show();
+                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, "Lỗi! \nMã lỗi: " + e.getStatusCode(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                 FirebaseGoogleAuth(null);
                 updateUI(null);
             }

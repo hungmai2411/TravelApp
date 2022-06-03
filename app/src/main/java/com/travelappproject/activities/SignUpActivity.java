@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import vn.thanguit.toastperfect.ToastPerfect;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -65,20 +66,16 @@ public class SignUpActivity extends AppCompatActivity {
                 FirebaseUser fuser = mAuth.getCurrentUser();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập email!!",Toast.LENGTH_SHORT).show();
-                    return;
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập Email", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                    return;
                 }
                 if(TextUtils.isEmpty(pass)){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập password!!",Toast.LENGTH_SHORT).show();
-                    return;
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập Password", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                    return;
                 }
                 if(pass.length()<6){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập pass dài hơn 6 kí tự",Toast.LENGTH_SHORT).show();
-                    return;
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập Password dài hơn 6 kí tự", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                    return;
                 }
                 if(pass.equals(repass)==false){
-                    Toast.makeText(getApplicationContext(),"Vui lòng nhập lại đúng pass",Toast.LENGTH_SHORT).show();
-                    return;
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập đúng Password", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                    return;
                 }
                 mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                     @Override
@@ -93,13 +90,11 @@ public class SignUpActivity extends AppCompatActivity {
                                         user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                Toast.makeText(getApplicationContext(),"Verification Email has been sent",Toast.LENGTH_SHORT).show();
-                                            }
+                                                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, "Email xác nhận đã được gửi", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                            }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(getApplicationContext(),"Verification Email has not been sent",Toast.LENGTH_SHORT).show();
-                                            }
+                                                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, "Email xác nhận chưa được gửi\nLỗi: " + e.getMessage(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                            }
                                         });
                                         String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
                                         userID=mAuth.getCurrentUser().getUid();
@@ -119,8 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        Toast.makeText(getApplicationContext(),"Hãy xác nhận email của bạnn !",Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
+                                        ToastPerfect.makeText(getApplicationContext(), ToastPerfect.INFORMATION, "Hãy xác nhận Email của bạn", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
                                         startActivity(intent);
 
                                     }
@@ -129,8 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         }
                         else
-                            Toast.makeText(getApplicationContext(),"Email has already verified",Toast.LENGTH_SHORT).show();
-                    }
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, "Email đã được xác nhận", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                    }
                 });
 
             }
