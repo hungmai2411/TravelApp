@@ -150,7 +150,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void uploadPicture() {
 
         final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading...");
+        pd.setTitle(getString(R.string.upload) + "...");
         pd.show();
 
         StorageReference riversRef = storageReference.child("image/" + UserID);
@@ -181,7 +181,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void saveToFireStore(String name, String about, String address, String phonenumber,String url) {
         final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading...");
+        pd.setTitle(getString(R.string.upload) + "...");
         pd.show();
 
         HashMap<String, Object> map = new HashMap<>();
@@ -194,7 +194,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.SUCCESS, "Profile Saved", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.SUCCESS, getString(R.string.profilesaved), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                     finish();
                     pd.dismiss();
                 } else{
@@ -205,7 +205,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.ERROR, "Failed to upload image", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                ToastPerfect.makeText(EditProfileActivity.this, ToastPerfect.ERROR, getString(R.string.faileduploadimage), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
             }
         });
     }

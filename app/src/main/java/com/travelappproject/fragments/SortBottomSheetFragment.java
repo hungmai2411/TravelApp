@@ -84,7 +84,7 @@ public class SortBottomSheetFragment extends BottomSheetDialogFragment {
         sortAdapter = new SortAdapter(getContext(), new SortAdapter.IClickSortItem() {
             @Override
             public void onCallBack(String choice) {
-                if(choice.equals("Giá tăng dần")){
+                if(choice.equals(getString(R.string.PriceIncrese))){
                     setIndex(0);
                     dismiss();
                     Intent intent = new Intent(getContext(),ListHotelActivity.class);
@@ -103,8 +103,8 @@ public class SortBottomSheetFragment extends BottomSheetDialogFragment {
         }, getIndex());
 
         List<String> listSort = new ArrayList<>();
-        listSort.add("Giá tăng dần");
-        listSort.add("Giá giảm dần");
+        listSort.add(getString(R.string.PriceIncrese));
+        listSort.add(getString(R.string.PriceDecreasing));
 
         sortAdapter.setData(listSort);
         rcvSort.setLayoutManager(linearLayoutPaymentManager);

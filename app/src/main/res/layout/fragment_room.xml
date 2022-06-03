@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Quản lí phòng" />
+            android:text="@string/qu_n_l_ph_ng" />
     </androidx.appcompat.widget.Toolbar>
 
     <View

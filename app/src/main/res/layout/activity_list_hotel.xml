@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"/>
                 <TextView
                     android:layout_gravity="center"
-                    android:text="Filter"
+                    android:text="@string/filter"
                     android:textColor="@color/primary"
                     android:textStyle="bold"
                     android:textSize="10dp"
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"/>
                 <TextView
                     android:layout_gravity="center"
-                    android:text="Sort"
+                    android:text="@string/sort"
                     android:textColor="@color/primary"
                     android:textStyle="bold"
                     android:textSize="10dp"

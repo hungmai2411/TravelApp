@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Name:"
+            android:text="@string/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
@@ -72,7 +72,7 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Phone number:"
+            android:text="@string/phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
@@ -83,7 +83,7 @@
         <TextView
             android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:text="Address:"
+            android:text="@string/address"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -96,7 +96,7 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="About:"
+            android:text="@string/about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
@@ -113,7 +113,7 @@
             android:layout_alignParentEnd="true"
             android:background="@drawable/rounded_corner_button"
             android:paddingHorizontal="20dp"
-            android:text="  Update  "
+            android:text="@string/update"
             android:textAllCaps="false"
             app:backgroundTint="@color/primary" />
 

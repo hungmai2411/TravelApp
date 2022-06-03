@@ -39,7 +39,7 @@ public class ForgotPassActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email=txtforgot.getText().toString();
                 if(TextUtils.isEmpty(email)){
-                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, "Vui lòng nhập email!", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                    ToastPerfect.makeText(getApplicationContext(), ToastPerfect.WARNING, getString(R.string.fillinemail), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                     return;
                 }
                 else{
@@ -47,12 +47,12 @@ public class ForgotPassActivity extends AppCompatActivity {
                     mauth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.INFORMATION, "Reset link sent to your email", ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.INFORMATION, getString(R.string.resetlinksent), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, "Error! " + e.getMessage(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                            ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, getString(R.string.error) + e.getMessage(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                         }
                     });
                 }

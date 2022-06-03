@@ -297,7 +297,7 @@
                 android:layout_alignParentRight="true"
                 android:textStyle="bold"
                 android:id="@+id/txtStatus"
-                android:text="Đang chờ thanh toán"/>
+                android:text="@string/ang_ch_thanh_to_n"/>
         </RelativeLayout>
 
         <RelativeLayout

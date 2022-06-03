@@ -4,6 +4,8 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
+import com.travelappproject.SharedPreferences.LocalDataManager;
+
 public class MyApplication extends Application {
     public static final String CHANNEL_ID = "24112002";
 
@@ -13,6 +15,11 @@ public class MyApplication extends Application {
         super.onCreate();
 
         createChannelID();
+        initDataLocalManager();
+    }
+
+    private void initDataLocalManager() {
+        LocalDataManager.init(getApplicationContext());
     }
 
     private void createChannelID() {

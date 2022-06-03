@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Bookings" />
+                android:text="@string/bookings" />
         </androidx.appcompat.widget.Toolbar>
 
         <View
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục"
+            android:text="@string/b_n_ch_a_ng_nh_p_vui_l_ng_ng_nh_p_ti_p_t_c"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/primary"
-            android:text="Sign in" />
+            android:text="@string/sign_in" />
 
     </LinearLayout>
 
