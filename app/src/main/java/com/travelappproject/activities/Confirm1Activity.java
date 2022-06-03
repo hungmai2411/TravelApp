@@ -33,6 +33,7 @@ import com.travelappproject.helperforzalopay.CreateOrder;
 import com.travelappproject.model.hotel.Booking;
 import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.model.hotel.Payment;
+import com.travelappproject.model.hotel.User;
 import com.travelappproject.model.hotel.room.Room;
 
 import org.json.JSONObject;
@@ -62,6 +63,7 @@ public class Confirm1Activity extends AppCompatActivity {
     String uid;
     Hotel mHotel;
     String choice;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class Confirm1Activity extends AppCompatActivity {
 
         if(intent != null){
             Bundle bundle = intent.getExtras();
+            user = (User) bundle.getSerializable("user");
             room = (Room) bundle.getSerializable("room");
             mHotel = (Hotel) intent.getSerializableExtra("hotel");
             daysDiff = intent.getLongExtra("daysdiff",1);
@@ -202,13 +205,26 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("endTime",mHotel.getCheckOutTime());
         booksMap.put("daysdiff",daysDiff);
         booksMap.put("hotelName",mHotel.getName());
-        long price = mHotel.getPrice() * daysDiff;
+        booksMap.put("username",user.getName());
+        booksMap.put("phonenumber",user.getPhoneNumber());
+        booksMap.put("status","Booked");
+
+        long price = room.getPrice() * daysDiff;
         booksMap.put("price",price);
 
         db.collection("users/" + uid + "/booked").add(booksMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()){
+                    booksMap.put("idBooking",task.getResult().getId());
+
+                    db.collection("Hotels/" + mHotel.getId() + "/booked").document(task.getResult().getId()).set(booksMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                        }
+                    });
+
                     Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("idBooking",task.getResult().getId());
@@ -220,6 +236,8 @@ public class Confirm1Activity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     @Override
