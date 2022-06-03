@@ -28,7 +28,7 @@
             android:drawableEnd="@drawable/ic_baseline_cancel_24"
             android:paddingEnd="12dp"
             android:drawablePadding="12dp"
-            android:hint="Enter a hotel, city or address">
+            android:hint="@string/enter_a_hotel_city_or_address">
             <requestFocus/>
         </EditText>
     </LinearLayout>

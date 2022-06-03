@@ -301,13 +301,14 @@
                 android:text="@string/trang_thai_thanh_toan" />
 
             <TextView
-                android:id="@+id/txtStatusPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Đang chờ thanh toán"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/txtStatus"
+                android:text="@string/ang_ch_thanh_to_n"
+                android:textColor="@color/black"/>
+
         </RelativeLayout>
 
         <RelativeLayout

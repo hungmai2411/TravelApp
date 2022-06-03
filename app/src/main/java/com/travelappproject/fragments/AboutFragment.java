@@ -75,7 +75,7 @@ public class AboutFragment extends Fragment {
         if (mHotel.getDesContent() != null)
             txtDetail.setText(Html.fromHtml(Html.fromHtml((String) mHotel.getDesContent()).toString()));
         else
-            txtDetail.setText("Đang cập nhập thông tin về khách sạn");
+            txtDetail.setText(R.string.UpdatingHotelInfo);
 
         linear_layout.setOnClickListener(new View.OnClickListener() {
             @Override

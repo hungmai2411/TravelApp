@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.travelappproject.LanguageManager;
+import com.travelappproject.SharedPreferences.LocalDataManager;
 import com.travelappproject.activities.ChooseLocationActivity;
 import com.travelappproject.R;
 import com.travelappproject.activities.HotelDetailActivity;
@@ -78,6 +79,10 @@ public class HomeFragment extends Fragment {
         }
 
         hotelViewModel = new ViewModelProvider(getActivity()).get(HotelViewModel.class);
+
+        languageManager = new LanguageManager(getContext());
+        String language = LocalDataManager.getLanguage();
+        languageManager.updateResource(language);
     }
 
 

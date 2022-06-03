@@ -32,7 +32,7 @@
         app:startIconDrawable="@drawable/ic_action_email"
         app:startIconTint="@color/teal_200"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="   Email">
+        android:hint="Email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
@@ -48,7 +48,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_corner_button"
-        android:text="FORGOT PASSWORD"
+        android:text="@string/forgot_password"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15dp"

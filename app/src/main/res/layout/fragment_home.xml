@@ -40,14 +40,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Let's Enjoy"
+                    android:text="@string/let_s_enjoy"
                     android:textColor="#767677"
                     android:textSize="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your Vacation!"
+                    android:text="@string/your_vacation"
                     android:textColor="@color/black"
                     android:textSize="28dp"
                     android:textStyle="bold" />

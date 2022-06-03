@@ -53,7 +53,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.Constants;
 import com.travelappproject.FetchAddressIntentService;
+import com.travelappproject.LanguageManager;
 import com.travelappproject.LocationUtils;
+import com.travelappproject.SharedPreferences.LocalDataManager;
 import com.travelappproject.fragments.BookingFragment;
 import com.travelappproject.fragments.FavoriteFragment;
 import com.travelappproject.fragments.HomeFragment;
@@ -68,6 +70,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import vn.thanguit.toastperfect.ToastPerfect;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_LOCATION = 1;
@@ -155,8 +159,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation();
             } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
+                ToastPerfect.makeText(this, ToastPerfect.ERROR, getString(R.string.permissiondenied), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();            }
         }
     }
 

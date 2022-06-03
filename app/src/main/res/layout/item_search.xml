@@ -18,6 +18,6 @@
         android:textSize="18dp"
         android:layout_centerVertical="true"
         android:textColor="@color/black"
-        android:text="24-Hour Front Desk"
+        android:text="@string/_24_hour_front_desk"
         android:id="@+id/txtName"/>
 </RelativeLayout>

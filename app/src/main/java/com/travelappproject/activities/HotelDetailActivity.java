@@ -129,7 +129,7 @@ public class HotelDetailActivity extends AppCompatActivity {
 
         txtNumber = findViewById(R.id.txtNumber);
 
-        txtNumber.setText("(" + numberNight + " night)");
+        txtNumber.setText("(" + numberNight + " " + getString(R.string.night) + ")");
 
         btnCheckOut = findViewById(R.id.btnCheckOut);
         btnCheckIn = findViewById(R.id.btnCheckIn);
@@ -154,7 +154,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                 MaterialDatePicker<Pair<Long, Long>> dateRangePicker =
                         MaterialDatePicker.Builder.dateRangePicker()
                                 .setCalendarConstraints(calendarConstraints.build())
-                                .setTitleText("Select dates")
+                                .setTitleText(R.string.selectdates)
                                 .build();
                 dateRangePicker.show(getSupportFragmentManager(), "11");
                 dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
@@ -182,7 +182,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                 MaterialDatePicker<Pair<Long, Long>> dateRangePicker =
                         MaterialDatePicker.Builder.dateRangePicker()
                                 .setCalendarConstraints(calendarConstraints.build())
-                                .setTitleText("Select dates")
+                                .setTitleText(getString(R.string.selectdates))
                                 .setTheme(R.style.ThemeOverlay_App_DatePicker)
                                 .build();
                 dateRangePicker.show(getSupportFragmentManager(), "11");
@@ -323,10 +323,10 @@ public class HotelDetailActivity extends AppCompatActivity {
                     new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
                         switch (position) {
                             case 0:
-                                tab.setText("About");
+                                tab.setText(R.string.About);
                                 break;
                             case 1:
-                                tab.setText("Reviews");
+                                tab.setText(R.string.reviews);
                                 break;
                         }
                     }).attach();

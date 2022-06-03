@@ -33,7 +33,7 @@
         app:startIconTint="@color/teal_200"
         android:layout_marginTop="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="   Email">
+        android:hint="Email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
@@ -48,7 +48,7 @@
         app:startIconDrawable="@drawable/ic_action_pass"
         app:startIconTint="@color/teal_200"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Password"
+        android:hint="@string/password"
         app:passwordToggleEnabled="true"
         android:layout_marginTop="15dp"
         >
@@ -68,7 +68,7 @@
         app:startIconTint="@color/teal_200"
         android:layout_marginTop="15dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Rewrite  Password"
+        android:hint="@string/rewrite_password"
         app:passwordToggleEnabled="true"
         >
 
