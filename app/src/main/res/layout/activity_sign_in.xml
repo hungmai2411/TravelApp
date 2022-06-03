@@ -41,7 +41,7 @@
         app:startIconDrawable="@drawable/ic_action_pass"
         app:startIconTint="@color/teal_200"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Password"
+        android:hint="@string/password"
         app:passwordToggleEnabled="true"
         android:layout_marginTop="15dp"
         >
@@ -59,7 +59,7 @@
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_corner_button"
-        android:text="SIGN IN"
+        android:text="@string/sign_in"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15dp"
@@ -69,7 +69,7 @@
         android:id="@+id/forgotpass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot your password ?"
+        android:text="@string/forgot_your_password"
         android:textSize="15dp"
         android:layout_gravity="end"
         android:layout_marginTop="15dp">
@@ -91,7 +91,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OR"
+            android:text="@string/or"
             android:textSize="20dp"
             ></TextView>
         <View
@@ -137,7 +137,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account ? "
+            android:text="@string/don_t_have_an_account"
 
             android:textSize="15dp">
         </TextView>
@@ -146,7 +146,7 @@
             android:id="@+id/txtsignUp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textColor="@color/teal_200"
             android:textSize="15dp"
             android:textStyle="bold"></TextView>

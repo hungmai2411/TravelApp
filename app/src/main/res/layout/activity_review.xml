@@ -44,7 +44,7 @@
             android:background="@drawable/custom_edit_text"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:hint="Enter your review"
+            android:hint="@string/enter_your_review"
             android:padding="10dp"
             android:id="@+id/edtReview"
             android:textSize="14sp"

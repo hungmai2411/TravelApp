@@ -43,27 +43,72 @@
             android:textAllCaps="false"
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
             android:textAlignment="viewStart"
-            android:text="Edit profile"
+            android:text="@string/edit_profile"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:backgroundTint="@color/primary"
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
-        <Button
-            android:id="@+id/btnLanguage"
-            app:cornerRadius="@dimen/fab_margin"
-            android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
-            android:text="Language"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
-            android:drawableLeft="@drawable/ic_baseline_language_24"
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:weightSum="2"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/custom_button"
             android:backgroundTint="@color/primary"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="49dp"
+            android:orientation="horizontal"
+            android:id="@+id/btnLanguage">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="3dp"
+                    android:src="@drawable/ic_baseline_language_24"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#FFFFFFFF"
+                    android:layout_marginStart="9dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layoutDirection="rtl"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txtCurrentlanguage"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </LinearLayout>
         <Button
+            android:layout_marginTop="6dp"
             android:id="@+id/btnContact"
             app:cornerRadius="@dimen/fab_margin"
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
-            android:text="Contact us"
+            android:text="@string/contact_us"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:drawableLeft="@drawable/ic_baseline_info_24"
@@ -79,7 +124,7 @@
         <TextView
             android:id="@+id/txtDescription"
             android:textSize="20sp"
-            android:text="Sign up now and book for a great deal."
+            android:text="@string/sign_up_now_and_book_for_a_great_deal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button
@@ -92,7 +137,7 @@
             android:textColor="@color/primary"
             android:drawableLeft="@drawable/register"
             android:textAllCaps="false"
-            android:text="Sign In/ Sign Up"
+            android:text="@string/sign_in_sign_up"
             app:cornerRadius="20dp"
             android:backgroundTint="@color/white"
             android:layout_gravity="center"
@@ -112,7 +157,7 @@
             android:textColor="#FF603A"
             android:drawableLeft="@drawable/logout"
             android:textAllCaps="false"
-            android:text="Sign out"
+            android:text="@string/sign_out"
             app:cornerRadius="20dp"
             android:backgroundTint="@color/white"
             android:layout_gravity="center"

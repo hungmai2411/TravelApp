@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="One night"
+                        android:text="@string/one_night"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -178,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="Hotel"
+                        android:text="@string/hotel"
                         android:textColor="@color/black"
                         android:textDirection="rtl"
                         android:textStyle="bold" />
@@ -260,7 +260,7 @@
                     android:id="@+id/txtCancelPolicy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Room type" />
+                    android:text="@string/room_type" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

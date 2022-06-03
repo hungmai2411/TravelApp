@@ -16,7 +16,7 @@
             android:layout_marginVertical="8dp"
             app:endIconMode="clear_text"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Name">
+            android:hint="@string/name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:inputType="text"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/rounded_corner_button"
-            android:text="Apply"
+            android:text="@string/apply"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:backgroundTint="@color/primary" />
@@ -333,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/rounded_corner_button"
-                    android:text="Select Room"
+                    android:text="@string/select_room"
                     android:textAllCaps="false"
                     app:backgroundTint="@color/primary" />
             </RelativeLayout>
