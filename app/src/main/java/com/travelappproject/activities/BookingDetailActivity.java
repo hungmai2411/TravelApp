@@ -143,8 +143,9 @@ public class BookingDetailActivity extends AppCompatActivity {
                         dialog.dismiss();
                         txtStatus.setText("Cancelled");
                         relative.setVisibility(View.GONE);
+                        txtStatus.setTextColor(getResources().getColor(R.color.cancelled_text));
+                        txtStatus.setBackgroundColor(getResources().getColor(R.color.cancelled_color));
                         Toast.makeText(BookingDetailActivity.this, "BOOKING CANCELLED", Toast.LENGTH_SHORT).show();
-                        recreate();
                     }
                 });
 
