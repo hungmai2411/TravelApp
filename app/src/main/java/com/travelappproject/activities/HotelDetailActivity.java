@@ -45,6 +45,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -99,6 +100,7 @@ public class HotelDetailActivity extends AppCompatActivity {
     NestedScrollView nestedScrollView;
     String lon = "";
     ShimmerFrameLayout shimmerFrameLayout;
+    List<Room> listRoom = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,8 +242,6 @@ public class HotelDetailActivity extends AppCompatActivity {
                         slideModelList.add(slideModel);
                     }
 
-                    List<Room> listRoom = new ArrayList<>();
-
                     roomAdapter = new RoomAdapter(HotelDetailActivity.this, new RoomAdapter.IClickRoomListener() {
                         @Override
                         public void onCallBack(Room room) {
@@ -271,13 +271,17 @@ public class HotelDetailActivity extends AppCompatActivity {
                         }
                     });
 
+                    listRoom = new ArrayList<>();
+
                     mFireStore.collection("Hotels/" + idHotel + "/rooms")
                             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                     if (error == null) {
                                         if (!value.isEmpty()) {
-                                            for (QueryDocumentSnapshot document : value) {
+                                            for (DocumentChange dc : value.getDocumentChanges()) {
+                                                QueryDocumentSnapshot document = dc.getDocument();
+
                                                 Room room = new Room();
 
                                                 List<Photo> list = (List<Photo>) document.get("photos");
@@ -289,11 +293,11 @@ public class HotelDetailActivity extends AppCompatActivity {
                                                     listTmp.add(pojo);
                                                 }
 
+                                                room.setRoomArea(document.getString("roomArea"));
                                                 room.setId(document.getId());
                                                 room.setName(document.getString("name"));
                                                 room.setCancelPolicies(document.getString("cancelPolicies"));
                                                 room.setFacilities(document.getString("facilities"));
-                                                room.setRoomArea(document.getString("roomArea"));
 
                                                 if (document.get("number") != null)
                                                     room.setNumber((Long) document.get("number"));
@@ -301,7 +305,19 @@ public class HotelDetailActivity extends AppCompatActivity {
                                                 room.setPhotos(listTmp);
                                                 room.setPrice((Long) document.get("price"));
 
-                                                listRoom.add(room);
+                                                switch (dc.getType()) {
+                                                    case ADDED:
+                                                        listRoom.add(room);
+                                                        break;
+                                                    case MODIFIED:
+                                                        editRoom(document.getId());
+                                                        listRoom.add(room);
+                                                        break;
+                                                    case REMOVED:
+                                                        Log.d("tag",document.getId());
+                                                        removeRoom(document.getId());
+                                                        break;
+                                                }
                                             }
                                             roomAdapter.notifyDataSetChanged();
                                             shimmerFrameLayout.stopShimmer();
@@ -349,6 +365,22 @@ public class HotelDetailActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void removeRoom(String id) {
+        for(Room room : listRoom){
+            if(room.getId().equals(id)){
+                listRoom.remove(room);
+            }
+        }
+    }
+
+    private void editRoom(String id){
+        for(Room room : listRoom){
+            if(room.getId().equals(id)){
+                listRoom.remove(room);
+            }
+        }
     }
 
     @Override
