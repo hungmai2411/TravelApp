@@ -210,7 +210,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
-            //hotel = (Hotel) bundle.getSerializable("hotel");
+            idHotel = intent.getLongExtra("id",0);
             Long id = intent.getLongExtra("id",0);
             mFireStore.collection("Hotels/").document(String.valueOf(id))
                     .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -310,7 +310,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                                                         listRoom.add(room);
                                                         break;
                                                     case MODIFIED:
-                                                        editRoom(document.getId());
+                                                        removeRoom(document.getId());
                                                         listRoom.add(room);
                                                         break;
                                                     case REMOVED:
@@ -375,14 +375,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void editRoom(String id){
-        for(Room room : listRoom){
-            if(room.getId().equals(id)){
-                listRoom.remove(room);
-            }
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tool_bar, menu);
@@ -392,10 +384,10 @@ public class HotelDetailActivity extends AppCompatActivity {
             mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(idHotel)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (error == null) {
-                        if (value.exists()) {
+                    if (error == null){
+                        if (value.exists()){
                             favorite.setIcon(R.drawable.ic_favorite);
-                        } else {
+                        }else{
                             favorite.setIcon(R.drawable.ic_action_favorite);
                         }
                     }
