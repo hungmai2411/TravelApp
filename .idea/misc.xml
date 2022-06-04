@@ -63,12 +63,13 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.30350404107685636" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_booking.xml" value="0.25937042236328123" />
+        <entry key="app/src/main/res/layout/item_booking.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_booking_partner.xml" value="0.34181944935034353" />
         <entry key="app/src/main/res/layout/item_facilities.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/item_favorite.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/item_hotel_1.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_hotel_2.xml" value="0.2477355072463768" />
+        <entry key="app/src/main/res/layout/item_loading.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/item_payment.xml" value="0.29582945911596853" />
         <entry key="app/src/main/res/layout/item_photo.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_room.xml" value="0.2572178477690289" />
