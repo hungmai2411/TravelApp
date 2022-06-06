@@ -63,6 +63,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             }
         });
 
+        if(mList.get(position).getNumber() == 0){
+            holder.btnSelectRoom.setEnabled(false);
+            holder.imgRoom.setAlpha(100);
+            holder.btnSelectRoom.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DADADA")));
+            //holder.layout.setBackgroundColor();
+        }
+
         holder.txtPrice.setText(new HandleCurrency().handle(mList.get(position).getPrice()));
     }
 

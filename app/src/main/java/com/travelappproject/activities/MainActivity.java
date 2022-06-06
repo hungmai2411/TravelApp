@@ -51,6 +51,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.travelappproject.Constants;
 import com.travelappproject.FetchAddressIntentService;
 import com.travelappproject.LanguageManager;
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     String finalState;
     ProgressDialog progressDialog;
     ExecutorService executorService;
-
     LocationUtils locationUtils;
 
     @Override
