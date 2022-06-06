@@ -210,8 +210,8 @@ public class HotelDetailActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
-            idHotel = intent.getLongExtra("id",0);
-            Long id = intent.getLongExtra("id",0);
+            idHotel = intent.getLongExtra("id", 0);
+            Long id = intent.getLongExtra("id", 0);
             mFireStore.collection("Hotels/").document(String.valueOf(id))
                     .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -256,7 +256,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                                             Bundle args = new Bundle();
                                             args.putLong("startDate", startDate);
                                             args.putLong("endDate", endDate);
-                                            args.putSerializable("hotel",hotel);
+                                            args.putSerializable("hotel", hotel);
                                             args.putSerializable("room", (Serializable) room);
                                             intent.putExtras(args);
                                             startActivity(intent);
@@ -310,12 +310,20 @@ public class HotelDetailActivity extends AppCompatActivity {
                                                         listRoom.add(room);
                                                         break;
                                                     case MODIFIED:
-                                                        removeRoom(document.getId());
-                                                        listRoom.add(room);
+                                                        try {
+                                                            removeRoom(document.getId());
+                                                            listRoom.add(room);
+                                                        } catch (Exception e) {
+                                                            Log.d("HotelDetailActivity", e.getMessage());
+                                                        }
                                                         break;
                                                     case REMOVED:
-                                                        Log.d("tag",document.getId());
-                                                        removeRoom(document.getId());
+                                                        Log.d("tag", document.getId());
+                                                        try {
+                                                            removeRoom(document.getId());
+                                                        } catch (Exception e) {
+                                                            Log.d("HotelDetailActivity", e.getMessage());
+                                                        }
                                                         break;
                                                 }
                                             }
@@ -363,16 +371,18 @@ public class HotelDetailActivity extends AppCompatActivity {
                 startActivity(mapIntent);
             }
         });
-
-
     }
 
     private void removeRoom(String id) {
-        for(Room room : listRoom){
-            if(room.getId().equals(id)){
-                listRoom.remove(room);
+        List<Room> listTmp = new ArrayList<>();
+
+        for (Room room : listRoom) {
+            if (room.getId().equals(id)) {
+                listTmp.add(room);
             }
         }
+
+        listRoom.removeAll(listTmp);
     }
 
     @Override
@@ -384,10 +394,10 @@ public class HotelDetailActivity extends AppCompatActivity {
             mFireStore.collection("users/" + uidUser + "/favorites").document(String.valueOf(idHotel)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (error == null){
-                        if (value.exists()){
+                    if (error == null) {
+                        if (value.exists()) {
                             favorite.setIcon(R.drawable.ic_favorite);
-                        }else{
+                        } else {
                             favorite.setIcon(R.drawable.ic_action_favorite);
                         }
                     }

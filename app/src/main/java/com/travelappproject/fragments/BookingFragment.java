@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,7 +54,6 @@ public class BookingFragment extends Fragment {
     String uid;
     List<Booking> listTmp = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ExecutorService executorService;
     Toolbar toolbar;
 
     public BookingFragment() {
@@ -69,8 +70,6 @@ public class BookingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        executorService = Executors.newSingleThreadExecutor();
-
     }
 
     @Override
@@ -100,7 +99,7 @@ public class BookingFragment extends Fragment {
                 public void onCallBack(Booking booking) {
                     Intent intent = new Intent(getContext(), BookingDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("booking",booking);
+                    bundle.putSerializable("booking", booking);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -109,13 +108,51 @@ public class BookingFragment extends Fragment {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
             rcvBookings.setLayoutManager(linearLayoutManager);
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvBookings.getContext(), DividerItemDecoration.VERTICAL);
-            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(),R.drawable.divider));
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
             rcvBookings.addItemDecoration(dividerItemDecoration);
 
             bookingAdapter.addData(listTmp);
             rcvBookings.setAdapter(bookingAdapter);
 
-            getData();
+            db.collection("users/" + uid + "/booked")
+                    .orderBy("timestamp")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (error == null) {
+                                if (!value.isEmpty()) {
+                                    try {
+                                        for (DocumentChange dc : value.getDocumentChanges()) {
+                                            DocumentSnapshot doc = dc.getDocument();
+
+                                            Booking booking = doc.toObject(Booking.class);
+                                            Timestamp timestamp = (Timestamp) doc.get("timestamp");
+                                            Date date = timestamp.toDate();
+                                            booking.setDate(date);
+                                            booking.setIdBooking(doc.getId());
+
+                                            switch (dc.getType()) {
+                                                case ADDED:
+                                                    listTmp.add(booking);
+                                                    break;
+                                                case REMOVED:
+                                                    removeBooking(booking.getIdBooking());
+                                                    break;
+                                                case MODIFIED:
+                                                    removeBooking(booking.getIdBooking());
+                                                    listTmp.add(booking);
+                                                    break;
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        Log.d("Booking Fragment", e.getMessage());
+                                    }
+                                }
+                                bookingAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                    });
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -126,40 +163,15 @@ public class BookingFragment extends Fragment {
         });
     }
 
-    void getData() {
-        listTmp.clear();
+    private void removeBooking(String id) {
+        List<Booking> list = new ArrayList<>();
 
-        db.collection("users/" + uid + "/booked")
-                .orderBy("timestamp")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error == null) {
-                            if (!value.isEmpty()) {
-                                for (QueryDocumentSnapshot doc : value) {
-                                    Booking booking = doc.toObject(Booking.class);
-                                    Timestamp timestamp = (Timestamp) doc.get("timestamp");
-                                    Date date = timestamp.toDate();
-                                    booking.setDate(date);
-                                    booking.setIdBooking(doc.getId());
-
-                                    if(!checkExist(booking.getIdBooking()))
-                                        listTmp.add(booking);
-                                }
-                                bookingAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                });
-    }
-
-    private boolean checkExist(String id){
-        for (Booking booking : listTmp){
-            if(booking.getIdBooking().equals(id)){
-                return true;
+        for (Booking booking : listTmp) {
+            if (booking.getIdBooking().equals(id)) {
+                list.add(booking);
             }
         }
 
-        return false;
+        listTmp.removeAll(list);
     }
 }

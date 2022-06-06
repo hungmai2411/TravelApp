@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -27,11 +28,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.shuhart.stepview.StepView;
 import com.travelappproject.HandleCurrency;
 import com.travelappproject.R;
+import com.travelappproject.RetrofitInstance;
+import com.travelappproject.SendMessageApi;
 import com.travelappproject.adapter.PaymentAdapter;
 import com.travelappproject.helperforzalopay.AppInfo;
 import com.travelappproject.helperforzalopay.CreateOrder;
 import com.travelappproject.model.hotel.Booking;
+import com.travelappproject.model.hotel.Data;
 import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.model.hotel.Message;
 import com.travelappproject.model.hotel.Payment;
 import com.travelappproject.model.hotel.User;
 import com.travelappproject.model.hotel.room.Room;
@@ -42,7 +47,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.thanguit.toastperfect.ToastPerfect;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
@@ -59,31 +69,36 @@ public class Confirm1Activity extends AppCompatActivity {
     TextView txtPrice;
     int check = 0;
     Room room;
-    Long daysDiff,startDate,endDate;
+    Long daysDiff, startDate, endDate;
     String uid;
     Hotel mHotel;
     String choice;
     User user;
+    ExecutorService executorService;
+    SendMessageApi sendMessageApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm1);
 
-        if(mAuth.getCurrentUser() != null){
+        sendMessageApi = RetrofitInstance.retrofit.create(SendMessageApi.class);
+        executorService = Executors.newSingleThreadExecutor();
+
+        if (mAuth.getCurrentUser() != null) {
             uid = mAuth.getCurrentUser().getUid();
         }
 
         Intent intent = getIntent();
 
-        if(intent != null){
+        if (intent != null) {
             Bundle bundle = intent.getExtras();
             user = (User) bundle.getSerializable("user");
             room = (Room) bundle.getSerializable("room");
             mHotel = (Hotel) intent.getSerializableExtra("hotel");
-            daysDiff = intent.getLongExtra("daysdiff",1);
-            startDate = intent.getLongExtra("startDate",0);
-            endDate = intent.getLongExtra("endDate",0);
+            daysDiff = intent.getLongExtra("daysdiff", 1);
+            startDate = intent.getLongExtra("startDate", 0);
+            endDate = intent.getLongExtra("endDate", 0);
         }
 
         StrictMode.ThreadPolicy policy = new
@@ -133,9 +148,9 @@ public class Confirm1Activity extends AppCompatActivity {
                 Payment payment = paymentAdapter.getItemSelected();
                 choice = payment.getPaymentMethod();
 
-                if(choice.equals(getString(R.string.pay_at_hotel))){
+                if (choice.equals(getString(R.string.pay_at_hotel))) {
                     addToBooked();
-                }else {
+                } else {
                     if (check == 0) {
                         CreateOrder orderApi = new CreateOrder();
 
@@ -172,7 +187,7 @@ public class Confirm1Activity extends AppCompatActivity {
                     } else {
                         Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("hotel",mHotel);
+                        bundle.putSerializable("hotel", mHotel);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
                     }
@@ -190,48 +205,94 @@ public class Confirm1Activity extends AppCompatActivity {
         });
     }
 
-    private void addToBooked(){
+    private void addToBooked() {
         Map<String, Object> booksMap = new HashMap<>();
 
-        booksMap.put("addressHotel",mHotel.getFullAddress());
+        booksMap.put("addressHotel", mHotel.getFullAddress());
         booksMap.put("timestamp", FieldValue.serverTimestamp());
-        booksMap.put("idHotel",mHotel.getId());
-        booksMap.put("idRoom",room.getId());
-        booksMap.put("nameRoom",room.getName());
-        booksMap.put("choice",choice);
-        booksMap.put("startDate",startDate);
-        booksMap.put("endDate",endDate);
-        booksMap.put("startTime",mHotel.getCheckInTime());
-        booksMap.put("endTime",mHotel.getCheckOutTime());
-        booksMap.put("daysdiff",daysDiff);
-        booksMap.put("hotelName",mHotel.getName());
-        booksMap.put("username",user.getName());
-        booksMap.put("phonenumber",user.getPhoneNumber());
-        booksMap.put("status","Booked");
+        booksMap.put("idHotel", mHotel.getId());
+        booksMap.put("idRoom", room.getId());
+        booksMap.put("nameRoom", room.getName());
+        booksMap.put("choice", choice);
+        booksMap.put("startDate", startDate);
+        booksMap.put("endDate", endDate);
+        booksMap.put("startTime", mHotel.getCheckInTime());
+        booksMap.put("endTime", mHotel.getCheckOutTime());
+        booksMap.put("daysdiff", daysDiff);
+        booksMap.put("hotelName", mHotel.getName());
+        booksMap.put("username", user.getName());
+        booksMap.put("phonenumber", user.getPhoneNumber());
+        booksMap.put("status", "Booked");
 
         long price = room.getPrice() * daysDiff;
-        booksMap.put("price",price);
+        booksMap.put("price", price);
 
         db.collection("users/" + uid + "/booked").add(booksMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()){
-                    booksMap.put("idBooking",task.getResult().getId());
+                if (task.isSuccessful()) {
+                    String id = task.getResult().getId();
+                    booksMap.put("idBooking", id);
 
-                    db.collection("Hotels/" + mHotel.getId() + "/booked").document(task.getResult().getId()).set(booksMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("number", room.getNumber() - 1);
+
+                    executorService.execute(new Runnable() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                        public void run() {
+                            db.collection("Hotels/" + mHotel.getId() + "/rooms")
+                                    .document(room.getId())
+                                    .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
 
+                                }
+                            });
                         }
                     });
 
-                    Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("idBooking",task.getResult().getId());
-                    intent1.putExtras(bundle);
-                    intent1.putExtra("hotel",mHotel);
-                    startActivity(intent1);
-                }else {
+                    db.collection("Hotels/" + mHotel.getId() + "/booked")
+                            .document(task.getResult().getId()).set(booksMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Message message = new Message();
+                                    Data data = new Data();
+                                    data.setUserName("Uit Trip Notification");
+                                    data.setDescription("[Booked] Your booking " + id + " is confirmed");
+                                    message.setPriority("high");
+                                    message.setData(data);
+                                    message.setTo(user.getToken());
+
+                                    Call<Message> repos = sendMessageApi.sendMessage(message);
+                                    repos.enqueue(new Callback<Message>() {
+                                        @Override
+                                        public void onResponse(Call<Message> call, Response<Message> response) {
+                                            if (response.body() != null) {
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Message> call, Throwable t) {
+                                            Log.d("Confirm1Activity",t.getMessage().toString());
+                                        }
+                                    });
+
+                                    Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("idBooking", id);
+                                    intent1.putExtras(bundle);
+                                    intent1.putExtra("hotel", mHotel);
+                                    startActivity(intent1);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("err", e.toString());
+                        }
+                    });
+                } else {
 
                 }
             }
