@@ -23,6 +23,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/ic_warning.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/item_navigation_selector.xml" value="0.1875" />
+        <entry key="app/src/main/res/drawable/red_dot.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/rounded_coner_image_button.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/rounded_corner_button.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/rounded_corner_image.xml" value="0.1875" />
@@ -42,11 +43,14 @@
         <entry key="app/src/main/res/layout/activity_logout.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/activity_main_partner.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_notification.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_qr_code.xml" value="0.2370120062344316" />
         <entry key="app/src/main/res/layout/activity_room_detail.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.22783203125000004" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/bell_with_red_dot.xml" value="0.5533472696940105" />
         <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.3744461059570313" />
         <entry key="app/src/main/res/layout/custom_dialog_cancel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.15070921985815602" />
@@ -56,7 +60,7 @@
         <entry key="app/src/main/res/layout/fragment_confirm1.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_confirm2.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.2477355072463768" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.29583333333333334" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.327319587628866" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/fragment_review.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_room.xml" value="0.21349792480468752" />
@@ -70,6 +74,7 @@
         <entry key="app/src/main/res/layout/item_hotel_1.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_hotel_2.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_loading.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/item_notification.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/item_payment.xml" value="0.29582945911596853" />
         <entry key="app/src/main/res/layout/item_photo.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/item_room.xml" value="0.2572178477690289" />
@@ -78,7 +83,7 @@
         <entry key="app/src/main/res/layout/item_star.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/shimmer_item_hotel.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/shimmer_item_hotel_detail.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/widget_in_app.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/widget_in_app.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu_partner.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/menu/menu_room.xml" value="0.2571428571428571" />
