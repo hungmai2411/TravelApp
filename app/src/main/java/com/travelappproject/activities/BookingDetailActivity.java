@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.HandleCurrency;
+import com.travelappproject.QrCodeActivity;
 import com.travelappproject.R;
 import com.travelappproject.model.hotel.Booking;
 
@@ -44,7 +45,7 @@ public class BookingDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     RelativeLayout relative;
     Dialog dialog;
-    Button btnCancel;
+    Button btnCancel,btnGetQr;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String uid;
@@ -58,6 +59,7 @@ public class BookingDetailActivity extends AppCompatActivity {
             uid = auth.getUid();
         }
 
+        btnGetQr = findViewById(R.id.btnGetQr);
         btnCancel = findViewById(R.id.btnCancel);
         relative = findViewById(R.id.relative);
         txtStatusPayment = findViewById(R.id.txtStatusPayment);
@@ -117,6 +119,15 @@ public class BookingDetailActivity extends AppCompatActivity {
             txtStatus.setTextColor(getResources().getColor(R.color.cancelled_text));
             txtStatus.setBackgroundColor(getResources().getColor(R.color.cancelled_color));
         }
+
+        btnGetQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(BookingDetailActivity.this, QrCodeActivity.class);
+                intent1.putExtra("qr",idBooking.getText());
+                startActivity(intent1);
+            }
+        });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

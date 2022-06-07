@@ -125,6 +125,12 @@
     <string name="Yes">Có</string>
     <string name="PriceIncrese">Giá tăng dần</string>
     <string name="PriceDecreasing">Giá giảm dần</string>
+    <string name="cancel_booking">Huỷ đặt phòng</string>
+    <string name="qr_check_in">Mã QR</string>
+    <string name="uittrip_notification">UitTrip thông báo</string>
+    <string name="t_ph_ng">[Đã đặt phòng]</string>
+    <string name="b_n_x_c_nh_n_c_t_ph_ng">Bạn đã xác nhận được đặt phòng</string>
+    <string name="th_ng_b_o">Thông báo</string>
 
 
 </resources>
