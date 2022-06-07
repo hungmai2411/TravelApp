@@ -20,16 +20,53 @@
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/btnSearch"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="17dp"
-                android:layout_marginRight="19dp"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:src="?android:attr/actionModeWebSearchDrawable" />
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginRight="19dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:clickable="true"
+                        android:id="@+id/btnNotification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:background="@android:drawable/screen_background_light_transparent"
+                        android:src="@drawable/notification" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/redDot"
+                        android:visibility="gone"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        app:cardBackgroundColor="#FF0000"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="4dp"
+                        app:cardCornerRadius="50dp"
+                        app:layout_constraintTop_toTopOf="@+id/btnNotification"
+                        app:layout_constraintEnd_toEndOf="@+id/btnNotification" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:drawable/screen_background_light_transparent"
+                    android:src="@drawable/search_interface_symbol" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

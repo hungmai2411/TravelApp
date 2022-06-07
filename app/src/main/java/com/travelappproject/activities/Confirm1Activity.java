@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -180,7 +181,6 @@ public class Confirm1Activity extends AppCompatActivity {
                                     }
                                 });
                             }
-
                         } catch (Exception e) {
                             Log.d("err", e.getMessage());
                         }
@@ -208,8 +208,9 @@ public class Confirm1Activity extends AppCompatActivity {
     private void addToBooked() {
         Map<String, Object> booksMap = new HashMap<>();
 
+        FieldValue timestamp = FieldValue.serverTimestamp();
         booksMap.put("addressHotel", mHotel.getFullAddress());
-        booksMap.put("timestamp", FieldValue.serverTimestamp());
+        booksMap.put("timestamp",timestamp);
         booksMap.put("idHotel", mHotel.getId());
         booksMap.put("idRoom", room.getId());
         booksMap.put("nameRoom", room.getName());
@@ -245,6 +246,16 @@ public class Confirm1Activity extends AppCompatActivity {
                                     .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+
+                                }
+                            });
+
+                            HashMap<String,Object> notiMap = new HashMap<>();
+                            notiMap.put("timestamp",timestamp);
+                            db.collection("users/" + uid + "/notifications")
+                                    .add(notiMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
 
                                 }
                             });
