@@ -125,6 +125,12 @@
     <string name="Yes">Yes</string>
     <string name="PriceIncrese">Price increasing</string>
     <string name="PriceDecreasing">Price decreasing</string>
+    <string name="cancel_booking">Cancel Booking</string>
+    <string name="qr_check_in">Your QR code</string>
+    <string name="uittrip_notification">UitTrip Notification</string>
+    <string name="t_ph_ng">[Booked]</string>
+    <string name="b_n_x_c_nh_n_c_t_ph_ng">Your booking is confirmed</string>
+    <string name="th_ng_b_o">Notification</string>
 
 
 </resources>

@@ -24,6 +24,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <activity
+            android:name=".activities.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QrCodeActivity"
+            android:exported="false" />
 
         <service
             android:name=".fcm.MyFirebaseMessagingService"
@@ -36,7 +42,8 @@
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
                 android:resource="@drawable/applogo" />
-            <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_color"
                 android:resource="@color/black" />
         </service>
 
@@ -105,8 +112,8 @@
         </activity>
         <activity
             android:name=".activities.SignInActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

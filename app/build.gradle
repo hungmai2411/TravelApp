@@ -134,6 +134,8 @@ dependencies {
 
     //Toast Perfect
     implementation 'io.github.thang-uit:toastperfectlibrary:1.0.1'
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

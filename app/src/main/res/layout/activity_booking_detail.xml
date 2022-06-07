@@ -343,19 +343,19 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/rounded_corner_button"
-                android:text="Cancel Booking"
+                android:text="@string/cancel_booking"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/primary" />
 
             <Button
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
+                android:id="@+id/btnGetQr"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/primary"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/rounded_corner_button"
-                android:text="QR Check-in"
-                android:id="@+id/btnCheckQr"/>
+                android:text="@string/qr_check_in"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/primary" />
 
         </RelativeLayout>
     </LinearLayout>
