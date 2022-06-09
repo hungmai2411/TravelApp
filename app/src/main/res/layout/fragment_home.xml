@@ -127,6 +127,17 @@
 
         </LinearLayout>
 
+        <com.denzcoskun.imageslider.ImageSlider
+            android:layout_marginTop="10dp"
+            android:id="@+id/image_slider"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            app:iss_auto_cycle="true"
+            app:iss_period="1000"
+            app:iss_delay="0"
+            android:layout_height="200dp"
+            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

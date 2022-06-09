@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
@@ -64,6 +66,8 @@ import com.travelappproject.model.hotel.room.Photo;
 import com.travelappproject.model.hotel.room.Room;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -71,6 +75,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class HotelDetailActivity extends AppCompatActivity {
@@ -101,6 +108,8 @@ public class HotelDetailActivity extends AppCompatActivity {
     String lon = "";
     ShimmerFrameLayout shimmerFrameLayout;
     List<Room> listRoom = new ArrayList<>();
+    int count = 0;
+    ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +119,9 @@ public class HotelDetailActivity extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             uidUser = mAuth.getUid();
         }
+
+        executorService = Executors.newSingleThreadExecutor();
+
         startDate = MaterialDatePicker.todayInUtcMilliseconds();
 
         GregorianCalendar gc = new GregorianCalendar();
@@ -157,6 +169,7 @@ public class HotelDetailActivity extends AppCompatActivity {
                         MaterialDatePicker.Builder.dateRangePicker()
                                 .setCalendarConstraints(calendarConstraints.build())
                                 .setTitleText(R.string.selectdates)
+                                .setTheme(R.style.ThemeOverlay_App_DatePicker)
                                 .build();
                 dateRangePicker.show(getSupportFragmentManager(), "11");
                 dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
@@ -171,6 +184,82 @@ public class HotelDetailActivity extends AppCompatActivity {
                         txtDateCheckOut.setText(DateFormat.format("dd/MM", new Date(endDate)).toString());
                         txtDateCheckIn.setText(DateFormat.format("dd/MM", new Date(startDate)).toString());
                         txtNumber.setText("(" + daysDiff + " night)");
+
+                        count = 0;
+                        listRoom.clear();
+
+                        mFireStore.collection("Hotels/" + idHotel + "/rooms")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        for (DocumentSnapshot document : task.getResult()) {
+                                            Room room = new Room();
+
+                                            List<Photo> list = (List<Photo>) document.get("photos");
+                                            List<Photo> listTmp = new ArrayList<>();
+
+                                            for (int i = 0; i < list.size(); i++) {
+                                                final ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
+                                                final Photo pojo = mapper.convertValue(list.get(i), Photo.class);
+                                                listTmp.add(pojo);
+                                            }
+
+                                            room.setRoomArea(document.getString("roomArea"));
+                                            room.setId(document.getId());
+                                            room.setName(document.getString("name"));
+                                            room.setCancelPolicies(document.getString("cancelPolicies"));
+                                            room.setFacilities(document.getString("facilities"));
+
+                                            if (document.get("number") != null)
+                                                room.setNumber((Long) document.get("number"));
+
+                                            room.setPhotos(listTmp);
+                                            room.setPrice((Long) document.get("price"));
+
+                                            mFireStore.collection("Hotels/" + idHotel + "/booked")
+                                                    .whereEqualTo("idRoom", room.getId())
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            for (DocumentSnapshot doc : task.getResult()) {
+                                                                String end = DateFormat.format("dd/MM/yyyy", new Date(doc.getLong("endDate"))).toString();
+                                                                String start = DateFormat.format("dd/MM/yyyy", new Date(doc.getLong("startDate"))).toString();
+                                                                String startChoice = DateFormat.format("dd/MM/yyyy", new Date(startDate)).toString();
+
+                                                                try {
+                                                                    Date dateStart = new SimpleDateFormat("dd/MM/yyyy").parse(start);
+                                                                    Date dateEnd = new SimpleDateFormat("dd/MM/yyyy").parse(end);
+                                                                    Date dateStartChoice = new SimpleDateFormat("dd/MM/yyyy").parse(startChoice);
+
+                                                                    if (dateStartChoice.compareTo(dateStart) == -1) {
+                                                                        continue;
+                                                                    } else if (dateStartChoice.compareTo(dateEnd) == -1) {
+                                                                        count++;
+                                                                    } else {
+                                                                        room.setAvailable(true);
+                                                                    }
+                                                                    if (count == room.getNumber()) {
+                                                                        room.setAvailable(false);
+                                                                    }
+
+                                                                } catch (ParseException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                            listRoom.add(room);
+                                                            roomAdapter.notifyDataSetChanged();
+                                                            count = 0;
+                                                        }
+                                                    });
+
+                                            roomAdapter.notifyDataSetChanged();
+                                            roomAdapter.setData(listRoom);
+                                        }
+                                    }
+                                });
+                        rcvRooms.setAdapter(roomAdapter);
                     }
                 });
             }
@@ -197,9 +286,88 @@ public class HotelDetailActivity extends AppCompatActivity {
                         long msDiff = endDate - startDate;
                         long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
 
-                        txtDateCheckOut.setText(DateFormat.format("dd/MM", new Date(endDate)).toString());
-                        txtDateCheckIn.setText(DateFormat.format("dd/MM", new Date(startDate)).toString());
+                        String end = DateFormat.format("dd/MM", new Date(endDate)).toString();
+                        txtDateCheckOut.setText(end);
+                        String start = DateFormat.format("dd/MM", new Date(startDate)).toString();
+                        txtDateCheckIn.setText(start);
                         txtNumber.setText("(" + daysDiff + " night)");
+
+                        count = 0;
+                        listRoom.clear();
+
+                        mFireStore.collection("Hotels/" + idHotel + "/rooms")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        for (DocumentSnapshot document : task.getResult()) {
+                                            Room room = new Room();
+
+                                            List<Photo> list = (List<Photo>) document.get("photos");
+                                            List<Photo> listTmp = new ArrayList<>();
+
+                                            for (int i = 0; i < list.size(); i++) {
+                                                final ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
+                                                final Photo pojo = mapper.convertValue(list.get(i), Photo.class);
+                                                listTmp.add(pojo);
+                                            }
+
+                                            room.setRoomArea(document.getString("roomArea"));
+                                            room.setId(document.getId());
+                                            room.setName(document.getString("name"));
+                                            room.setCancelPolicies(document.getString("cancelPolicies"));
+                                            room.setFacilities(document.getString("facilities"));
+
+                                            if (document.get("number") != null)
+                                                room.setNumber((Long) document.get("number"));
+
+                                            room.setPhotos(listTmp);
+                                            room.setPrice((Long) document.get("price"));
+
+                                            mFireStore.collection("Hotels/" + idHotel + "/booked")
+                                                    .whereEqualTo("idRoom", room.getId())
+                                                    .get()
+                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            for (DocumentSnapshot doc : task.getResult()) {
+                                                                String end = DateFormat.format("dd/MM/yyyy", new Date(doc.getLong("endDate"))).toString();
+                                                                String start = DateFormat.format("dd/MM/yyyy", new Date(doc.getLong("startDate"))).toString();
+                                                                String startChoice = DateFormat.format("dd/MM/yyyy", new Date(startDate)).toString();
+
+                                                                try {
+                                                                    Date dateStart = new SimpleDateFormat("dd/MM/yyyy").parse(start);
+                                                                    Date dateEnd = new SimpleDateFormat("dd/MM/yyyy").parse(end);
+                                                                    Date dateStartChoice = new SimpleDateFormat("dd/MM/yyyy").parse(startChoice);
+
+                                                                    if (dateStartChoice.compareTo(dateStart) == -1) {
+                                                                        continue;
+                                                                    } else if (dateStartChoice.compareTo(dateEnd) == -1) {
+                                                                        count++;
+                                                                    } else {
+                                                                        room.setAvailable(true);
+                                                                    }
+                                                                    if (count == room.getNumber()) {
+                                                                        room.setAvailable(false);
+                                                                    }
+
+                                                                } catch (ParseException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                            listRoom.add(room);
+                                                            roomAdapter.notifyDataSetChanged();
+                                                            count = 0;
+                                                        }
+                                                    });
+
+
+                                            roomAdapter.notifyDataSetChanged();
+                                            roomAdapter.setData(listRoom);
+                                        }
+                                    }
+                                });
+                        rcvRooms.setAdapter(roomAdapter);
                     }
                 });
             }
@@ -274,65 +442,77 @@ public class HotelDetailActivity extends AppCompatActivity {
                     listRoom = new ArrayList<>();
 
                     mFireStore.collection("Hotels/" + idHotel + "/rooms")
-                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if (error == null) {
-                                        if (!value.isEmpty()) {
-                                            for (DocumentChange dc : value.getDocumentChanges()) {
-                                                QueryDocumentSnapshot document = dc.getDocument();
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        Room room = new Room();
 
-                                                Room room = new Room();
+                                        List<Photo> list = (List<Photo>) document.get("photos");
+                                        List<Photo> listTmp = new ArrayList<>();
 
-                                                List<Photo> list = (List<Photo>) document.get("photos");
-                                                List<Photo> listTmp = new ArrayList<>();
-
-                                                for (int i = 0; i < list.size(); i++) {
-                                                    final ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
-                                                    final Photo pojo = mapper.convertValue(list.get(i), Photo.class);
-                                                    listTmp.add(pojo);
-                                                }
-
-                                                room.setRoomArea(document.getString("roomArea"));
-                                                room.setId(document.getId());
-                                                room.setName(document.getString("name"));
-                                                room.setCancelPolicies(document.getString("cancelPolicies"));
-                                                room.setFacilities(document.getString("facilities"));
-
-                                                if (document.get("number") != null)
-                                                    room.setNumber((Long) document.get("number"));
-
-                                                room.setPhotos(listTmp);
-                                                room.setPrice((Long) document.get("price"));
-
-                                                switch (dc.getType()) {
-                                                    case ADDED:
-                                                        listRoom.add(room);
-                                                        break;
-                                                    case MODIFIED:
-                                                        try {
-                                                            removeRoom(document.getId());
-                                                            listRoom.add(room);
-                                                        } catch (Exception e) {
-                                                            Log.d("HotelDetailActivity", e.getMessage());
-                                                        }
-                                                        break;
-                                                    case REMOVED:
-                                                        Log.d("tag", document.getId());
-                                                        try {
-                                                            removeRoom(document.getId());
-                                                        } catch (Exception e) {
-                                                            Log.d("HotelDetailActivity", e.getMessage());
-                                                        }
-                                                        break;
-                                                }
-                                            }
-                                            roomAdapter.notifyDataSetChanged();
-                                            shimmerFrameLayout.stopShimmer();
-                                            shimmerFrameLayout.setVisibility(View.GONE);
-                                            appBarLayout.setVisibility(View.VISIBLE);
-                                            nestedScrollView.setVisibility(View.VISIBLE);
+                                        for (int i = 0; i < list.size(); i++) {
+                                            final ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
+                                            final Photo pojo = mapper.convertValue(list.get(i), Photo.class);
+                                            listTmp.add(pojo);
                                         }
+
+                                        room.setRoomArea(document.getString("roomArea"));
+                                        room.setId(document.getId());
+                                        room.setName(document.getString("name"));
+                                        room.setCancelPolicies(document.getString("cancelPolicies"));
+                                        room.setFacilities(document.getString("facilities"));
+
+                                        if (document.get("number") != null)
+                                            room.setNumber((Long) document.get("number"));
+
+                                        room.setPhotos(listTmp);
+                                        room.setPrice((Long) document.get("price"));
+
+                                        mFireStore.collection("Hotels/" + idHotel + "/booked")
+                                                .whereEqualTo("idRoom", room.getId())
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        for (DocumentSnapshot doc : task.getResult()) {
+                                                            String end = DateFormat.format("dd/MM/yyyy", new Date(doc.getLong("endDate"))).toString();
+                                                            String start = DateFormat.format("dd/MM/yyyy", new Date(doc.getLong("startDate"))).toString();
+                                                            String startChoice = DateFormat.format("dd/MM/yyyy", new Date(startDate)).toString();
+
+                                                            try {
+                                                                Date dateStart = new SimpleDateFormat("dd/MM/yyyy").parse(start);
+                                                                Date dateEnd = new SimpleDateFormat("dd/MM/yyyy").parse(end);
+                                                                Date dateStartChoice = new SimpleDateFormat("dd/MM/yyyy").parse(startChoice);
+
+                                                                if (dateStartChoice.compareTo(dateStart) == -1) {
+                                                                    continue;
+                                                                } else if (dateStartChoice.compareTo(dateEnd) == -1) {
+                                                                    count++;
+                                                                } else {
+                                                                    room.setAvailable(true);
+                                                                }
+                                                                if (count == room.getNumber()) {
+                                                                    room.setAvailable(false);
+                                                                }
+
+                                                            } catch (ParseException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                        listRoom.add(room);
+                                                        roomAdapter.notifyDataSetChanged();
+                                                        count = 0;
+                                                    }
+                                                });
+
+
+                                        roomAdapter.notifyDataSetChanged();
+                                        shimmerFrameLayout.stopShimmer();
+                                        shimmerFrameLayout.setVisibility(View.GONE);
+                                        appBarLayout.setVisibility(View.VISIBLE);
+                                        nestedScrollView.setVisibility(View.VISIBLE);
                                     }
                                 }
                             });
@@ -371,18 +551,6 @@ public class HotelDetailActivity extends AppCompatActivity {
                 startActivity(mapIntent);
             }
         });
-    }
-
-    private void removeRoom(String id) {
-        List<Room> listTmp = new ArrayList<>();
-
-        for (Room room : listRoom) {
-            if (room.getId().equals(id)) {
-                listTmp.add(room);
-            }
-        }
-
-        listRoom.removeAll(listTmp);
     }
 
     @Override

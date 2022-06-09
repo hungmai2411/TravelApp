@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public void onBindViewHolder(@NonNull RoomViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if(mList == null)
             return;
+
         holder.txtTypeRoom.setText(mList.get(position).getName());
         Glide.with(mContext).load(mList.get(position).getPhotos().get(0).getRoomImage()).into(holder.imgRoom);
         holder.btnSelectRoom.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +65,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             }
         });
 
-        if(mList.get(position).getNumber() == 0){
+        if(mList.get(position).isAvailable() == false){
+            Log.d("availabe",mList.get(position).getName());
             holder.btnSelectRoom.setEnabled(false);
             holder.imgRoom.setAlpha(100);
             holder.btnSelectRoom.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DADADA")));
-            //holder.layout.setBackgroundColor();
         }
 
         holder.txtPrice.setText(new HandleCurrency().handle(mList.get(position).getPrice()));

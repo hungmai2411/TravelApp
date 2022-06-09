@@ -112,7 +112,8 @@
         </activity>
         <activity
             android:name=".activities.SignInActivity"
-            android:exported="true" />
+            android:exported="true" >
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
