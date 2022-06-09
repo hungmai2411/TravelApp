@@ -129,6 +129,24 @@
     <string name="copy_code">Copy code</string>
     <string name="discount">Discount</string>
     <string name="copied">Copied</string>
+    <string name="cancel_booking">Cancel Booking</string>
+    <string name="qr_check_in">Your QR code</string>
+    <string name="uittrip_notification">UitTrip Notification</string>
+    <string name="t_ph_ng">[Booked]</string>
+    <string name="b_n_x_c_nh_n_c_t_ph_ng">Your booking is confirmed</string>
+    <string name="th_ng_b_o">Notification</string>
+    <string name="cancelbooking">Cancel booking?</string>
+    <string name="are_you_sure_you_want_to_to_cancel_this_booking">Are you sure you want to to cancel this booking?</string>
+    <string name="c">Yes</string>
+    <string name="hu">No</string>
+    <string name="nh_p_m_voucher">Enter voucher code</string>
+    <string name="p_d_ng">Apply</string>
+    <string name="ti_n_ph_ng">Hotel fee</string>
+    <string name="giam_gia">Discount</string>
+    <string name="ap_dung_ma_thanh_cong">Apply voucher successfully</string>
+    <string name="ap_dung_ma_that_bai">Apply voucher unsuccessfully</string>
+
+
 
 
 </resources>

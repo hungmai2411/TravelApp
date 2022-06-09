@@ -81,6 +81,7 @@ public class ConfirmActivity extends AppCompatActivity {
 
                     user = new User();
                     user.setName(doc.getString("name"));
+                    user.setToken(doc.getString("token"));
                     user.setPhoneNumber(doc.getString("phonenumber"));
 
                     Intent intent = getIntent();

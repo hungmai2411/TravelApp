@@ -1,48 +1,72 @@
 package com.travelappproject.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.type.DateTime;
 import com.shuhart.stepview.StepView;
 import com.travelappproject.HandleCurrency;
 import com.travelappproject.R;
+import com.travelappproject.RetrofitInstance;
+import com.travelappproject.SendMessageApi;
 import com.travelappproject.adapter.PaymentAdapter;
 import com.travelappproject.helperforzalopay.AppInfo;
 import com.travelappproject.helperforzalopay.CreateOrder;
 import com.travelappproject.model.hotel.Booking;
+import com.travelappproject.model.hotel.Data;
 import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.model.hotel.Message;
 import com.travelappproject.model.hotel.Payment;
 import com.travelappproject.model.hotel.User;
 import com.travelappproject.model.hotel.room.Room;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.thanguit.toastperfect.ToastPerfect;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
@@ -56,34 +80,43 @@ public class Confirm1Activity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     RecyclerView rcvPaymentMethod;
-    TextView txtPrice;
+    TextView txtPrice, txtTotal, txtDiscount, txtDiscountStatus;
     int check = 0;
     Room room;
-    Long daysDiff,startDate,endDate;
+    Long daysDiff, startDate, endDate;
     String uid;
     Hotel mHotel;
     String choice;
     User user;
+    ExecutorService executorService;
+    SendMessageApi sendMessageApi;
+    EditText edtDiscount;
+    Button btnApply;
+    long discount;
+    String idVoucher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm1);
 
-        if(mAuth.getCurrentUser() != null){
+        sendMessageApi = RetrofitInstance.retrofit.create(SendMessageApi.class);
+        executorService = Executors.newSingleThreadExecutor();
+
+        if (mAuth.getCurrentUser() != null) {
             uid = mAuth.getCurrentUser().getUid();
         }
 
         Intent intent = getIntent();
 
-        if(intent != null){
+        if (intent != null) {
             Bundle bundle = intent.getExtras();
             user = (User) bundle.getSerializable("user");
             room = (Room) bundle.getSerializable("room");
             mHotel = (Hotel) intent.getSerializableExtra("hotel");
-            daysDiff = intent.getLongExtra("daysdiff",1);
-            startDate = intent.getLongExtra("startDate",0);
-            endDate = intent.getLongExtra("endDate",0);
+            daysDiff = intent.getLongExtra("daysdiff", 1);
+            startDate = intent.getLongExtra("startDate", 0);
+            endDate = intent.getLongExtra("endDate", 0);
         }
 
         StrictMode.ThreadPolicy policy = new
@@ -92,6 +125,12 @@ public class Confirm1Activity extends AppCompatActivity {
 
         ZaloPaySDK.init(AppInfo.APP_ID, Environment.SANDBOX);
 
+        edtDiscount = findViewById(R.id.edtDiscount);
+        btnApply = findViewById(R.id.btnApply);
+        btnApply.setEnabled(false);
+        txtDiscountStatus = findViewById(R.id.txtDiscountStatus);
+        txtTotal = findViewById(R.id.txtTotal);
+        txtDiscount = findViewById(R.id.txtSale);
         appBarLayout = findViewById(R.id.app_bar);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         toolbar = findViewById(R.id.toolbar);
@@ -122,9 +161,80 @@ public class Confirm1Activity extends AppCompatActivity {
 
         txtCancelPolicy.setText(room.getCancelPolicies());
         txtPrice.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
+        txtDiscount.setText(new HandleCurrency().handle(0));
+        txtTotal.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
+
         txtHotelName.setText(mHotel.getName());
         txtRoomType.setText(room.getName());
         txtBookingType.setText(String.valueOf(daysDiff) + " " + getString(R.string.night));
+
+
+        edtDiscount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!editable.toString().equals("")) {
+                    btnApply.setEnabled(true);
+                    btnApply.setBackgroundColor(getResources().getColor(R.color.primary));
+                }
+            }
+        });
+
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("users/" + uid + "/vouchers")
+                        .whereEqualTo("code", edtDiscount.getText().toString())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.getResult().isEmpty()) {
+                                    ToastPerfect.makeText(Confirm1Activity.this, "Wrong", Toast.LENGTH_SHORT).show();
+                                    txtDiscountStatus.setText(getResources().getString(R.string.ap_dung_ma_that_bai));
+                                    txtDiscountStatus.setVisibility(View.VISIBLE);
+                                } else {
+                                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                        try {
+                                            Date dateEnd = new SimpleDateFormat("dd-MM-yyyy").parse(documentSnapshot.getString("endDate"));
+                                            Date dateNow = new Date();
+
+                                            if (dateEnd.compareTo(dateNow) == -1) {
+                                                txtDiscountStatus.setText(getResources().getString(R.string.ap_dung_ma_that_bai));
+                                                txtDiscountStatus.setVisibility(View.VISIBLE);
+                                                txtDiscount.setText(new HandleCurrency().handle((0)));
+                                                txtTotal.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
+                                            } else {
+                                                idVoucher = documentSnapshot.getId();
+                                                long fee = room.getPrice() * daysDiff;
+                                                discount = documentSnapshot.getLong("number");
+                                                long total = (long) (fee - (fee * discount * 0.01));
+                                                txtDiscount.setText(new HandleCurrency().handle((long) (fee * discount * 0.01)));
+                                                txtTotal.setText(new HandleCurrency().handle(total));
+                                                txtDiscountStatus.setText(getResources().getString(R.string.ap_dung_ma_thanh_cong));
+                                                txtDiscountStatus.setVisibility(View.VISIBLE);
+                                                btnApply.setEnabled(false);
+                                                btnApply.setBackgroundColor(getResources().getColor(R.color.grey));
+                                            }
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
 
         Button btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -133,9 +243,9 @@ public class Confirm1Activity extends AppCompatActivity {
                 Payment payment = paymentAdapter.getItemSelected();
                 choice = payment.getPaymentMethod();
 
-                if(choice.equals(getString(R.string.pay_at_hotel))){
+                if (choice.equals(getString(R.string.pay_at_hotel))) {
                     addToBooked();
-                }else {
+                } else {
                     if (check == 0) {
                         CreateOrder orderApi = new CreateOrder();
 
@@ -143,7 +253,7 @@ public class Confirm1Activity extends AppCompatActivity {
                             JSONObject data = orderApi.createOrder("1000");
                             String code = data.getString("return_code");
 
-//                            if (code.equals("1")) {
+                            if (code.equals("1")) {
 
                                 String token = data.getString("zp_trans_token");
 
@@ -164,7 +274,11 @@ public class Confirm1Activity extends AppCompatActivity {
                                         ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, getString(R.string.paymenterror), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
                                 });
-//                            }
+
+
+
+
+                            }
 
                         } catch (Exception e) {
                             Log.d("err", e.getMessage());
@@ -172,7 +286,7 @@ public class Confirm1Activity extends AppCompatActivity {
                     } else {
                         Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("hotel",mHotel);
+                        bundle.putSerializable("hotel", mHotel);
                         intent1.putExtras(bundle);
                         startActivity(intent1);
                     }
@@ -190,48 +304,107 @@ public class Confirm1Activity extends AppCompatActivity {
         });
     }
 
-    private void addToBooked(){
+    private void addToBooked() {
         Map<String, Object> booksMap = new HashMap<>();
 
-        booksMap.put("addressHotel",mHotel.getFullAddress());
-        booksMap.put("timestamp", FieldValue.serverTimestamp());
-        booksMap.put("idHotel",mHotel.getId());
-        booksMap.put("idRoom",room.getId());
-        booksMap.put("nameRoom",room.getName());
-        booksMap.put("choice",choice);
-        booksMap.put("startDate",startDate);
-        booksMap.put("endDate",endDate);
-        booksMap.put("startTime",mHotel.getCheckInTime());
-        booksMap.put("endTime",mHotel.getCheckOutTime());
-        booksMap.put("daysdiff",daysDiff);
-        booksMap.put("hotelName",mHotel.getName());
-        booksMap.put("username",user.getName());
-        booksMap.put("phonenumber",user.getPhoneNumber());
-        booksMap.put("status","Booked");
+        FieldValue timestamp = FieldValue.serverTimestamp();
+        booksMap.put("addressHotel", mHotel.getFullAddress());
+        booksMap.put("timestamp", timestamp);
+        booksMap.put("idHotel", mHotel.getId());
+        booksMap.put("idRoom", room.getId());
+        booksMap.put("nameRoom", room.getName());
+        booksMap.put("choice", choice);
+        booksMap.put("startDate", startDate);
+        booksMap.put("endDate", endDate);
+        booksMap.put("startTime", mHotel.getCheckInTime());
+        booksMap.put("endTime", mHotel.getCheckOutTime());
+        booksMap.put("daysdiff", daysDiff);
+        booksMap.put("hotelName", mHotel.getName());
+        booksMap.put("username", user.getName());
+        booksMap.put("phonenumber", user.getPhoneNumber());
+        booksMap.put("status", "Booked");
 
-        long price = room.getPrice() * daysDiff;
-        booksMap.put("price",price);
+        long price = (long) (room.getPrice() - (room.getPrice() * discount * 0.01));
+        booksMap.put("price", price);
 
         db.collection("users/" + uid + "/booked").add(booksMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()){
-                    booksMap.put("idBooking",task.getResult().getId());
+                if (task.isSuccessful()) {
+                    String id = task.getResult().getId();
+                    booksMap.put("idBooking", id);
 
-                    db.collection("Hotels/" + mHotel.getId() + "/booked").document(task.getResult().getId()).set(booksMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    executorService.execute(new Runnable() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                        public void run() {
+                            db.collection("users/" + uid + "/vouchers")
+                                    .document(idVoucher)
+                                    .delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
 
+                                        }
+                                    });
+
+
+                            HashMap<String, Object> notiMap = new HashMap<>();
+                            notiMap.put("timestamp", timestamp);
+                            notiMap.put("type", "booking");
+                            notiMap.put("hasSeen", false);
+
+                            db.collection("users/" + uid + "/notifications")
+                                    .add(notiMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                                }
+                            });
                         }
                     });
 
-                    Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("idBooking",task.getResult().getId());
-                    intent1.putExtras(bundle);
-                    intent1.putExtra("hotel",mHotel);
-                    startActivity(intent1);
-                }else {
+                    db.collection("Hotels/" + mHotel.getId() + "/booked")
+                            .document(task.getResult().getId()).set(booksMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Message message = new Message();
+                                    Data data = new Data();
+                                    data.setUserName("Uit Trip Notification");
+                                    data.setDescription("[Booked] Your booking " + id + " is confirmed");
+                                    message.setPriority("high");
+                                    message.setData(data);
+                                    message.setTo(user.getToken());
+
+                                    Call<Message> repos = sendMessageApi.sendMessage(message);
+                                    repos.enqueue(new Callback<Message>() {
+                                        @Override
+                                        public void onResponse(Call<Message> call, Response<Message> response) {
+                                            if (response.body() != null) {
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Message> call, Throwable t) {
+                                            Log.d("Confirm1Activity", t.getMessage().toString());
+                                        }
+                                    });
+
+                                    Intent intent1 = new Intent(Confirm1Activity.this, Confirm2Activity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("idBooking", id);
+                                    intent1.putExtras(bundle);
+                                    intent1.putExtra("hotel", mHotel);
+                                    startActivity(intent1);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("err", e.toString());
+                        }
+                    });
+                } else {
 
                 }
             }
