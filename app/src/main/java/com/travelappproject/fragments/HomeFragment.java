@@ -20,6 +20,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +44,7 @@ import com.travelappproject.activities.SearchActivity;
 import com.travelappproject.adapter.HotelAdapter;
 import com.travelappproject.adapter.ThumbnailAdapter;
 import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.model.hotel.Image;
 import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.util.ArrayList;
@@ -67,6 +71,8 @@ public class HomeFragment extends Fragment {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     CardView redDot;
     ExecutorService executorService;
+    ImageSlider imageSlider;
+
 
     public HomeFragment() {
     }
@@ -108,6 +114,24 @@ public class HomeFragment extends Fragment {
         if(mAuth.getCurrentUser() != null) {
             uid = mAuth.getUid();
         }
+
+        imageSlider = view.findViewById(R.id.image_slider);
+
+        db.collection("banners").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<SlideModel> slideModelList = new ArrayList<>();
+
+                        for(DocumentSnapshot documentSnapshot : task.getResult()){
+                            String uri = documentSnapshot.getString("image");
+                            SlideModel slideModel = new SlideModel(uri, null, ScaleTypes.FIT);
+                            slideModelList.add(slideModel);
+                        }
+                        imageSlider.setImageList(slideModelList);
+
+                    }
+                });
 
         redDot = view.findViewById(R.id.redDot);
         shimmerFrameLayout = view.findViewById(R.id.shimmer);
