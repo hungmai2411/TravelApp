@@ -238,13 +238,13 @@
                 android:text="@string/room_type" />
 
             <TextView
+                android:id="@+id/txtTypeRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:layout_alignParentRight="true"
-                android:textStyle="bold"
-                android:id="@+id/txtTypeRoom"
-                android:text="PHONG MAY LANH"/>
+                android:text="PHONG MAY LANH"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <View
