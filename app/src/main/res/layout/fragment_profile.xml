@@ -104,7 +104,19 @@
             </LinearLayout>
         </LinearLayout>
         <Button
-            android:layout_marginTop="6dp"
+            android:id="@+id/btnVoucher"
+            app:cornerRadius="@dimen/fab_margin"
+            android:textAllCaps="false"
+            android:layout_marginTop="5dp"
+            android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:textAlignment="viewStart"
+            android:text="@string/my_vouchers"
+            android:drawableLeft="@drawable/ic_voucher32"
+            android:backgroundTint="@color/primary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        <Button
+            android:layout_marginTop="1dp"
             android:id="@+id/btnContact"
             app:cornerRadius="@dimen/fab_margin"
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"

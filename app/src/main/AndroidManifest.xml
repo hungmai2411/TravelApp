@@ -25,6 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
+            android:name=".activities.VoucherActivity"/>
+        <activity
             android:name=".activities.NotificationActivity"
             android:exported="false" />
         <activity

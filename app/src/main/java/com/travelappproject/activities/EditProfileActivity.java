@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.dd.CircularProgressButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,7 +54,7 @@ import vn.thanguit.toastperfect.ToastPerfect;
 
 public class EditProfileActivity extends AppCompatActivity {
     CircularImageView imgAvatar, imgAdd;
-    EditText edtName, edtAddress, edtAbout, edtPhoneNumber;
+    EditText edtName, edtAddress, edtAbout, edtPhoneNumber, edtEmail;
     Button btnUpdate;
     ImageButton btnBack;
     String UserID;
@@ -64,7 +65,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Uri mImageUri = null;
     String url;
     ProgressDialog progressDialog;
-    String name,address,about,phonenumber;
+    String name,address,about,phonenumber, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class EditProfileActivity extends AppCompatActivity {
         edtAddress = (EditText) findViewById(R.id.edtAddress);
         edtAbout = (EditText) findViewById(R.id.edtAbout);
         edtPhoneNumber = (EditText) findViewById(R.id.edtPhonenumber);
+        edtEmail = (EditText)findViewById(R.id.edtEmail);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         btnBack = (ImageButton) findViewById(R.id.btnBack);
 
@@ -106,6 +108,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 address = edtAddress.getText().toString();
                 about = edtAbout.getText().toString();
                 phonenumber = edtPhoneNumber.getText().toString();
+                email = edtEmail.getText().toString();
                 uploadPicture();
             }
         });
@@ -163,7 +166,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     url = uri.toString();
-                                    saveToFireStore(name, about, address, phonenumber,url);
+                                    saveToFireStore(name, about, address, phonenumber,url, email);
                                 }
                             });
                         }
@@ -173,13 +176,17 @@ public class EditProfileActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     url = documentSnapshot.getString("image");
-                    saveToFireStore(name, about, address, phonenumber,url);
+                    saveToFireStore(name, about, address, phonenumber,url, email);
                 }
             });
         }
     }
 
-    private void saveToFireStore(String name, String about, String address, String phonenumber,String url) {
+    private void saveToFireStore(String name, String about, String address, String phonenumber,String url, String email) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(!email.equals(""))
+            user.updateEmail(email);
+
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle(getString(R.string.upload) + "...");
         pd.show();
@@ -231,7 +238,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 UserName = user.getEmail().replaceAll("@.*","").replaceAll("[^a-zA-Z]+", " ").trim();
                             }
                         }else if(UserName == null || type.equals("Facebook")){
-                            if(UserName == "")
+                            if(UserName.equals(""))
                                 UserName = user.getDisplayName();
                         }
 
@@ -239,6 +246,10 @@ public class EditProfileActivity extends AppCompatActivity {
                         edtAddress.setText(Address);
                         edtAbout.setText(About);
                         edtPhoneNumber.setText(PhoneNumber);
+                        String email = user.getEmail();
+                        if(email != null){
+                            edtEmail.setText(email);
+                        }
                         Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
 
                     }

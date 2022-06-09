@@ -250,7 +250,7 @@ public class Confirm1Activity extends AppCompatActivity {
                         CreateOrder orderApi = new CreateOrder();
 
                         try {
-                            JSONObject data = orderApi.createOrder(String.valueOf(1000));
+                            JSONObject data = orderApi.createOrder("1000");
                             String code = data.getString("return_code");
 
                             if (code.equals("1")) {
@@ -274,7 +274,12 @@ public class Confirm1Activity extends AppCompatActivity {
                                         ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, getString(R.string.paymenterror), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
                                 });
+
+
+
+
                             }
+
                         } catch (Exception e) {
                             Log.d("err", e.getMessage());
                         }

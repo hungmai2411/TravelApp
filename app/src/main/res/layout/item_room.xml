@@ -41,13 +41,14 @@
             android:textSize="18dp"
             android:layout_centerVertical="true"
             android:textStyle="bold" />
+
         <Button
             android:id="@+id/btnSelectRoom"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/rounded_corner_button"
-            android:text="Select Room"
+            android:text="@string/select_room"
             android:textAllCaps="false"
             app:backgroundTint="@color/primary" />
     </RelativeLayout>
