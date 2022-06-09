@@ -11,6 +11,15 @@ import com.google.gson.annotations.SerializedName;
 public class Room implements Serializable {
     private String idHotel;
     private long number;
+    private boolean available = true;
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 
     public long getNumber() {
         return number;

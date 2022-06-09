@@ -20,7 +20,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -116,43 +118,59 @@ public class BookingFragment extends Fragment {
 
             db.collection("users/" + uid + "/booked")
                     .orderBy("timestamp")
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if (error == null) {
-                                if (!value.isEmpty()) {
-                                    try {
-                                        for (DocumentChange dc : value.getDocumentChanges()) {
-                                            DocumentSnapshot doc = dc.getDocument();
-
-                                            Booking booking = doc.toObject(Booking.class);
-                                            Timestamp timestamp = (Timestamp) doc.get("timestamp");
-                                            Date date = timestamp.toDate();
-                                            booking.setDate(date);
-                                            booking.setIdBooking(doc.getId());
-
-                                            switch (dc.getType()) {
-                                                case ADDED:
-                                                    listTmp.add(booking);
-                                                    break;
-                                                case REMOVED:
-                                                    removeBooking(booking.getIdBooking());
-                                                    break;
-                                                case MODIFIED:
-                                                    removeBooking(booking.getIdBooking());
-                                                    listTmp.add(booking);
-                                                    break;
-                                            }
-                                        }
-                                    } catch (Exception e) {
-                                        Log.d("Booking Fragment", e.getMessage());
-                                    }
-                                }
-                                bookingAdapter.notifyDataSetChanged();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for(DocumentSnapshot doc : task.getResult()){
+                                Booking booking = doc.toObject(Booking.class);
+                                Timestamp timestamp = (Timestamp) doc.get("timestamp");
+                                Date date = timestamp.toDate();
+                                booking.setDate(date);
+                                booking.setIdBooking(doc.getId());
+                                listTmp.add(booking);
                             }
+                            bookingAdapter.notifyDataSetChanged();
                         }
-
                     });
+//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                            if (error == null) {
+//                                if (!value.isEmpty()) {
+//                                    try {
+//                                        for (DocumentChange dc : value.getDocumentChanges()) {
+//                                            DocumentSnapshot doc = dc.getDocument();
+//
+//                                            Booking booking = doc.toObject(Booking.class);
+//                                            Timestamp timestamp = (Timestamp) doc.get("timestamp");
+//                                            Date date = timestamp.toDate();
+//                                            booking.setDate(date);
+//                                            booking.setIdBooking(doc.getId());
+//
+//                                            switch (dc.getType()) {
+//                                                case ADDED:
+//                                                    listTmp.add(booking);
+//                                                    break;
+//                                                case REMOVED:
+//                                                    removeBooking(booking.getIdBooking());
+//                                                    break;
+//                                                case MODIFIED:
+//                                                    removeBooking(booking.getIdBooking());
+//                                                    listTmp.add(booking);
+//                                                    break;
+//                                            }
+//                                        }
+//                                    } catch (Exception e) {
+//                                        Log.d("Booking Fragment", e.getMessage());
+//                                    }
+//                                }
+//                                bookingAdapter.notifyDataSetChanged();
+//                            }
+//                        }
+//
+//                    });
+
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

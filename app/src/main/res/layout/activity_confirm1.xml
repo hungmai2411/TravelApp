@@ -210,7 +210,103 @@
                     android:layout_height="1dp"
                     android:layout_marginVertical="15dp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/edtDiscount"
+                        android:background="@drawable/custom_input"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="55dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:layout_marginRight="10dp"
+                        android:drawablePadding="12dp"
+                        android:hint="@string/nh_p_m_voucher">
+                    </EditText>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:text="@string/p_d_ng"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:id="@+id/btnApply"
+                        android:backgroundTint="@color/grey"
+                        android:layout_height="55dp">
+
+                    </Button>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/txtDiscountStatus"/>
+
+                <View
+                    style="@style/Divider.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:text="@string/thanh_toan"
+                    android:textColor="@color/black" />
+
+                <View
+                    style="@style/Divider.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="15dp" />
+
                 <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ti_n_ph_ng" />
+
+                    <TextView
+                        android:id="@+id/txtPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/black"
+                        android:textDirection="rtl"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/giam_gia" />
+
+                    <TextView
+                        android:id="@+id/txtSale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/black"
+                        android:textDirection="rtl"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -219,11 +315,10 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tong_cong"
                         android:textColor="@color/black"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/txtPrice"
+                        android:id="@+id/txtTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -261,24 +356,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/room_type" />
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/btnConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/x_c_nh_n"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/primary"
+                    tools:ignore="RtlCompat" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </RelativeLayout>
 
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="16dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:text="@string/x_c_nh_n"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/primary"
-        tools:ignore="RtlCompat" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

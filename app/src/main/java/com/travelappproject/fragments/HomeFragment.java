@@ -21,8 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -41,7 +44,10 @@ import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
     private HotelViewModel hotelViewModel;
@@ -60,6 +66,7 @@ public class HomeFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     CardView redDot;
+    ExecutorService executorService;
 
     public HomeFragment() {
     }
@@ -80,13 +87,13 @@ public class HomeFragment extends Fragment {
             state = getArguments().getString("state");
         }
 
+        executorService = Executors.newSingleThreadExecutor();
         hotelViewModel = new ViewModelProvider(getActivity()).get(HotelViewModel.class);
 
         languageManager = new LanguageManager(getContext());
         String language = LocalDataManager.getLanguage();
         languageManager.updateResource(language);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,6 +104,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(mAuth.getCurrentUser() != null) {
+            uid = mAuth.getUid();
+        }
 
         redDot = view.findViewById(R.id.redDot);
         shimmerFrameLayout = view.findViewById(R.id.shimmer);
@@ -118,7 +129,33 @@ public class HomeFragment extends Fragment {
         btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.collection("users/" + uid + "/notifications")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        for(DocumentSnapshot doc: task.getResult()){
+                                            HashMap<String,Object> hashMap = new HashMap<>();
+                                            hashMap.put("hasSeen",true);
+                                            db.collection("users/" + uid + "/notifications")
+                                                    .document(doc.getId()).update(hashMap)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                });
+                    }
+                });
+
                 startActivity(new Intent(getContext(), NotificationActivity.class));
+                redDot.setVisibility(View.GONE);
             }
         });
 
@@ -202,9 +239,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        if(mAuth.getCurrentUser() != null) {
-            uid = mAuth.getUid();
-        }
+
 
         db.collection("users/" + uid + "/notifications")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -217,9 +252,11 @@ public class HomeFragment extends Fragment {
                         }
 
                         for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            DocumentSnapshot documentSnapshot = dc.getDocument();
                             switch (dc.getType()) {
                                 case ADDED:
-                                    redDot.setVisibility(View.VISIBLE);
+                                    if(documentSnapshot.getBoolean("hasSeen") == false)
+                                        redDot.setVisibility(View.VISIBLE);
                                     break;
                             }
                         }
