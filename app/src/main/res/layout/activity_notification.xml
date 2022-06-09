@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.AddRoomActivity">
+    tools:context=".activities.NotificationActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_action_back"
-        >
+        app:navigationIcon="@drawable/ic_action_back">
 
         <TextView
             android:id="@+id/txtTitle"
@@ -20,14 +19,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/th_m_ph_ng" />
+            android:text="@string/th_ng_b_o" />
     </androidx.appcompat.widget.Toolbar>
 
     <View
-        android:layout_below="@+id/toolbar"
         android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@drawable/toolbar_dropshadow" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rcvNotifications"/>
 
 </LinearLayout>

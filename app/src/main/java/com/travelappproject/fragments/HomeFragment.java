@@ -1,51 +1,56 @@
 package com.travelappproject.fragments;
 
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.LanguageManager;
 import com.travelappproject.SharedPreferences.LocalDataManager;
 import com.travelappproject.activities.ChooseLocationActivity;
 import com.travelappproject.R;
 import com.travelappproject.activities.HotelDetailActivity;
 import com.travelappproject.activities.ListHotelActivity;
+import com.travelappproject.activities.NotificationActivity;
 import com.travelappproject.activities.SearchActivity;
 import com.travelappproject.adapter.HotelAdapter;
-import com.travelappproject.adapter.HotelAdapter1;
 import com.travelappproject.adapter.ThumbnailAdapter;
 import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
     private HotelViewModel hotelViewModel;
-    FirebaseAuth firebaseAuth;
     String uid;
     String state = "";
     HotelAdapter hotHotelAdapter;
@@ -55,9 +60,13 @@ public class HomeFragment extends Fragment {
     RecyclerView rcvNewHotel;
     LinearLayout btnChooseLocation;
     List<Hotel> listHotHotel;
-    ImageButton btnSearch;
+    ImageButton btnSearch,btnNotification;
     LanguageManager languageManager;
     ShimmerFrameLayout shimmerFrameLayout;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    CardView redDot;
+    ExecutorService executorService;
 
     public HomeFragment() {
     }
@@ -78,13 +87,13 @@ public class HomeFragment extends Fragment {
             state = getArguments().getString("state");
         }
 
+        executorService = Executors.newSingleThreadExecutor();
         hotelViewModel = new ViewModelProvider(getActivity()).get(HotelViewModel.class);
 
         languageManager = new LanguageManager(getContext());
         String language = LocalDataManager.getLanguage();
         languageManager.updateResource(language);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +105,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(mAuth.getCurrentUser() != null) {
+            uid = mAuth.getUid();
+        }
+
+        redDot = view.findViewById(R.id.redDot);
         shimmerFrameLayout = view.findViewById(R.id.shimmer);
         shimmerFrameLayout.startShimmer();
 
@@ -104,13 +118,46 @@ public class HomeFragment extends Fragment {
         txtCurrentLocation.setText(state);
         rcvHotHotel = view.findViewById(R.id.rcvHotHotel);
         rcvHotHotel.setHasFixedSize(true);
-
+        btnNotification = view.findViewById(R.id.btnNotification);
         rcvNewHotel = view.findViewById(R.id.rcvNewHotel);
         btnChooseLocation = view.findViewById(R.id.btnChooseLocation);
         btnSearch = view.findViewById(R.id.btnSearch);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rcvHotHotel.setLayoutManager(linearLayoutManager);
+
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.collection("users/" + uid + "/notifications")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        for(DocumentSnapshot doc: task.getResult()){
+                                            HashMap<String,Object> hashMap = new HashMap<>();
+                                            hashMap.put("hasSeen",true);
+                                            db.collection("users/" + uid + "/notifications")
+                                                    .document(doc.getId()).update(hashMap)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                });
+                    }
+                });
+
+                startActivity(new Intent(getContext(), NotificationActivity.class));
+                redDot.setVisibility(View.GONE);
+            }
+        });
 
         hotHotelAdapter = new HotelAdapter(getContext(), new HotelAdapter.IClickItemListener() {
             @Override
@@ -191,6 +238,30 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
+
+
+
+        db.collection("users/" + uid + "/notifications")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Notification Activity", "listen:error", e);
+                            return;
+                        }
+
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            DocumentSnapshot documentSnapshot = dc.getDocument();
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    if(documentSnapshot.getBoolean("hasSeen") == false)
+                                        redDot.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     private void observedHotels() {
