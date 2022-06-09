@@ -2,6 +2,7 @@ package com.travelappproject.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,23 +36,27 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
 import com.travelappproject.adapter.HotelAdapter1;
+import com.travelappproject.fragments.FilterBottomSheetFragment;
 import com.travelappproject.fragments.SortBottomSheetFragment;
+import com.travelappproject.model.hotel.Common;
 import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.model.hotel.room.Room;
 import com.travelappproject.viewmodel.HotelViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class ListHotelActivity extends AppCompatActivity {
     String destination;
-    //HotelViewModel hotelViewModel;
+    HotelViewModel hotelViewModel;
     RecyclerView rcvListHotel;
     HotelAdapter1 hotelAdapter;
     private int limit = 10;
-    private DocumentSnapshot lastVisible;
     private boolean isScrolling = false;
     private boolean isLastItemReached = false;
     ExecutorService executorService;
@@ -58,14 +64,16 @@ public class ListHotelActivity extends AppCompatActivity {
     ShimmerFrameLayout shimmerFrameLayout;
     TableLayout table;
     LinearLayout btnSort, btnFilter;
-    SortBottomSheetFragment sortBottomSheetFragment = new SortBottomSheetFragment();
-    int indexSort;
+    SortBottomSheetFragment sortBottomSheetFragment;
+    FilterBottomSheetFragment filterBottomSheetFragment;
+    List<Hotel> hotelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_hotel);
 
+        hotelViewModel = new ViewModelProvider(ListHotelActivity.this).get(HotelViewModel.class);
         table = findViewById(R.id.table);
         btnSort = findViewById(R.id.btnSort);
         btnFilter = findViewById(R.id.btnFilter);
@@ -83,26 +91,20 @@ public class ListHotelActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                ListHotelActivity.super.onBackPressed();
             }
         });
 
         Intent intent = getIntent();
 
         if (intent != null) {
-            indexSort = intent.getIntExtra("indexSort",0);
-
-            if(indexSort != 0){
-                btnSort.setBackground(getResources().getDrawable(R.drawable.custom_btn_sort));
-            }
-
             destination = intent.getStringExtra("destination");
 
-            if(destination.equals("Kiên Giang"))
+            if (destination.equals("Kiên Giang"))
                 txtTitle.setText(getString(R.string.phu_quoc));
             else if (destination.equals("Khánh Hòa"))
                 txtTitle.setText(getString(R.string.nha_trang));
-            else if(destination.equals("Lâm Đồng"))
+            else if (destination.equals("Lâm Đồng"))
                 txtTitle.setText(getString(R.string.da_lat));
             else
                 txtTitle.setText(destination);
@@ -119,7 +121,7 @@ public class ListHotelActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hotel", hotel);
                 intent1.putExtras(bundle);
-                intent1.putExtra("id",hotel.getId());
+                intent1.putExtra("id", hotel.getId());
                 startActivity(intent1);
             }
         });
@@ -127,101 +129,84 @@ public class ListHotelActivity extends AppCompatActivity {
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                filterBottomSheetFragment = new FilterBottomSheetFragment(new FilterBottomSheetFragment.IClickItem() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onCallBack(List<Float> values) {
+                        if (values.get(0).longValue() == 0 && values.get(1).longValue() == 3000000) {
+                            hotelAdapter.setData(hotelList);
+                            hotelAdapter.notifyDataSetChanged();
+                            btnFilter.setBackground(getResources().getDrawable(R.drawable.custom_shape));
+                        } else {
+                            Common.start = values.get(0).longValue();
+                            Common.end = values.get(1).longValue();
+                            List<Hotel> tmp = hotelList.stream().filter(t -> t.getPrice() >= values.get(0).longValue() && t.getPrice() <= values.get(1).longValue()).collect(Collectors.toList());
+                            hotelAdapter.setData(tmp);
+                            hotelAdapter.notifyDataSetChanged();
+                            btnFilter.setBackground(getResources().getDrawable(R.drawable.custom_btn_filter));
+                        }
+                    }
+                });
+                filterBottomSheetFragment.show(getSupportFragmentManager(), "");
             }
         });
 
         btnSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sortBottomSheetFragment.setState(destination);
-                sortBottomSheetFragment.show(getSupportFragmentManager(),"");
+                sortBottomSheetFragment = new SortBottomSheetFragment(new SortBottomSheetFragment.IClickItem() {
+                    @Override
+                    public void onCallBack(int index) {
+                        if (index == 1) {
+                            sortDescend();
+                            sortBottomSheetFragment.setState(1);
+                            hotelAdapter.notifyDataSetChanged();
+                            btnSort.setBackground(getResources().getDrawable(R.drawable.custom_btn_sort));
+                        } else {
+                            sortAscend();
+                            sortBottomSheetFragment.setState(0);
+                            hotelAdapter.notifyDataSetChanged();
+                            btnSort.setBackground(getResources().getDrawable(R.drawable.custom_shape_2));
+                        }
+                    }
+                });
+                sortBottomSheetFragment.show(getSupportFragmentManager(), "");
             }
         });
 
-        List<Hotel> hotelList = new ArrayList<>();
-        hotelAdapter.setData(hotelList);
-        rcvListHotel.setAdapter(hotelAdapter);
+        hotelViewModel.getList(destination);
+        observe();
+    }
 
-        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        CollectionReference productsRef = rootRef.collection("Hotels");
-        Query query = productsRef.whereEqualTo("provinceName", destination)
-                .limit(limit);
-
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void observe() {
+        hotelViewModel.observedHotelLiveData().observe(this, new Observer<List<Hotel>>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        Hotel hotelModel = document.toObject(Hotel.class);
-                        hotelList.add(hotelModel);
-                    }
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    rcvListHotel.setVisibility(View.VISIBLE);
-                    table.setVisibility(View.VISIBLE);
-                    hotelAdapter.notifyDataSetChanged();
+            public void onChanged(List<Hotel> list) {
+                hotelList = list;
 
-                    lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
+                sortAscend();
+                hotelAdapter.setData(hotelList);
+                rcvListHotel.setAdapter(hotelAdapter);
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                rcvListHotel.setVisibility(View.VISIBLE);
+                table.setVisibility(View.VISIBLE);
+            }
+        });
+    }
 
-                    RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-                        @Override
-                        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                            super.onScrollStateChanged(recyclerView, newState);
-                            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                                isScrolling = true;
-                            }
-                        }
+    private void sortAscend() {
+        Collections.sort(hotelList, new Comparator<Hotel>() {
+            public int compare(Hotel obj1, Hotel obj2) {
+                return Integer.valueOf((int) obj1.getPrice()).compareTo(Integer.valueOf((int) obj2.getPrice())); // To compare string values
+            }
+        });
+    }
 
-                        @Override
-                        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                            super.onScrolled(recyclerView, dx, dy);
-
-                            LinearLayoutManager linearLayoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
-                            int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition(); //item dau tien
-                            int visibleItemCount = linearLayoutManager.getChildCount(); //item co the nhin thay trong 1 trang
-                            int totalItemCount = linearLayoutManager.getItemCount(); // so luong max item
-
-                            if (isScrolling && (firstVisibleItemPosition + visibleItemCount == totalItemCount) && !isLastItemReached) {
-                                isScrolling = false;
-                                hotelAdapter.addFooterLoading();
-
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Query nextQuery = productsRef
-                                                .whereEqualTo("provinceName", destination).startAfter(lastVisible).limit(limit);
-                                        nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> t) {
-                                                if (t.isSuccessful()) {
-                                                    List<Hotel> hotelList2 = new ArrayList<>();
-                                                    for (DocumentSnapshot d : t.getResult()) {
-                                                        Hotel hotelModel = d.toObject(Hotel.class);
-
-
-                                                        hotelList.add(hotelModel);
-                                                    }
-                                                    hotelAdapter.removeFooterLoading();
-                                                    hotelAdapter.notifyDataSetChanged();
-
-                                                    if(t.getResult().size() > 1)
-                                                        lastVisible = t.getResult().getDocuments().get(t.getResult().size() - 1);
-
-                                                    if (t.getResult().size() < limit) {
-                                                        isLastItemReached = true;
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    }
-                                },2000);
-                            }
-                        }
-                    };
-                    rcvListHotel.addOnScrollListener(onScrollListener);
-                }
+    private void sortDescend() {
+        Collections.sort(hotelList, new Comparator<Hotel>() {
+            public int compare(Hotel obj1, Hotel obj2) {
+                return Integer.valueOf((int) obj2.getPrice()).compareTo(Integer.valueOf((int) obj1.getPrice())); // To compare string values
             }
         });
     }

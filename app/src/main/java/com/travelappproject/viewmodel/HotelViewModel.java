@@ -44,7 +44,6 @@ public class HotelViewModel extends ViewModel {
 
         db.collection("Hotels")
                 .whereEqualTo("provinceName", state)
-                .limit(limit)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

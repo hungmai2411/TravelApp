@@ -59,7 +59,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = dateFormat.format(date);
 
-        DateFormat dateFormat1 = new SimpleDateFormat("hh:mm");
+        DateFormat dateFormat1 = new SimpleDateFormat("HH:mm");
         String strTime = dateFormat1.format(date);
 
         holder.txtNumber.setText(String.valueOf(bookingList.get(position).getDaysdiff()) + " night");

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.travelappproject.HandleCurrency;
 import com.travelappproject.R;
 import com.travelappproject.model.hotel.Hotel;
 
@@ -97,7 +98,7 @@ public class HotelAdapter1 extends RecyclerView.Adapter<HotelAdapter1.Hotel1View
 
             String tmp = mHotelList.get(position).getThumbImage();
             String path = "https://statics.vntrip.vn/data-v2/hotels/" + mHotelList.get(position).getId() + "/img_max/" + tmp;
-            hotelHolder.txtAmount.setText(String.valueOf(mHotelList.get(position).getPrice()));
+            hotelHolder.txtAmount.setText(new HandleCurrency().handle(mHotelList.get(position).getPrice()));
             Glide.with(mContext).load(path).apply(options).into(hotelViewHolder.imgHotel);
         }
     }

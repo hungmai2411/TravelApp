@@ -1,17 +1,24 @@
 package com.travelappproject.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +33,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.type.DateTime;
 import com.shuhart.stepview.StepView;
 import com.travelappproject.HandleCurrency;
 import com.travelappproject.R;
@@ -44,7 +53,11 @@ import com.travelappproject.model.hotel.room.Room;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +80,7 @@ public class Confirm1Activity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     RecyclerView rcvPaymentMethod;
-    TextView txtPrice;
+    TextView txtPrice, txtTotal, txtDiscount, txtDiscountStatus;
     int check = 0;
     Room room;
     Long daysDiff, startDate, endDate;
@@ -77,6 +90,10 @@ public class Confirm1Activity extends AppCompatActivity {
     User user;
     ExecutorService executorService;
     SendMessageApi sendMessageApi;
+    EditText edtDiscount;
+    Button btnApply;
+    long discount;
+    String idVoucher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +125,12 @@ public class Confirm1Activity extends AppCompatActivity {
 
         ZaloPaySDK.init(AppInfo.APP_ID, Environment.SANDBOX);
 
+        edtDiscount = findViewById(R.id.edtDiscount);
+        btnApply = findViewById(R.id.btnApply);
+        btnApply.setEnabled(false);
+        txtDiscountStatus = findViewById(R.id.txtDiscountStatus);
+        txtTotal = findViewById(R.id.txtTotal);
+        txtDiscount = findViewById(R.id.txtSale);
         appBarLayout = findViewById(R.id.app_bar);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         toolbar = findViewById(R.id.toolbar);
@@ -138,9 +161,80 @@ public class Confirm1Activity extends AppCompatActivity {
 
         txtCancelPolicy.setText(room.getCancelPolicies());
         txtPrice.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
+        txtDiscount.setText(new HandleCurrency().handle(0));
+        txtTotal.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
+
         txtHotelName.setText(mHotel.getName());
         txtRoomType.setText(room.getName());
         txtBookingType.setText(String.valueOf(daysDiff) + " " + getString(R.string.night));
+
+
+        edtDiscount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!editable.toString().equals("")) {
+                    btnApply.setEnabled(true);
+                    btnApply.setBackgroundColor(getResources().getColor(R.color.primary));
+                }
+            }
+        });
+
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("users/" + uid + "/vouchers")
+                        .whereEqualTo("code", edtDiscount.getText().toString())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.getResult().isEmpty()) {
+                                    ToastPerfect.makeText(Confirm1Activity.this, "Wrong", Toast.LENGTH_SHORT).show();
+                                    txtDiscountStatus.setText(getResources().getString(R.string.ap_dung_ma_that_bai));
+                                    txtDiscountStatus.setVisibility(View.VISIBLE);
+                                } else {
+                                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                        try {
+                                            Date dateEnd = new SimpleDateFormat("dd-MM-yyyy").parse(documentSnapshot.getString("endDate"));
+                                            Date dateNow = new Date();
+
+                                            if (dateEnd.compareTo(dateNow) == -1) {
+                                                txtDiscountStatus.setText(getResources().getString(R.string.ap_dung_ma_that_bai));
+                                                txtDiscountStatus.setVisibility(View.VISIBLE);
+                                                txtDiscount.setText(new HandleCurrency().handle((0)));
+                                                txtTotal.setText(new HandleCurrency().handle(room.getPrice() * daysDiff));
+                                            } else {
+                                                idVoucher = documentSnapshot.getId();
+                                                long fee = room.getPrice() * daysDiff;
+                                                discount = documentSnapshot.getLong("number");
+                                                long total = (long) (fee - (fee * discount * 0.01));
+                                                txtDiscount.setText(new HandleCurrency().handle((long) (fee * discount * 0.01)));
+                                                txtTotal.setText(new HandleCurrency().handle(total));
+                                                txtDiscountStatus.setText(getResources().getString(R.string.ap_dung_ma_thanh_cong));
+                                                txtDiscountStatus.setVisibility(View.VISIBLE);
+                                                btnApply.setEnabled(false);
+                                                btnApply.setBackgroundColor(getResources().getColor(R.color.grey));
+                                            }
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
 
         Button btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +304,7 @@ public class Confirm1Activity extends AppCompatActivity {
 
         FieldValue timestamp = FieldValue.serverTimestamp();
         booksMap.put("addressHotel", mHotel.getFullAddress());
-        booksMap.put("timestamp",timestamp);
+        booksMap.put("timestamp", timestamp);
         booksMap.put("idHotel", mHotel.getId());
         booksMap.put("idRoom", room.getId());
         booksMap.put("nameRoom", room.getName());
@@ -225,7 +319,7 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("phonenumber", user.getPhoneNumber());
         booksMap.put("status", "Booked");
 
-        long price = room.getPrice() * daysDiff;
+        long price = (long) (room.getPrice() - (room.getPrice() * discount * 0.01));
         booksMap.put("price", price);
 
         db.collection("users/" + uid + "/booked").add(booksMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -235,23 +329,25 @@ public class Confirm1Activity extends AppCompatActivity {
                     String id = task.getResult().getId();
                     booksMap.put("idBooking", id);
 
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("number", room.getNumber() - 1);
-
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            db.collection("Hotels/" + mHotel.getId() + "/rooms")
-                                    .document(room.getId())
-                                    .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                            db.collection("users/" + uid + "/vouchers")
+                                    .document(idVoucher)
+                                    .delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                }
-                            });
+                                        }
+                                    });
 
-                            HashMap<String,Object> notiMap = new HashMap<>();
-                            notiMap.put("timestamp",timestamp);
+
+                            HashMap<String, Object> notiMap = new HashMap<>();
+                            notiMap.put("timestamp", timestamp);
+                            notiMap.put("type", "booking");
+                            notiMap.put("hasSeen", false);
+
                             db.collection("users/" + uid + "/notifications")
                                     .add(notiMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                 @Override
@@ -286,7 +382,7 @@ public class Confirm1Activity extends AppCompatActivity {
 
                                         @Override
                                         public void onFailure(Call<Message> call, Throwable t) {
-                                            Log.d("Confirm1Activity",t.getMessage().toString());
+                                            Log.d("Confirm1Activity", t.getMessage().toString());
                                         }
                                     });
 
