@@ -125,6 +125,10 @@
     <string name="Yes">Yes</string>
     <string name="PriceIncrese">Price increasing</string>
     <string name="PriceDecreasing">Price decreasing</string>
+    <string name="my_vouchers">My vouchers</string>
+    <string name="copy_code">Copy code</string>
+    <string name="discount">Discount</string>
+    <string name="copied">Copied</string>
     <string name="cancel_booking">Cancel Booking</string>
     <string name="qr_check_in">Your QR code</string>
     <string name="uittrip_notification">UitTrip Notification</string>
@@ -141,6 +145,7 @@
     <string name="giam_gia">Discount</string>
     <string name="ap_dung_ma_thanh_cong">Apply voucher successfully</string>
     <string name="ap_dung_ma_that_bai">Apply voucher unsuccessfully</string>
+
 
 
 
