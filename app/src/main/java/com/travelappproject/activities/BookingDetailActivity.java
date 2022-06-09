@@ -125,6 +125,11 @@ public class BookingDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent1 = new Intent(BookingDetailActivity.this, QrCodeActivity.class);
                 intent1.putExtra("qr",idBooking.getText());
+                intent1.putExtra("nameHotel", txtNameHotel.getText());
+                intent1.putExtra("dateBooking", dateBooking.getText());
+                intent1.putExtra("dateCheckIn", txtDateCheckIn.getText());
+                intent1.putExtra("dateCheckOut", txtDateCheckOut.getText());
+                intent1.putExtra("roomType", txtTypeRoom.getText());
                 startActivity(intent1);
             }
         });

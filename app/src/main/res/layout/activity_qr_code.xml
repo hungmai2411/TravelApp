@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,14 +28,178 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@drawable/toolbar_dropshadow" />
-
-    <ImageView
-        android:paddingHorizontal="16dp"
-        android:layout_centerVertical="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgQr"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"/>
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <com.vipulasri.ticketview.TicketView
+            android:id="@+id/item_voucher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:ticketCornerRadius="15dp"
+            app:ticketCornerType="scallop"
+            app:ticketDividerPadding="20dp"
+            app:ticketDividerType="dash"
+            app:ticketElevation="14dp"
+            app:ticketOrientation="horizontal"
+            app:ticketScallopPositionPercent="50"
+            app:ticketScallopRadius="15dp"
+            app:ticketShowBorder="true"
+            app:ticketShowDivider="true" />
+
+        <ImageView
+            android:id="@+id/imgQr"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginBottom="340dp"
+            android:adjustViewBounds="true"
+            android:paddingHorizontal="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtNameHotel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="284dp"
+            android:text="KIEU HOANG YEN HOTEL"
+            android:textColor="@color/primary"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:id="@+id/dateBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="256dp"
+            android:text="09:10 05/05/2022"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:id="@+id/txtTypeRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="228dp"
+            android:text="PHONG MAY LANH"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <View
+            android:visibility="visible"
+            android:layout_width="1dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="466dp"
+            android:layout_marginEnd="201dp"
+            android:layout_marginBottom="117dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintEnd_toEndOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher"
+            app:layout_constraintTop_toTopOf="@+id/item_voucher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="183dp"
+            android:text="@string/check_in"
+            android:textColor="#9B9797"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="222dp"
+            android:layout_marginBottom="183dp"
+            android:text="@string/check_out"
+            android:textColor="#9B9797"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:id="@+id/txtDateCheckIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="156dp"
+            android:text="08/05/2022"
+            android:textColor="#1363DF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:id="@+id/txtTimeCheckIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="116dp"
+            android:text="14:00"
+            android:textColor="#1363DF"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:id="@+id/txtDateCheckOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="222dp"
+            android:layout_marginBottom="156dp"
+            android:text="08/05/2022"
+            android:textColor="#1363DF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+
+        <TextView
+            android:id="@+id/txtTimeCheckOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="222dp"
+            android:layout_marginBottom="116dp"
+            android:text="14:00"
+            android:textColor="#1363DF"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_voucher"
+            app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

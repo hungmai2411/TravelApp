@@ -66,10 +66,11 @@
             app:tickColor="@color/primary"
             app:tickColorActive="@color/primary"
             app:tickColorInactive="@color/primary"
-            app:thumbColor="@color/white"
+            app:thumbColor="@color/gray"
             app:haloColor="@color/primary"
             app:thumbStrokeColor="@color/white"
-            app:trackColor="@color/primary"
+            app:trackColorInactive="@color/primary"
+            app:trackColorActive="#F96D01"
             android:stepSize="100000"
             android:valueTo="3000000"
             app:values="@array/initial_slider_values" />

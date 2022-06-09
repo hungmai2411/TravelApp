@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -19,8 +20,9 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 public class QrCodeActivity extends AppCompatActivity {
 
     ImageView imgQr;
-    String strQr;
+    String strQr, nameHotel, time, dateStart, dateEnd, roomType;
     Toolbar toolbar;
+    TextView txtNameHotel, txtTime, txtDateStart, txtDateEnd, txtTimeStart, txtTimeEnd, txtRoomType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +31,35 @@ public class QrCodeActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         imgQr = findViewById(R.id.imgQr);
+        txtNameHotel = findViewById(R.id.txtNameHotel);
+        txtTime = findViewById(R.id.dateBooking);
+        txtDateStart = findViewById(R.id.txtDateCheckIn);
+        txtDateEnd = findViewById(R.id.txtDateCheckOut);
+        txtTimeStart = findViewById(R.id.txtTimeCheckIn);
+        txtTimeEnd = findViewById(R.id.txtTimeCheckOut);
+        txtRoomType = findViewById(R.id.txtTypeRoom);
 
         if (getIntent() != null) {
             strQr = getIntent().getStringExtra("qr");
+            nameHotel = getIntent().getStringExtra("nameHotel");
+            time = getIntent().getStringExtra("dateBooking");
+            dateStart = getIntent().getStringExtra("dateCheckIn");
+            dateEnd = getIntent().getStringExtra("dateCheckOut");
+            roomType = getIntent().getStringExtra("roomType");
         }
+
+        txtNameHotel.setText(nameHotel);
+        txtTime.setText(time);
+        txtDateStart.setText(dateStart);
+        txtDateEnd.setText(dateEnd);
+        txtRoomType.setText(roomType);
 
         if (!strQr.equals("")) {
             MultiFormatWriter writer = new MultiFormatWriter();
             try {
                 // Initialize bit matrix
                 BitMatrix matrix = writer.encode(strQr, BarcodeFormat.QR_CODE
-                        , 350, 350);
+                        , 500, 500);
                 // Initialize barcode encoder
                 BarcodeEncoder encoder = new BarcodeEncoder();
                 // Initialize bitmap
