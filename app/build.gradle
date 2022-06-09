@@ -134,6 +134,10 @@ dependencies {
 
     //Toast Perfect
     implementation 'io.github.thang-uit:toastperfectlibrary:1.0.1'
+
+    implementation 'com.vipulasri:ticketview:1.1.2'
+
+    implementation 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

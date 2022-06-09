@@ -24,6 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <activity
+            android:name=".activities.VoucherActivity"
+            android:exported="false" />
 
         <service
             android:name=".fcm.MyFirebaseMessagingService"
@@ -99,8 +102,8 @@
         </activity>
         <activity
             android:name=".activities.SignInActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

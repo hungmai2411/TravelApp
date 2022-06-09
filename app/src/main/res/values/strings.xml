@@ -125,6 +125,10 @@
     <string name="Yes">Có</string>
     <string name="PriceIncrese">Giá tăng dần</string>
     <string name="PriceDecreasing">Giá giảm dần</string>
+    <string name="my_vouchers">Kho voucher</string>
+    <string name="copy_code">Sao chép mã</string>
+    <string name="discount">Giảm giá</string>
+    <string name="copied">Đã sao chép</string>
 
 
 </resources>
