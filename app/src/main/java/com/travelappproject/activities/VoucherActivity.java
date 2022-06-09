@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -41,8 +43,10 @@ public class VoucherActivity extends AppCompatActivity {
     }
 
     private void getListVoucher(List<Voucher> voucherList){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userID = user.getUid();
         firestore = FirebaseFirestore.getInstance();
-        firestore.collection("vouchers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("users/" + userID + "/vouchers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
