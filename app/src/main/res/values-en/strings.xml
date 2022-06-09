@@ -125,6 +125,10 @@
     <string name="Yes">Yes</string>
     <string name="PriceIncrese">Price increasing</string>
     <string name="PriceDecreasing">Price decreasing</string>
+    <string name="my_vouchers">My vouchers</string>
+    <string name="copy_code">Copy code</string>
+    <string name="discount">Discount</string>
+    <string name="copied">Copied</string>
 
 
 </resources>

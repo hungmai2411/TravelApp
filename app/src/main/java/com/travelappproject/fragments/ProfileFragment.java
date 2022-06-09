@@ -41,13 +41,14 @@ import com.travelappproject.activities.EditProfileActivity;
 import com.travelappproject.activities.LogoutActivity;
 import com.travelappproject.activities.MainActivity;
 import com.travelappproject.activities.SignInActivity;
+import com.travelappproject.activities.VoucherActivity;
 import com.travelappproject.model.hotel.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.thanguit.toastperfect.ToastPerfect;
 
 public class ProfileFragment extends Fragment {
-    Button btnEditProfile, btnSignOut, btnContact, btnSignin;
+    Button btnEditProfile, btnSignOut, btnContact, btnSignin, btnVoucher;
     LinearLayout btnLanguage;
     FirebaseFirestore firestore;
     FirebaseUser user;
@@ -101,6 +102,7 @@ public class ProfileFragment extends Fragment {
         btnLanguage = view.findViewById(R.id.btnLanguage);
         btnContact = view.findViewById(R.id.btnContact);
         btnSignin = view.findViewById(R.id.btnSignIn);
+        btnVoucher = view.findViewById(R.id.btnVoucher);
         divider = view.findViewById(R.id.divider);
         txtDes = view.findViewById(R.id.txtDescription);
         txtLanguage = view.findViewById(R.id.txtCurrentlanguage);
@@ -122,6 +124,13 @@ public class ProfileFragment extends Fragment {
             txtDes.setVisibility(View.GONE);
 
         }
+
+        btnVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), VoucherActivity.class));
+            }
+        });
 
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
