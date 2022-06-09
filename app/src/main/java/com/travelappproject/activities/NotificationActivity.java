@@ -19,9 +19,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
 import com.travelappproject.adapter.NotificationAdapter;
+import com.travelappproject.model.hotel.Notification;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +34,7 @@ public class NotificationActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView rcvNotifications;
     NotificationAdapter notificationAdapter;
-    List<Date> dateList = new ArrayList<>();
+    List<Notification> notificationList = new ArrayList<>();
     FirebaseFirestore db;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String uid;
@@ -66,6 +68,7 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
         db.collection("users/" + uid + "/notifications")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots,
@@ -80,15 +83,18 @@ public class NotificationActivity extends AppCompatActivity {
 
                             Timestamp timestamp = (Timestamp) doc.get("timestamp");
                             Date date = timestamp.toDate();
+                            Notification notification = new Notification();
+                            notification.setDate(date);
+                            notification.setType(doc.getString("type"));
 
                             switch (dc.getType()) {
                                 case ADDED:
-                                    dateList.add(date);
+                                    notificationList.add(notification);
                                     break;
                             }
                         }
                         notificationAdapter.notifyDataSetChanged();
-                        notificationAdapter.setDate(dateList);
+                        notificationAdapter.setDate(notificationList);
                         rcvNotifications.setAdapter(notificationAdapter);
                     }
                 });

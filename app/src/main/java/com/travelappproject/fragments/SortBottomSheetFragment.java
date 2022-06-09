@@ -20,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.travelappproject.R;
 import com.travelappproject.activities.ListHotelActivity;
 import com.travelappproject.adapter.SortAdapter;
+import com.travelappproject.model.hotel.Sort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,14 @@ public class SortBottomSheetFragment extends BottomSheetDialogFragment {
     RecyclerView rcvSort;
     SortAdapter sortAdapter;
     int index;
-    String state;
+    int state;
+    IClickItem iClickItem;
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -53,14 +55,10 @@ public class SortBottomSheetFragment extends BottomSheetDialogFragment {
         return R.style.AppBottomSheetDialogTheme;
     }
 
-    public SortBottomSheetFragment() {
+    public SortBottomSheetFragment(IClickItem iClickItem) {
+        this.iClickItem = iClickItem;
         // Required empty public constructor
     }
-
-    public static SortBottomSheetFragment newInstance() {
-        return new SortBottomSheetFragment();
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,29 +83,29 @@ public class SortBottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onCallBack(String choice) {
                 if(choice.equals(getString(R.string.PriceIncrese))){
-                    setIndex(0);
+                    setState(0);
+                    sortAdapter.notifyDataSetChanged();
+                    iClickItem.onCallBack(0);
                     dismiss();
-                    Intent intent = new Intent(getContext(),ListHotelActivity.class);
-                    intent.putExtra("indexSort",0);
-                    intent.putExtra("destination",getState());
-                    startActivity(intent);
                 }else{
-                    setIndex(1);
+                    setState(1);
+                    sortAdapter.notifyDataSetChanged();
+                    iClickItem.onCallBack(1);
                     dismiss();
-                    Intent intent = new Intent(getContext(),ListHotelActivity.class);
-                    intent.putExtra("destination",getState());
-                    intent.putExtra("indexSort",1);
-                    startActivity(intent);
                 }
             }
-        }, getIndex());
+        });
 
-        List<String> listSort = new ArrayList<>();
-        listSort.add(getString(R.string.PriceIncrese));
-        listSort.add(getString(R.string.PriceDecreasing));
+        List<Sort> listSort = new ArrayList<>();
+        listSort.add(new Sort(R.string.PriceIncrese,true));
+        listSort.add(new Sort(R.string.PriceDecreasing,false));
 
         sortAdapter.setData(listSort);
         rcvSort.setLayoutManager(linearLayoutPaymentManager);
         rcvSort.setAdapter(sortAdapter);
+    }
+
+    public interface IClickItem{
+        void onCallBack(int index);
     }
 }

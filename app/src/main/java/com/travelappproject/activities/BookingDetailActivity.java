@@ -137,7 +137,7 @@ public class BookingDetailActivity extends AppCompatActivity {
         });
 
         Button btnNo = dialog.findViewById(R.id.btn_cancel);
-        Button btnYes = dialog.findViewById(R.id.btn_okay);
+        Button btnYes = dialog.findViewById(R.id.btn_okey);
 
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
