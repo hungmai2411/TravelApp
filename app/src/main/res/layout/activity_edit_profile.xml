@@ -61,60 +61,70 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="@string/name"
+            android:fontFamily="@font/helveticaneue_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="Email:"
+            android:fontFamily="@font/helveticaneue_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="@string/phone_number"
+            android:fontFamily="@font/helveticaneue_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtPhonenumber"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:text="@string/address"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="@string/about"
+            android:fontFamily="@font/helveticaneue_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtAbout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <Button
             android:layout_marginTop="50dp"
@@ -126,6 +136,7 @@
             android:background="@drawable/rounded_corner_button"
             android:paddingHorizontal="20dp"
             android:text="@string/update"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textAllCaps="false"
             app:backgroundTint="@color/primary" />
 

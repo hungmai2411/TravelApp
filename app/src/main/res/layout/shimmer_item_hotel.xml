@@ -32,6 +32,7 @@
                 android:background="@color/shimmer_color"
                 android:textColor="@color/black"
                 android:textSize="15dp"
+                android:fontFamily="@font/helveticaneue_medium"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -48,6 +49,7 @@
 
                 <TextView
                     android:id="@+id/txtLocation"
+                    android:fontFamily="@font/helveticaneue_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/detail_color" />

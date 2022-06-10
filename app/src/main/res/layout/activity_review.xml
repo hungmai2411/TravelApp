@@ -45,6 +45,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:hint="@string/enter_your_review"
+            android:fontFamily="@font/helveticaneue_light"
             android:padding="10dp"
             android:id="@+id/edtReview"
             android:textSize="14sp"

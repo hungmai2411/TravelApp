@@ -39,6 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cox's Bazar Tourism"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -49,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="Viet Nam"
+                    android:fontFamily="@font/helveticaneue_light"
                     android:textColor="#807A7A"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -67,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4.95"
+                    android:fontFamily="@font/helveticaneue_light"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/txtNumStar"
                     android:textColor="#807A7A"
@@ -82,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="15dp"
+            android:fontFamily="@font/helveticaneue_light"
             android:id="@+id/txtReview"
             android:textColor="@color/detail_color"
             android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."/>

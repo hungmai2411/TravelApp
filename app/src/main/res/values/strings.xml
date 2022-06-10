@@ -77,7 +77,7 @@
     <string name="or">hoặc</string>
     <string name="don_t_have_an_account">Chưa có tài khoản?</string>
     <string name="sign_up">Đăng kí</string>
-    <string name="rewrite_password">Viết lại mật khẩu</string>
+    <string name="rewrite_password">Nhập lại mật khẩu</string>
     <string name="introduction">Giới thiệu</string>
     <string name="bookings">Những khách sạn đã đặt</string>
     <string name="let_s_enjoy">Hãy Tận Hưởng</string>
@@ -146,6 +146,7 @@
     <string name="giam_gia">Giảm giá</string>
     <string name="ap_dung_ma_thanh_cong">Áp dụng mã thành công</string>
     <string name="ap_dung_ma_that_bai">Áp dụng mã thất bại</string>
+    <string name="loading">Đang tải...</string>
 
 
 </resources>

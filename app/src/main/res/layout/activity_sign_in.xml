@@ -31,6 +31,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
             android:id="@+id/txtEmail"
+            android:fontFamily="@font/helveticaneue_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -50,10 +51,12 @@
             android:id="@+id/txtPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:fontFamily="@font/helveticaneue_light"/>
     </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/btnSignIn"
+        android:fontFamily="@font/helveticaneue_medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -70,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forgot_your_password"
+        android:fontFamily="@font/helveticaneue_light"
         android:textSize="15dp"
         android:layout_gravity="end"
         android:layout_marginTop="15dp">
@@ -92,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/or"
+            android:fontFamily="@font/helveticaneue_light"
             android:textSize="20dp"
             ></TextView>
         <View
@@ -138,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/don_t_have_an_account"
-
+            android:fontFamily="@font/helveticaneue_light"
             android:textSize="15dp">
         </TextView>
 
@@ -147,6 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/sign_up"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/teal_200"
             android:textSize="15dp"
             android:textStyle="bold"></TextView>

@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/th_ng_b_o" />
+            android:text="@string/th_ng_b_o"
+            android:fontFamily="@font/helveticaneue_medium"/>
     </androidx.appcompat.widget.Toolbar>
 
     <View

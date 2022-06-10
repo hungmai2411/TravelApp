@@ -28,7 +28,8 @@
             android:drawableEnd="@drawable/ic_baseline_cancel_24"
             android:paddingEnd="12dp"
             android:drawablePadding="12dp"
-            android:hint="@string/enter_a_hotel_city_or_address">
+            android:hint="@string/enter_a_hotel_city_or_address"
+            android:fontFamily="@font/helveticaneue_light">
             <requestFocus/>
         </EditText>
     </LinearLayout>
