@@ -58,6 +58,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="@string/choose_payment"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -119,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/thanh_toan"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold" />
@@ -129,6 +131,7 @@
                     android:layout_marginTop="10dp">
 
                     <TextView
+                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/booking_type" />
@@ -139,6 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="@string/one_night"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -149,6 +153,7 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
+                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hotel_name" />
@@ -159,6 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Kieu Hoang Yen Hotel"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -169,6 +175,7 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
+                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/room_type" />
@@ -179,6 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="@string/hotel"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textDirection="rtl"
                         android:textStyle="bold" />
@@ -196,6 +204,7 @@
                     android:text="@string/ch_n_ph_ng_th_c_thanh_to_n"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -223,11 +232,13 @@
                         android:paddingEnd="12dp"
                         android:layout_marginRight="10dp"
                         android:drawablePadding="12dp"
+                        android:fontFamily="@font/helveticaneue_light"
                         android:hint="@string/nh_p_m_voucher">
                     </EditText>
 
                     <Button
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:text="@string/p_d_ng"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
@@ -252,6 +263,7 @@
                     android:layout_marginVertical="15dp" />
 
                 <TextView
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -271,12 +283,14 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
+                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ti_n_ph_ng" />
 
                     <TextView
                         android:id="@+id/txtPrice"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -291,12 +305,14 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
+                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/giam_gia" />
 
                     <TextView
                         android:id="@+id/txtSale"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -314,6 +330,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tong_cong"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
@@ -323,6 +340,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="330 000"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/primary"
                         android:textSize="25dp"
                         android:textStyle="bold" />
@@ -335,6 +353,7 @@
                     android:layout_marginVertical="10dp" />
 
                 <TextView
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ch_nh_s_ch_amp_i_u_kho_n"
@@ -343,6 +362,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -353,6 +373,7 @@
 
                 <TextView
                     android:id="@+id/txtCancelPolicy"
+                    android:fontFamily="@font/helveticaneue_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/room_type" />
@@ -366,6 +387,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/x_c_nh_n"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

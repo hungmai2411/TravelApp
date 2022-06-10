@@ -21,6 +21,7 @@
 
         <TextView
             android:text="gggg"
+            android:fontFamily="@font/helveticaneue_medium"
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

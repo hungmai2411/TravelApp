@@ -44,6 +44,7 @@
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
             android:textAlignment="viewStart"
             android:text="@string/edit_profile"
+            android:fontFamily="@font/helveticaneue_medium"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:backgroundTint="@color/primary"
             android:layout_width="match_parent"
@@ -70,7 +71,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"/>
                 <TextView
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_marginTop="15dp"
                     android:textColor="#FFFFFFFF"
                     android:layout_marginStart="9dp"
@@ -111,6 +112,7 @@
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
             android:textAlignment="viewStart"
             android:text="@string/my_vouchers"
+            android:fontFamily="@font/helveticaneue_medium"
             android:drawableLeft="@drawable/ic_voucher32"
             android:backgroundTint="@color/primary"
             android:layout_width="match_parent"
@@ -121,6 +123,7 @@
             app:cornerRadius="@dimen/fab_margin"
             android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
             android:text="@string/contact_us"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:drawableLeft="@drawable/ic_baseline_info_24"
@@ -137,6 +140,7 @@
             android:id="@+id/txtDescription"
             android:textSize="20sp"
             android:text="@string/sign_up_now_and_book_for_a_great_deal"
+            android:fontFamily="@font/helveticaneue_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button
@@ -150,6 +154,7 @@
             android:drawableLeft="@drawable/register"
             android:textAllCaps="false"
             android:text="@string/sign_in_sign_up"
+            android:fontFamily="@font/helveticaneue_medium"
             app:cornerRadius="20dp"
             android:backgroundTint="@color/white"
             android:layout_gravity="center"
@@ -170,6 +175,7 @@
             android:drawableLeft="@drawable/logout"
             android:textAllCaps="false"
             android:text="@string/sign_out"
+            android:fontFamily="@font/helveticaneue_light"
             app:cornerRadius="20dp"
             android:backgroundTint="@color/white"
             android:layout_gravity="center"
