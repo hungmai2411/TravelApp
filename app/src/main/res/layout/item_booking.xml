@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
-            android:textStyle="bold"
+            
             android:text="200000"
             android:fontFamily="@font/helveticaneue_medium"/>
 

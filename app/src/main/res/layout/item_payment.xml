@@ -35,7 +35,7 @@
                 android:fontFamily="@font/helveticaneue_medium"
                 android:textColor="@color/black"
                 android:textSize="15dp"
-                android:textStyle="bold" />
+                 />
         </LinearLayout>
 
         <RadioButton

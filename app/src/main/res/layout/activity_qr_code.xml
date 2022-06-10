@@ -98,7 +98,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtNameHotel"
                 android:textColor="@color/black"
-                android:textStyle="bold"
+                
                 android:fontFamily="@font/helveticaneue_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
-                        android:textStyle="bold"
+                        
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
@@ -168,7 +168,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
+                        
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 

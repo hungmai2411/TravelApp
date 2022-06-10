@@ -123,7 +123,7 @@
                     android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                     />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -144,7 +144,7 @@
                         android:text="@string/one_night"
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -166,7 +166,7 @@
                         android:text="Kieu Hoang Yen Hotel"
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -189,7 +189,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textDirection="rtl"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <View
@@ -205,7 +205,7 @@
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:fontFamily="@font/helveticaneue_medium"
-                    android:textStyle="bold" />
+                     />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvPaymentMethod"
@@ -266,7 +266,7 @@
                     android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    
                     android:textSize="20dp"
                     android:text="@string/thanh_toan"
                     android:textColor="@color/black" />
@@ -296,7 +296,7 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/black"
                         android:textDirection="rtl"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -318,7 +318,7 @@
                         android:layout_alignParentRight="true"
                         android:textColor="@color/black"
                         android:textDirection="rtl"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -343,7 +343,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/primary"
                         android:textSize="25dp"
-                        android:textStyle="bold" />
+                         />
                 </RelativeLayout>
 
                 <View
@@ -359,7 +359,7 @@
                     android:text="@string/ch_nh_s_ch_amp_i_u_kho_n"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:fontFamily="@font/helveticaneue_medium"
@@ -369,7 +369,7 @@
                     android:text="@string/ch_nh_s_ch_hu_ph_ng"
                     android:textColor="@color/black"
                     android:textSize="17dp"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/txtCancelPolicy"

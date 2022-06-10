@@ -155,7 +155,7 @@
             android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/teal_200"
             android:textSize="15dp"
-            android:textStyle="bold"></TextView>
+            ></TextView>
     </LinearLayout>
 
 

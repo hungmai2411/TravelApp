@@ -42,7 +42,7 @@
                     android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/txtLocationAddress"
