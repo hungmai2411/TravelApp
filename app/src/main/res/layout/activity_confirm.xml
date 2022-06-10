@@ -155,7 +155,7 @@
                 android:text="@string/ki_m_tra_t_ph_ng_c_a_b_n"
                 android:textColor="@color/black"
                 android:textSize="25dp"
-                android:textStyle="bold" />
+                 />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                             android:layout_marginTop="3dp"
                             android:text="08/05/2022"
                             android:textColor="#000000"
-                            android:textStyle="bold" />
+                             />
 
                         <TextView
                             android:id="@+id/txtTimeCheckIn"
@@ -207,7 +207,7 @@
                             android:text="14:00"
                             android:textColor="#000000"
                             android:textSize="17dp"
-                            android:textStyle="bold" />
+                             />
 
                     </LinearLayout>
 
@@ -236,7 +236,7 @@
                             android:layout_marginTop="3dp"
                             android:text="08/05/2022"
                             android:textColor="#000000"
-                            android:textStyle="bold" />
+                             />
 
                         <TextView
                             android:id="@+id/txtTimeCheckOut"
@@ -247,7 +247,7 @@
                             android:text="12:00"
                             android:textColor="#000000"
                             android:textSize="17dp"
-                            android:textStyle="bold" />
+                             />
 
                     </LinearLayout>
                 </TableRow>
@@ -275,7 +275,7 @@
                     android:layout_alignParentRight="true"
                     android:text="One night"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -296,7 +296,7 @@
                     android:text="Kieu Hoang Yen Hotel"
                     android:textColor="@color/black"
                     android:textDirection="rtl"
-                    android:textStyle="bold" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -317,7 +317,7 @@
                     android:text="Kieu Hoang Yen Hotel"
                     android:textColor="@color/black"
                     android:textDirection="rtl"
-                    android:textStyle="bold" />
+                     />
             </RelativeLayout>
 
             <View
@@ -342,7 +342,7 @@
                     android:layout_alignParentRight="true"
                     android:text="One night"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -362,7 +362,7 @@
                     android:layout_alignParentRight="true"
                     android:text="One night"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                     />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

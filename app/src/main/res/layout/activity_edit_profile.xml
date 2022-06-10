@@ -58,7 +58,7 @@
         android:layout_height="match_parent">
         <TextView
             android:layout_marginTop="10dp"
-            android:textStyle="bold"
+            
             android:textSize="20sp"
             android:text="@string/name"
             android:fontFamily="@font/helveticaneue_medium"
@@ -72,7 +72,7 @@
 
         <TextView
             android:layout_marginTop="10dp"
-            android:textStyle="bold"
+            
             android:textSize="20sp"
             android:text="Email:"
             android:fontFamily="@font/helveticaneue_medium"
@@ -86,7 +86,7 @@
 
         <TextView
             android:layout_marginTop="20dp"
-            android:textStyle="bold"
+            
             android:textSize="20sp"
             android:text="@string/phone_number"
             android:fontFamily="@font/helveticaneue_medium"
@@ -103,7 +103,7 @@
             android:textSize="20sp"
             android:text="@string/address"
             android:fontFamily="@font/helveticaneue_medium"
-            android:textStyle="bold"
+            
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
@@ -114,7 +114,7 @@
 
         <TextView
             android:layout_marginTop="20dp"
-            android:textStyle="bold"
+            
             android:textSize="20sp"
             android:text="@string/about"
             android:fontFamily="@font/helveticaneue_medium"
