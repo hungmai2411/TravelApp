@@ -115,14 +115,12 @@ dependencies {
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation "androidx.paging:paging-runtime:$paging_version"
 
-
     //Algolia Search
     implementation 'com.algolia:algoliasearch-core:3.16.5'
     implementation 'com.algolia:algoliasearch-java-net:3.16.5'
     implementation 'com.algolia:algoliasearch-android:3.+'
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-
 
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
 
@@ -134,9 +132,6 @@ dependencies {
     implementation 'com.vipulasri:ticketview:1.1.2'
     //Toast Perfect
     implementation 'io.github.thang-uit:toastperfectlibrary:1.0.1'
-
-
-
 
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 }

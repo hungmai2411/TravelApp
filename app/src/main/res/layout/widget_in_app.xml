@@ -37,16 +37,6 @@
             android:textColor="@color/white"
             app:backgroundTint="@color/primary" />
 
-        <SearchView
-            android:id="@+id/searchLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/search_view_background"
-            android:iconifiedByDefault="false"
-            android:queryBackground="@android:color/transparent"
-            android:queryHint="Enter here for search" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +72,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="35dp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/txtEmail"
@@ -130,7 +120,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="15dp"
-                        android:textStyle="bold" />
+                         />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcvStar"
@@ -229,7 +219,7 @@
                             android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp"
-                            android:textStyle="bold" />
+                             />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -315,7 +305,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtType"
-                android:textStyle="bold"
+                
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="13dp"
                 android:text="Standard Room"
@@ -338,7 +328,7 @@
                     android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="18dp"
-                    android:textStyle="bold" />
+                     />
 
                 <Button
                     android:id="@+id/btnSelectRoom"
@@ -397,7 +387,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="15dp"
-                        android:textStyle="bold" />
+                         />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

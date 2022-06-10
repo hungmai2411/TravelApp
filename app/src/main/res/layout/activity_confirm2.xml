@@ -133,7 +133,7 @@
                         android:text="@string/t_ph_ng_th_nh_c_ng"
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textSize="30dp"
-                        android:textStyle="bold" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,7 +149,7 @@
                         android:text="@string/b_n_t_ph_ng_th_nh_c_ng_t_i_kh_ch_s_n"
                         android:textColor="@color/black"
                         android:textSize="17dp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/txtNameHotel"
@@ -159,7 +159,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/primary"
                         android:textSize="17dp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                         android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="17dp"
-                        android:textStyle="bold" />
+                         />
                 </LinearLayout>
 
             </LinearLayout>
