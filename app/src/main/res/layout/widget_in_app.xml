@@ -22,7 +22,8 @@
                 android:inputType="text"
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneue_light"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -78,6 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mr Hưng"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="35dp"
                         android:textStyle="bold" />
@@ -87,6 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="maiphamquochung@gmail.com"
+                        android:fontFamily="@font/helveticaneue_light"
                         android:textSize="13dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -124,6 +127,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:text="Swiss-Belresort Tuyen Lam DaLat"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:textStyle="bold" />
@@ -150,6 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Ward 3, Da Lat"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="@color/detail_color" />
                     </LinearLayout>
 
@@ -164,6 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="966.973"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="#F96D01"
                             android:textSize="18dp" />
 
@@ -220,6 +226,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="Prime Park Hotel"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp"
                             android:textStyle="bold" />
@@ -233,6 +240,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4.95"
+                                android:fontFamily="@font/helveticaneue_light"
                                 android:textColor="#807A7A"
                                 android:textSize="10dp" />
 
@@ -241,6 +249,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:text="("
+                                android:fontFamily="@font/helveticaneue_light"
                                 android:textColor="#807A7A"
                                 android:textSize="10dp" />
 
@@ -249,6 +258,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="125"
+                                android:fontFamily="@font/helveticaneue_light"
                                 android:textColor="#807A7A"
                                 android:textSize="10dp" />
 
@@ -256,6 +266,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" reviews)"
+                                android:fontFamily="@font/helveticaneue_light"
                                 android:textColor="#807A7A"
                                 android:textSize="10dp" />
                         </LinearLayout>
@@ -308,6 +319,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="13dp"
                 android:text="Standard Room"
+                android:fontFamily="@font/helveticaneue_medium"
                 android:textColor="@color/black"
                 android:textSize="22dp"/>
 
@@ -323,6 +335,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="600 000"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -334,6 +347,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@drawable/rounded_corner_button"
                     android:text="@string/select_room"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textAllCaps="false"
                     app:backgroundTint="@color/primary" />
             </RelativeLayout>
@@ -380,6 +394,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="Prime Park Hotel"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:textStyle="bold" />
@@ -392,6 +407,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4.95"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="10dp" />
 
@@ -400,6 +416,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="("
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="10dp" />
 
@@ -407,6 +424,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="125"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="10dp" />
 
@@ -414,6 +432,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" reviews)"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="10dp" />
                     </LinearLayout>

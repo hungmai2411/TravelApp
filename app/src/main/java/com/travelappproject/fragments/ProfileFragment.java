@@ -119,6 +119,7 @@ public class ProfileFragment extends Fragment {
             txtEmail.setVisibility(View.GONE);
             btnEditProfile.setVisibility(View.GONE);
             btnSignOut.setVisibility(View.GONE);
+            btnVoucher.setVisibility(View.GONE);
             divider.setVisibility(View.GONE);
         }else{
             btnSignin.setVisibility(View.GONE);

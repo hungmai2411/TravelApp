@@ -38,6 +38,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="text"
             android:id="@+id/txtEmailSU"
+            android:fontFamily="@font/helveticaneue_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -58,7 +59,7 @@
             android:id="@+id/txtPassSU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:fontFamily="@font/helveticaneue_light"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_RePass"
@@ -69,15 +70,14 @@
         android:layout_marginTop="15dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="@string/rewrite_password"
-        app:passwordToggleEnabled="true"
-        >
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:inputType="textPassword"
             android:id="@+id/txtRePass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:fontFamily="@font/helveticaneue_light"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -87,8 +87,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_corner_button"
-        android:text="SIGN UP"
-        android:textAllCaps="false"
+        android:text="@string/sign_up"
+        android:fontFamily="@font/helveticaneue_medium"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="15dp"
         app:backgroundTint="@color/primary" />

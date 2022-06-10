@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/qr_check_in" />
+            android:text="@string/qr_check_in"
+            android:fontFamily="@font/helveticaneue_medium"/>
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -98,18 +99,21 @@
                 android:id="@+id/txtNameHotel"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:fontFamily="@font/helveticaneue_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtTime"
+                android:fontFamily="@font/helveticaneue_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtRoomType"
+                android:fontFamily="@font/helveticaneue_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
@@ -129,6 +133,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:text="@string/check_in"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
@@ -137,6 +142,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/helveticaneue_light"
                         android:id="@+id/txtDateStart"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
@@ -159,6 +165,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:text="@string/check_out"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -166,6 +173,7 @@
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtDateEnd"

@@ -25,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/favorites" />
+                android:text="@string/favorites"
+                android:fontFamily="@font/helveticaneue_medium"/>
         </androidx.appcompat.widget.Toolbar>
 
         <View
@@ -59,7 +60,8 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/b_n_ch_a_ng_nh_p_vui_l_ng_ng_nh_p_ti_p_t_c"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:fontFamily="@font/helveticaneue_medium"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -67,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/primary"
-            android:text="@string/sign_in" />
+            android:text="@string/sign_in"
+            android:fontFamily="@font/helveticaneue_medium"/>
 
     </LinearLayout>
 

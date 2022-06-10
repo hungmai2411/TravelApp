@@ -12,12 +12,13 @@
         android:src="@drawable/hotel"/>
 
     <TextView
-        android:layout_marginLeft="30dp"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
         android:layout_centerVertical="true"
-        android:textColor="@color/black"
+        android:layout_marginLeft="30dp"
         android:text="@string/_24_hour_front_desk"
-        android:id="@+id/txtName"/>
+        android:fontFamily="@font/helveticaneue_medium"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
 </RelativeLayout>

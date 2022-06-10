@@ -145,8 +145,7 @@
     <string name="giam_gia">Discount</string>
     <string name="ap_dung_ma_thanh_cong">Apply voucher successfully</string>
     <string name="ap_dung_ma_that_bai">Apply voucher unsuccessfully</string>
-
-
+    <string name="loading">Loading...</string>
 
 
 </resources>

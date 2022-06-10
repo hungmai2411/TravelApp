@@ -76,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="15dp"
                     android:text="Ba Na Hills"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="23dp"
                     android:textStyle="bold" />
@@ -103,6 +104,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4.95"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="#807A7A"
                             android:textSize="15dp" />
 
@@ -111,6 +113,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="("
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="15dp" />
 
@@ -119,6 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="125"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="15dp" />
 
@@ -126,6 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" reviews)"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="15dp" />
                     </LinearLayout>
@@ -148,6 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Viet Nam"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:textColor="#807A7A"
                             android:textSize="15dp" />
                     </LinearLayout>
@@ -201,6 +207,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="@string/check_in"
+                                android:fontFamily="@font/helveticaneue_light"
                                 android:textColor="#9B9797"
                                 android:textSize="17dp" />
 
@@ -215,6 +222,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="3dp"
                                     android:text="Th 6, 12/05"
+                                    android:fontFamily="@font/helveticaneue_light"
                                     android:textColor="@color/primary" />
 
                                 <ImageView
@@ -243,6 +251,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/check_out"
+                                    android:fontFamily="@font/helveticaneue_light"
                                     android:textColor="#9B9797"
                                     android:textSize="17dp" />
 
@@ -251,6 +260,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=""
+                                    android:fontFamily="@font/helveticaneue_light"
                                     android:textColor="#9B9797"
                                     android:textSize="17dp" />
                             </LinearLayout>
@@ -266,6 +276,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="3dp"
                                     android:text="Th 6, 12/05"
+                                    android:fontFamily="@font/helveticaneue_light"
                                     android:textColor="@color/primary" />
 
                                 <ImageView
@@ -283,6 +294,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingHorizontal="15dp"
                     android:text="@string/select_room"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
