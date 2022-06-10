@@ -69,8 +69,8 @@
             app:thumbColor="@color/gray"
             app:haloColor="@color/primary"
             app:thumbStrokeColor="@color/white"
-            app:trackColorInactive="@color/primary"
-            app:trackColorActive="#F96D01"
+            app:trackColorInactive="@color/grey"
+            app:trackColorActive="@color/primary"
             android:stepSize="100000"
             android:valueTo="3000000"
             app:values="@array/initial_slider_values" />
