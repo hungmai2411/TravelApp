@@ -2,10 +2,12 @@ package com.travelappproject.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +28,7 @@ public class VoucherActivity extends AppCompatActivity {
     VouchersAdapter vouchersAdapter;
     List<Voucher> voucherList;
     FirebaseFirestore firestore;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,20 @@ public class VoucherActivity extends AppCompatActivity {
         voucherList = new ArrayList<>();
 
         rcvVoucher = (RecyclerView) findViewById(R.id.rcvVoucher);
+        toolbar = findViewById(R.id.toolbar);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvVoucher.setLayoutManager(linearLayoutManager);
         getListVoucher(voucherList);
 
         vouchersAdapter = new VouchersAdapter(voucherList, getApplicationContext());
         rcvVoucher.setAdapter(vouchersAdapter);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void getListVoucher(List<Voucher> voucherList){
