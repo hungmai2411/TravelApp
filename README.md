@@ -18,24 +18,23 @@ Uit Trip là ứng dụng giúp bạn đặt phòng hotel theo ngày . Ứng d�
 UitTrip là ứng dụng được viết bằng Java  và sử dụng Firebase làm database và một số thư viện hỗ trợ UI
 
 ## Các màn hình trong ứng dụng
-![First screen](screens/1.png)
-![First screen](screens/2.png)
-![First screen](screens/3.png)
-![First screen](screens/4.png)
-![First screen](screens/5.png)
-![First screen](screens/6.png)
-![First screen](screens/7.png)
-![First screen](screens/8.png)
-![First screen](screens/9.png)
-![First screen](screens/10.png)
-![First screen](screens/11.png)
-![First screen](screens/12.png)
-![First screen](screens/13.png)
-![First screen](screens/14.png)
-![First screen](screens/15.png)
-![First screen](screens/16.png)
-![First screen](screens/17.png)
-![First screen](screens/18.png)
+<img src="screens/1.png" width="300" height="550"/>
+<img src="screens/2.png" width="300" height="550"/>
+<img src="screens/3.png" width="300" height="550"/>
+<img src="screens/4.png" width="300" height="550"/>
+<img src="screens/5.png" width="300" height="550"/>
+<img src="screens/6.png" width="300" height="550"/>
+<img src="screens/7.png" width="300" height="550"/>
+<img src="screens/8.png" width="300" height="550"/>
+<img src="screens/9.png" width="300" height="550"/>
+<img src="screens/10.png" width="300" height="550"/>
+<img src="screens/11.png" width="300" height="550"/>
+<img src="screens/12.png" width="300" height="550"/>
+<img src="screens/13.png" width="300" height="550"/>
+<img src="screens/14.png" width="300" height="550"/>
+<img src="screens/15.png" width="300" height="550"/>
+<img src="screens/16.png" width="300" height="550"/>
+<img src="screens/17.png" width="300" height="550"/>
 ## Installation
 Cài đặt Android Studio
 
