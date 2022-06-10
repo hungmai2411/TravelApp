@@ -18,24 +18,24 @@ Uit Trip là ứng dụng giúp bạn đặt phòng hotel theo ngày . Ứng d�
 UitTrip là ứng dụng được viết bằng Java  và sử dụng Firebase làm database và một số thư viện hỗ trợ UI
 
 ## Các màn hình trong ứng dụng
-!()[screens/1.png]
-!()[screens/2.png]
-!()[screens/3.png]
-!()[screens/4.png]
-!()[screens/5.png]
-!()[screens/6.png]
-!()[screens/7.png]
-!()[screens/8.png]
-!()[screens/9.png]
-!()[screens/10.png]
-!()[screens/11.png]
-!()[screens/12.png]
-!()[screens/13.png]
-!()[screens/14.png]
-!()[screens/15.png]
-!()[screens/16.png]
-!()[screens/17.png]
-!()[screens/18.png]
+![First screen](screens/1.png)
+![First screen](screens/2.png)
+![First screen](screens/3.png)
+![First screen](screens/4.png)
+![First screen](screens/5.png)
+![First screen](screens/6.png)
+![First screen](screens/7.png)
+![First screen](screens/8.png)
+![First screen](screens/9.png)
+![First screen](screens/10.png)
+![First screen](screens/11.png)
+![First screen](screens/12.png)
+![First screen](screens/13.png)
+![First screen](screens/14.png)
+![First screen](screens/15.png)
+![First screen](screens/16.png)
+![First screen](screens/17.png)
+![First screen](screens/18.png)
 ## Installation
 Cài đặt Android Studio
 
