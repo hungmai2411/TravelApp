@@ -37,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.travelappproject.LanguageManager;
 import com.travelappproject.R;
 import com.travelappproject.SharedPreferences.LocalDataManager;
+import com.travelappproject.activities.ContactUsActivity;
 import com.travelappproject.activities.EditProfileActivity;
 import com.travelappproject.activities.LogoutActivity;
 import com.travelappproject.activities.MainActivity;
@@ -129,6 +130,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), VoucherActivity.class));
+            }
+        });
+
+        btnContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ContactUsActivity.class));
             }
         });
 
