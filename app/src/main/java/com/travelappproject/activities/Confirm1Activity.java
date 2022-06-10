@@ -337,16 +337,17 @@ public class Confirm1Activity extends AppCompatActivity {
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            db.collection("users/" + uid + "/vouchers")
-                                    .document(idVoucher)
-                                    .delete()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                            if(!edtDiscount.getText().toString().equals("")) {
+                                db.collection("users/" + uid + "/vouchers")
+                                        .document(idVoucher)
+                                        .delete()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                        }
-                                    });
-
+                                            }
+                                        });
+                            }
 
                             HashMap<String, Object> notiMap = new HashMap<>();
                             notiMap.put("timestamp", timestamp);

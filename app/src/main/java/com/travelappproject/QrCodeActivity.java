@@ -1,6 +1,8 @@
 package com.travelappproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
@@ -19,10 +21,10 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class QrCodeActivity extends AppCompatActivity {
 
-    ImageView imgQr;
+    AppCompatImageView imgQr;
     String strQr, nameHotel, time, dateStart, dateEnd, roomType;
     Toolbar toolbar;
-    TextView txtNameHotel, txtTime, txtDateStart, txtDateEnd, txtTimeStart, txtTimeEnd, txtRoomType;
+    AppCompatTextView txtNameHotel, txtTime, txtDateStart, txtDateEnd, txtRoomType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,10 @@ public class QrCodeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         imgQr = findViewById(R.id.imgQr);
         txtNameHotel = findViewById(R.id.txtNameHotel);
-        txtTime = findViewById(R.id.dateBooking);
-        txtDateStart = findViewById(R.id.txtDateCheckIn);
-        txtDateEnd = findViewById(R.id.txtDateCheckOut);
-        txtTimeStart = findViewById(R.id.txtTimeCheckIn);
-        txtTimeEnd = findViewById(R.id.txtTimeCheckOut);
-        txtRoomType = findViewById(R.id.txtTypeRoom);
+        txtTime = findViewById(R.id.txtTime);
+        txtDateStart = findViewById(R.id.txtDateStart);
+        txtDateEnd = findViewById(R.id.txtDateEnd);
+        txtRoomType = findViewById(R.id.txtRoomType);
 
         if (getIntent() != null) {
             strQr = getIntent().getStringExtra("qr");

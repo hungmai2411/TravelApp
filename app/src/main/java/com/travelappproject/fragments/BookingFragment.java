@@ -30,6 +30,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
@@ -117,7 +118,7 @@ public class BookingFragment extends Fragment {
             rcvBookings.setAdapter(bookingAdapter);
 
             db.collection("users/" + uid + "/booked")
-                    .orderBy("timestamp")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -133,44 +134,6 @@ public class BookingFragment extends Fragment {
                             bookingAdapter.notifyDataSetChanged();
                         }
                     });
-//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                            if (error == null) {
-//                                if (!value.isEmpty()) {
-//                                    try {
-//                                        for (DocumentChange dc : value.getDocumentChanges()) {
-//                                            DocumentSnapshot doc = dc.getDocument();
-//
-//                                            Booking booking = doc.toObject(Booking.class);
-//                                            Timestamp timestamp = (Timestamp) doc.get("timestamp");
-//                                            Date date = timestamp.toDate();
-//                                            booking.setDate(date);
-//                                            booking.setIdBooking(doc.getId());
-//
-//                                            switch (dc.getType()) {
-//                                                case ADDED:
-//                                                    listTmp.add(booking);
-//                                                    break;
-//                                                case REMOVED:
-//                                                    removeBooking(booking.getIdBooking());
-//                                                    break;
-//                                                case MODIFIED:
-//                                                    removeBooking(booking.getIdBooking());
-//                                                    listTmp.add(booking);
-//                                                    break;
-//                                            }
-//                                        }
-//                                    } catch (Exception e) {
-//                                        Log.d("Booking Fragment", e.getMessage());
-//                                    }
-//                                }
-//                                bookingAdapter.notifyDataSetChanged();
-//                            }
-//                        }
-//
-//                    });
-
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
