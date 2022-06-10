@@ -38,7 +38,8 @@
             android:inputType="text"
             android:id="@+id/txtEmailFG"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helveticaneue_light"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -49,6 +50,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_corner_button"
         android:text="@string/forgot_password"
+        android:fontFamily="@font/helveticaneue_medium"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15dp"

@@ -18,6 +18,7 @@
             android:paddingHorizontal="8dp"
             android:layout_marginBottom="5dp"
             android:text="Cancelled"
+            android:fontFamily="@font/helveticaneue_light"
             android:textColor="@color/cancelled_text"
             android:background="@color/cancelled_color"
             android:id="@+id/txtStatus"/>
@@ -25,13 +26,15 @@
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="07/05/2022" />
+            android:text="07/05/2022"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:id="@+id/txtTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23:33"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/black"
             android:textSize="20dp" />
     </LinearLayout>
@@ -51,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="HOÀNG TRIỀU HOTEL"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/black"
             android:textSize="20dp" />
 
@@ -58,13 +62,15 @@
             android:id="@+id/txtNameRoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PHÒNG ĐƠN" />
+            android:text="PHÒNG ĐƠN"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:id="@+id/txtNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PHÒNG ĐƠN" />
+            android:text="PHÒNG ĐƠN"
+            android:fontFamily="@font/helveticaneue_light"/>
 
         <TextView
             android:id="@+id/txtPrice"
@@ -73,7 +79,8 @@
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
             android:textStyle="bold"
-            android:text="200000" />
+            android:text="200000"
+            android:fontFamily="@font/helveticaneue_medium"/>
 
     </LinearLayout>
 

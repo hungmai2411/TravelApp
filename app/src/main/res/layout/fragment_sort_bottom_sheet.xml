@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             android:text="@string/s_p_x_p_theo"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />

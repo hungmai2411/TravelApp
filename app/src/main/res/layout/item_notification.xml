@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/uittrip_notification"
+                android:fontFamily="@font/helveticaneue_medium"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -36,14 +37,16 @@
                     android:id="@+id/txtBooked"
                     android:layout_height="wrap_content"
                     android:textColor="@color/booked_text"
-                    android:text="@string/t_ph_ng"/>
+                    android:text="@string/t_ph_ng"
+                    android:fontFamily="@font/helveticaneue_medium"/>
                 <TextView
                     android:id="@+id/txtDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:textColor="@color/black"
-                    android:text="@string/b_n_x_c_nh_n_c_t_ph_ng"/>
+                    android:text="@string/b_n_x_c_nh_n_c_t_ph_ng"
+                    android:fontFamily="@font/helveticaneue_medium"/>
             </LinearLayout>
 
             <View
@@ -55,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_gravity="right"
                 android:text="05:18 03/06/2022"
+                android:fontFamily="@font/helveticaneue_light"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtDate"/>
 

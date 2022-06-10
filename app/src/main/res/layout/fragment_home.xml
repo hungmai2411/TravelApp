@@ -78,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/let_s_enjoy"
+                    android:fontFamily="@font/helveticaneue_light"
                     android:textColor="#767677"
                     android:textSize="18dp" />
 
@@ -85,6 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/your_vacation"
+                    android:fontFamily="@font/helveticaneue_bold"
                     android:textColor="@color/black"
                     android:textSize="28dp"
                     android:textStyle="bold" />
@@ -115,6 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="An Khe"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/primary"
                     android:textSize="23dp"
                     android:textStyle="bold" />
@@ -143,6 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/hot_hotel"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -173,6 +177,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/popular_destinations"
+            android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />

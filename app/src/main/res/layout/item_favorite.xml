@@ -42,6 +42,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="Prime Park Hotel"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     android:textStyle="bold" />
@@ -55,6 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.95"
+                        android:fontFamily="@font/helveticaneue_light"
                         android:textColor="#807A7A"
                         android:textSize="10dp" />
 
@@ -63,6 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="("
+                        android:fontFamily="@font/helveticaneue_light"
                         android:textColor="#807A7A"
                         android:textSize="10dp" />
 
@@ -71,6 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="125"
+                        android:fontFamily="@font/helveticaneue_light"
                         android:textColor="#807A7A"
                         android:textSize="10dp" />
 
@@ -78,6 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" reviews)"
+                        android:fontFamily="@font/helveticaneue_light"
                         android:textColor="#807A7A"
                         android:textSize="10dp" />
                 </LinearLayout>

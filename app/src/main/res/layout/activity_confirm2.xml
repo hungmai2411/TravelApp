@@ -63,6 +63,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dp"
                                 android:text="@string/booked"
+                                android:fontFamily="@font/helveticaneue_medium"
                                 android:textColor="@color/black"
                                 android:textSize="15dp" />
 
@@ -130,6 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="@string/t_ph_ng_th_nh_c_ng"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textSize="30dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -141,6 +143,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/b_n_t_ph_ng_th_nh_c_ng_t_i_kh_ch_s_n"
@@ -153,6 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MINH DUNG HOTEL"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/primary"
                         android:textSize="17dp"
                         android:textStyle="bold" />
@@ -161,6 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/c_m_n_v_ch_c_b_n_vui_v"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
                         android:textSize="17dp"
                         android:textStyle="bold" />
@@ -179,6 +184,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/chi_ti_t_t_ph_ng"
+        android:fontFamily="@font/helveticaneue_medium"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
