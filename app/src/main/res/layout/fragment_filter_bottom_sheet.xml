@@ -22,7 +22,7 @@
             android:fontFamily="@font/helveticaneue_medium"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold" />
+             />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:text="Mức giá"
                 android:fontFamily="@font/helveticaneue_medium"
                 android:textColor="@color/primary"
-                android:textStyle="bold"
+                
                 android:textSize="20dp"
                  />
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text=" - "
                 android:textColor="@color/primary"
-                android:textStyle="bold"
+                
                 android:textSize="20dp"
                 />
 
@@ -57,7 +57,7 @@
                 android:fontFamily="@font/helveticaneue_medium"
                 android:textColor="@color/primary"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                 />
         </LinearLayout>
 
         <com.google.android.material.slider.RangeSlider

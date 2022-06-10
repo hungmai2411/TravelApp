@@ -24,7 +24,7 @@
             android:text="@string/loading"
             android:fontFamily="@font/helveticaneue_medium"
             android:textColor="#fff"
-            android:textStyle="bold" />
+             />
 
     </LinearLayout>
 

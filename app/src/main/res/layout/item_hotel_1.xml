@@ -82,7 +82,7 @@
             android:paddingTop="4dp"
             android:textColor="#FFFFFF"
             android:textSize="23sp"
-            android:textStyle="bold"
+            
             app:layout_constraintBottom_toTopOf="@+id/textLocation"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
