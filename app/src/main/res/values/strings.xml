@@ -38,7 +38,7 @@
     <string name="your_name">Tên của bạn</string>
     <string name="mobile_number">Số điện thoại</string>
     <string name="next">Tiếp theo</string>
-    <string name="choose_payment">Tiến hành thanh t</string>
+    <string name="choose_payment">Tiến hành thanh toán</string>
     <string name="ch_n_ph_ng_th_c_thanh_to_n">Chọn phương thức thanh toán</string>
     <string name="ch_nh_s_ch_amp_i_u_kho_n"><![CDATA[Chính sách & Điều khoản]]></string>
     <string name="ch_nh_s_ch_hu_ph_ng">Chính sách huỷ phòng</string>
