@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
 
                         for(DocumentSnapshot documentSnapshot : task.getResult()){
                             String uri = documentSnapshot.getString("image");
-                            SlideModel slideModel = new SlideModel(uri, null, ScaleTypes.FIT);
+                            SlideModel slideModel = new SlideModel(uri, null, ScaleTypes.CENTER_CROP);
                             slideModelList.add(slideModel);
                         }
                         imageSlider.setImageList(slideModelList);
