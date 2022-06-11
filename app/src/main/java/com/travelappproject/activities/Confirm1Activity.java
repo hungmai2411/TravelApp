@@ -250,7 +250,7 @@ public class Confirm1Activity extends AppCompatActivity {
                         CreateOrder orderApi = new CreateOrder();
 
                         try {
-                            JSONObject data = orderApi.createOrder("1000");
+                            JSONObject data = orderApi.createOrder("0");
                             String code = data.getString("return_code");
 
                             if (code.equals("1")) {
@@ -405,6 +405,39 @@ public class Confirm1Activity extends AppCompatActivity {
                             Log.d("err", e.toString());
                         }
                     });
+
+                    db.collection("partners")
+                            .whereEqualTo("idHotel",String.valueOf(mHotel.getId()))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for(DocumentSnapshot doc : task.getResult()) {
+                                        Message message = new Message();
+                                        Data data = new Data();
+                                        data.setUserName("Uit Trip Notification");
+                                        data.setDescription("Có 1 khách hàng đặt phòng");
+                                        message.setPriority("high");
+                                        message.setData(data);
+                                        message.setTo(doc.getString("token"));
+
+                                        Call<Message> repos = sendMessageApi.sendMessage(message);
+                                        repos.enqueue(new Callback<Message>() {
+                                            @Override
+                                            public void onResponse(Call<Message> call, Response<Message> response) {
+                                                if (response.body() != null) {
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Message> call, Throwable t) {
+                                                Log.d("Confirm1Activity", t.getMessage().toString());
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                 } else {
 
                 }

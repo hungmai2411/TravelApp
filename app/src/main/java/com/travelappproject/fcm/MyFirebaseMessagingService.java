@@ -18,6 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.travelappproject.R;
 import com.travelappproject.activities.Confirm2Activity;
 import com.travelappproject.activities.MainActivity;
+import com.travelappproject.fragments.BookingFragment;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
@@ -31,7 +32,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String title, String bodyMessage) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, BookingFragment.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_IMMUTABLE);
