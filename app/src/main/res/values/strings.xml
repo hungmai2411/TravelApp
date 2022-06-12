@@ -147,6 +147,7 @@
     <string name="ap_dung_ma_thanh_cong">Áp dụng mã thành công</string>
     <string name="ap_dung_ma_that_bai">Áp dụng mã thất bại</string>
     <string name="loading">Đang tải...</string>
+    <string name="nhan_voucher">Bạn vừa nhận được 1 voucher</string>
 
 
 </resources>

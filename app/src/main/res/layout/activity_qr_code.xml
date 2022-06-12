@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_primary"
     android:orientation="vertical"
     tools:context=".QrCodeActivity">
 
@@ -20,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/qr_check_in"
-            android:fontFamily="@font/helveticaneue_medium"/>
+            android:fontFamily="@font/helveticaneue_medium"
+            android:text="@string/qr_check_in" />
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -31,160 +30,164 @@
         android:layout_below="@+id/toolbar"
         android:background="@drawable/toolbar_dropshadow" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="60dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@color/light_primary"
+        android:layout_height="match_parent">
 
-        <com.vipulasri.ticketview.TicketView
-            android:id="@+id/ticketView"
-            app:ticketBorderColor="#FFC857"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:ticketBorderWidth="1dp"
-            app:ticketCornerType="rounded"
-            app:ticketDividerPadding="0dp"
-            app:ticketDividerType="dash"
-            app:ticketElevation="8dp"
-            app:ticketOrientation="horizontal"
-            app:ticketScallopPositionPercent="60"
-            app:ticketScallopRadius="10dp"
-            app:ticketShowBorder="false"
-            app:ticketShowDivider="true" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="60dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgQr"
+            <com.vipulasri.ticketview.TicketView
+                android:id="@+id/ticketView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingLeft="30dp"
-                android:paddingTop="30dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="10dp" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                app:ticketBorderColor="#FFC857"
+                app:ticketBorderWidth="1dp"
+                app:ticketCornerType="rounded"
+                app:ticketDividerPadding="0dp"
+                app:ticketDividerType="dash"
+                app:ticketElevation="8dp"
+                app:ticketOrientation="horizontal"
+                app:ticketScallopPositionPercent="60"
+                app:ticketScallopRadius="10dp"
+                app:ticketShowBorder="false"
+                app:ticketShowDivider="true" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="top"
-            android:orientation="vertical"
-            android:padding="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtNameHotel"
-                android:textColor="@color/black"
-                
-                android:fontFamily="@font/helveticaneue_bold"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtTime"
-                android:fontFamily="@font/helveticaneue_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtRoomType"
-                android:fontFamily="@font/helveticaneue_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgQr"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="top"
+                android:orientation="vertical"
+                android:padding="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtNameHotel"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneue_bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneue_bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtRoomType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneue_medium"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:text="@string/check_in"
-                        android:fontFamily="@font/helveticaneue_medium"
-                        android:textColor="@color/black"
-                        android:layout_width="wrap_content"
-                        
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:fontFamily="@font/helveticaneue_light"
-                        android:id="@+id/txtDateStart"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helveticaneue_medium"
+                            android:text="@string/check_in"
+
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/black" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtDateStart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helveticaneue_light"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/material_grey_300" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helveticaneue_medium"
+                            android:text="@string/check_out"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/black" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/material_grey_300" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtDateEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/helveticaneue_light"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:text="@string/check_out"
-                        android:fontFamily="@font/helveticaneue_medium"
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/black"
-                        
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:fontFamily="@font/helveticaneue_light"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/txtDateEnd"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </LinearLayout>

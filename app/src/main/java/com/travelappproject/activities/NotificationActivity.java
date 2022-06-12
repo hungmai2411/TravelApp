@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
 import com.travelappproject.adapter.NotificationAdapter;
+import com.travelappproject.fragments.BookingFragment;
 import com.travelappproject.model.hotel.Notification;
 
 import java.util.ArrayList;
@@ -55,7 +57,14 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
-        notificationAdapter = new NotificationAdapter(this);
+        notificationAdapter = new NotificationAdapter(this, new NotificationAdapter.ICLickNotification() {
+            @Override
+            public void onCallBack(String status) {
+                if(status.equals("voucher")){
+                    startActivity(new Intent(NotificationActivity.this,VoucherActivity.class));
+                }
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcvNotifications.setLayoutManager(linearLayoutManager);

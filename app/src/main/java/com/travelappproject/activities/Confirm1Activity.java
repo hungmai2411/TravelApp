@@ -337,7 +337,7 @@ public class Confirm1Activity extends AppCompatActivity {
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            if(!edtDiscount.getText().toString().equals("")) {
+                            if(!edtDiscount.getText().toString().equals("") && txtDiscountStatus.getText().toString().equals(R.string.ap_dung_ma_thanh_cong)) {
                                 db.collection("users/" + uid + "/vouchers")
                                         .document(idVoucher)
                                         .delete()
@@ -406,38 +406,58 @@ public class Confirm1Activity extends AppCompatActivity {
                         }
                     });
 
-                    db.collection("partners")
-                            .whereEqualTo("idHotel",String.valueOf(mHotel.getId()))
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    for(DocumentSnapshot doc : task.getResult()) {
-                                        Message message = new Message();
-                                        Data data = new Data();
-                                        data.setUserName("Uit Trip Notification");
-                                        data.setDescription("Có 1 khách hàng đặt phòng");
-                                        message.setPriority("high");
-                                        message.setData(data);
-                                        message.setTo(doc.getString("token"));
+                    try {
+                        db.collection("partners")
+                                .whereEqualTo("idHotel", String.valueOf(mHotel.getId()))
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        for (DocumentSnapshot doc : task.getResult()) {
+                                            Message message = new Message();
+                                            Data data = new Data();
+                                            data.setUserName("Uit Trip Notification");
+                                            data.setDescription("Có 1 khách hàng đặt phòng");
+                                            message.setPriority("high");
+                                            message.setData(data);
+                                            message.setTo(doc.getString("token"));
 
-                                        Call<Message> repos = sendMessageApi.sendMessage(message);
-                                        repos.enqueue(new Callback<Message>() {
-                                            @Override
-                                            public void onResponse(Call<Message> call, Response<Message> response) {
-                                                if (response.body() != null) {
+                                            Call<Message> repos = sendMessageApi.sendMessage(message);
+                                            repos.enqueue(new Callback<Message>() {
+                                                @Override
+                                                public void onResponse(Call<Message> call, Response<Message> response) {
+                                                    if (response.body() != null) {
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Message> call, Throwable t) {
+                                                    Log.d("Confirm1Activity", t.getMessage().toString());
+                                                }
+                                            });
+
+                                            HashMap<String, Object> notiMap = new HashMap<>();
+                                            notiMap.put("timestamp", timestamp);
+                                            notiMap.put("type", "booking");
+                                            notiMap.put("hasSeen", false);
+                                            notiMap.put("room",room.getName());
+
+                                            db.collection("partners/" + doc.getId() + "/notifications")
+                                                    .add(notiMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentReference> task) {
 
                                                 }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<Message> call, Throwable t) {
-                                                Log.d("Confirm1Activity", t.getMessage().toString());
-                                            }
-                                        });
+                                            });
+                                        }
                                     }
-                                }
-                            });
+                                });
+
+
+                    }catch (Exception e){
+                        Log.d("err",e.getMessage());
+                    }
                 } else {
 
                 }

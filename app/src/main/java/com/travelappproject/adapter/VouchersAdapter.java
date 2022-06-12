@@ -40,7 +40,7 @@ public class VouchersAdapter extends RecyclerView.Adapter<VouchersAdapter.Vouche
         Voucher voucher = VoucherList.get(position);
         if(voucher == null)
             return;
-        holder.txtTitle.setText(context.getString(R.string.discount) + " " + voucher.getNumber());
+        holder.txtTitle.setText(context.getString(R.string.discount) + " " + voucher.getNumber() + "%");
         holder.txtDescription.setText(voucher.getDescription());
         holder.txtEndDate.setText(voucher.getEndDate());
         holder.txtCode.setText(voucher.getCode());
