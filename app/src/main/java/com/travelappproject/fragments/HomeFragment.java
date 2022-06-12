@@ -203,12 +203,12 @@ public class HomeFragment extends Fragment {
         rcvNewHotel.setLayoutManager(linearLayoutManager1);
         List<String> mListLocation = new ArrayList<String>();
 
-        mListLocation.add("Hà Nội");
-        mListLocation.add("Đà Nẵng");
-        mListLocation.add("Sài Gòn");
-        mListLocation.add("Phú Quốc");
-        mListLocation.add("Nha Trang");
-        mListLocation.add("Đà Lạt");
+        mListLocation.add(getString(R.string.ha_noi));
+        mListLocation.add(getString(R.string.da_nang));
+        mListLocation.add(getString(R.string.sai_gon));
+        mListLocation.add(getString(R.string.phu_quoc));
+        mListLocation.add(getString(R.string.nha_trang));
+        mListLocation.add(getString(R.string.da_lat));
 
         List<Integer> mListImages = new ArrayList<>();
 
@@ -222,6 +222,19 @@ public class HomeFragment extends Fragment {
         thumbnailAdapter = new ThumbnailAdapter(mListLocation, mListImages, getContext(), new ThumbnailAdapter.IClickDestinationListener() {
             @Override
             public void onCallBack(String destination) {
+                if(destination.equals(getString(R.string.sai_gon)))
+                    destination = "Sài Gòn";
+                else if(destination.equals(getString(R.string.da_nang)))
+                    destination = "Đà Nẵng";
+                else if(destination.equals(getString(R.string.ha_noi)))
+                    destination = "Hà Nội";
+                else if(destination.equals(getString(R.string.phu_quoc)))
+                    destination = "Phú Quốc";
+                else if(destination.equals(getString(R.string.nha_trang)))
+                    destination = "Nha Trang";
+                else if(destination.equals(getString(R.string.da_lat)))
+                    destination = "Đà Lạt";
+
                 if (destination == "Sài Gòn") {
                     Intent intent = new Intent(getContext(), ListHotelActivity.class);
                     intent.putExtra("destination", "TP Hồ Chí Minh");
