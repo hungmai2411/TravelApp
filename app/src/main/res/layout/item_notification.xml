@@ -43,7 +43,6 @@
                     android:id="@+id/txtDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
                     android:textColor="@color/black"
                     android:text="@string/b_n_x_c_nh_n_c_t_ph_ng"
                     android:fontFamily="@font/helveticaneue_medium"/>
