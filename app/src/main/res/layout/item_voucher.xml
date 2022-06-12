@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_marginTop="10dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="horizontal">
 
     <com.vipulasri.ticketview.TicketView
         android:id="@+id/item_voucher"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="156dp"
-        android:fontFamily="@font/buenard_bold"
+        android:fontFamily="@font/helveticaneue_bold"
         android:text="Discount 30%"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
         android:layout_width="309dp"
         android:layout_height="40dp"
         android:layout_marginBottom="112dp"
-        android:fontFamily="@font/buenard_bold"
+        android:fontFamily="@font/helveticaneue_bold"
         android:text="Licensed under the Apache License, Version 2.0 you may not use this file."
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,43 +53,71 @@
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:fontFamily="@font/buenard_bold"
-        android:text="Code: "
-        android:textSize="17sp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginBottom="32dp"
-        android:fontFamily="@font/source_sans_pro_black"
-        android:text="ENFAGIFT8"
-        android:textSize="17sp"
-        
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/item_voucher" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneue_bold"
+                android:text="HSD: "
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/txtEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneue_medium"
+                android:text="15/02/2022"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneue_bold"
+                android:text="Code: "
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:id="@+id/txtCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helveticaneue_medium"
+                android:text="ENFAGIFT8"
+                android:textSize="17sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtCopy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/buenard_bold"
+        android:fontFamily="@font/helveticaneue_bold"
         android:text="@string/copy_code"
         android:textColor="@color/primary"
         android:textSize="20sp"
-        
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -101,35 +129,11 @@
         android:layout_marginBottom="16dp"
         android:background="@color/background"
         android:src="@drawable/ic_tick"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtCopy" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="@font/source_sans_pro_light_italic"
-        android:text="HSD:"
-        android:textSize="17sp"
-        
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/txtEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="@font/source_sans_pro_light_italic"
-        android:text="15/02/2022"
-        android:textSize="17sp"
-        
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
