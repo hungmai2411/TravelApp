@@ -1,5 +1,6 @@
 package com.travelappproject.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -60,8 +63,8 @@ public class NotificationActivity extends AppCompatActivity {
         notificationAdapter = new NotificationAdapter(this, new NotificationAdapter.ICLickNotification() {
             @Override
             public void onCallBack(String status) {
-                if(status.equals("voucher")){
-                    startActivity(new Intent(NotificationActivity.this,VoucherActivity.class));
+                if (status.equals("voucher")) {
+                    startActivity(new Intent(NotificationActivity.this, VoucherActivity.class));
                 }
             }
         });
@@ -72,35 +75,25 @@ public class NotificationActivity extends AppCompatActivity {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
         rcvNotifications.addItemDecoration(dividerItemDecoration);
 
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             uid = mAuth.getUid();
         }
 
         db.collection("users/" + uid + "/notifications")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshots,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w("Notification Activity", "listen:error", e);
-                            return;
-                        }
-
-                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                            DocumentSnapshot doc = dc.getDocument();
-
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc : task.getResult()) {
                             Timestamp timestamp = (Timestamp) doc.get("timestamp");
                             Date date = timestamp.toDate();
                             Notification notification = new Notification();
                             notification.setDate(date);
                             notification.setType(doc.getString("type"));
 
-                            switch (dc.getType()) {
-                                case ADDED:
-                                    notificationList.add(notification);
-                                    break;
-                            }
+                            notificationList.add(notification);
+
                         }
                         notificationAdapter.notifyDataSetChanged();
                         notificationAdapter.setDate(notificationList);

@@ -250,7 +250,7 @@ public class Confirm1Activity extends AppCompatActivity {
                         CreateOrder orderApi = new CreateOrder();
 
                         try {
-                            JSONObject data = orderApi.createOrder("0");
+                            JSONObject data = orderApi.createOrder(txtTotal.getText().toString());
                             String code = data.getString("return_code");
 
                             if (code.equals("1")) {
@@ -262,8 +262,8 @@ public class Confirm1Activity extends AppCompatActivity {
                                     public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
                                         check = 1;
                                         btnConfirm.setText("Tiếp tục");
+                                        addToBooked();
                                     }
-
                                     @Override
                                     public void onPaymentCanceled(String zpTransToken, String appTransID) {
                                         ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, getString(R.string.paymentcancel), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
@@ -271,15 +271,11 @@ public class Confirm1Activity extends AppCompatActivity {
 
                                     @Override
                                     public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
+                                        Log.d("err",zaloPayError.toString());
                                         ToastPerfect.makeText(Confirm1Activity.this, ToastPerfect.ERROR, getString(R.string.paymenterror), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
                                     }
                                 });
-
-
-
-
                             }
-
                         } catch (Exception e) {
                             Log.d("err", e.getMessage());
                         }
@@ -323,7 +319,7 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("username", user.getName());
         booksMap.put("phonenumber", user.getPhoneNumber());
         booksMap.put("status", "Booked");
-
+        booksMap.put("idUser",uid);
         long price = (long) (room.getPrice() - (room.getPrice() * discount * 0.01));
         booksMap.put("price", price);
 

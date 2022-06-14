@@ -2,48 +2,47 @@ package com.travelappproject.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
+import com.travelappproject.adapter.ReviewAdapter;
+import com.travelappproject.model.hotel.Hotel;
+import com.travelappproject.model.hotel.Review;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ReviewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReviewFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView rcvReviews;
+    ReviewAdapter reviewAdapter;
+    List<Review> listReview;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Long idHotel;
+    LinearLayout linear;
 
     public ReviewFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ReviewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ReviewFragment newInstance(String param1, String param2) {
+    public static ReviewFragment newInstance(Long idHotel) {
         ReviewFragment fragment = new ReviewFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putLong("idHotel", idHotel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +51,7 @@ public class ReviewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            idHotel = getArguments().getLong("idHotel");
         }
     }
 
@@ -62,5 +60,41 @@ public class ReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_review, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        linear = view.findViewById(R.id.linear);
+        rcvReviews = view.findViewById(R.id.rcvReviews);
+        reviewAdapter = new ReviewAdapter(getContext());
+        listReview = new ArrayList<>();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        rcvReviews.setLayoutManager(linearLayoutManager);
+        reviewAdapter.addList(listReview);
+        rcvReviews.setAdapter(reviewAdapter);
+
+        db.collection("Hotels/" + idHotel + "/reviews/")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc : task.getResult()){
+                            Review review = doc.toObject(Review.class);
+
+                            listReview.add(review);
+                        }
+                        reviewAdapter.notifyDataSetChanged();
+                    }
+                });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        linear.requestLayout();
     }
 }

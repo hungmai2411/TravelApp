@@ -23,7 +23,7 @@ public class ViewPageAdapter extends FragmentStateAdapter {
             case 0:
                 return AboutFragment.newInstance(hotel);
             case 1:
-                return new ReviewFragment();
+                return ReviewFragment.newInstance(hotel.getId());
         }
         return AboutFragment.newInstance(hotel);
     }
@@ -34,4 +34,3 @@ public class ViewPageAdapter extends FragmentStateAdapter {
     }
 
 }
-

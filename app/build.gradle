@@ -132,7 +132,8 @@ dependencies {
     implementation 'com.vipulasri:ticketview:1.1.2'
     //Toast Perfect
     implementation 'io.github.thang-uit:toastperfectlibrary:1.0.1'
-
+    implementation 'gun0912.ted:tedbottompicker:2.0.1'
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 }
 apply plugin: 'com.android.application'

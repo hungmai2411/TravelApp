@@ -67,6 +67,8 @@ public class ListHotelActivity extends AppCompatActivity {
     SortBottomSheetFragment sortBottomSheetFragment;
     FilterBottomSheetFragment filterBottomSheetFragment;
     List<Hotel> hotelList = new ArrayList<>();
+    boolean hasFiltered = false;
+    List<Hotel> tmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,9 @@ public class ListHotelActivity extends AppCompatActivity {
         shimmerFrameLayout.startShimmer();
         executorService = Executors.newSingleThreadExecutor();
         txtTitle = findViewById(R.id.txtTitle);
+
+        Common.start = 0;
+        Common.end = 3000000;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -136,11 +141,13 @@ public class ListHotelActivity extends AppCompatActivity {
                         if (values.get(0).longValue() == 0 && values.get(1).longValue() == 3000000) {
                             hotelAdapter.setData(hotelList);
                             hotelAdapter.notifyDataSetChanged();
-                            btnFilter.setBackground(getResources().getDrawable(R.drawable.custom_shape));
+                            btnFilter.setBackgroundResource(0);
                         } else {
+                            hasFiltered = true;
                             Common.start = values.get(0).longValue();
                             Common.end = values.get(1).longValue();
-                            List<Hotel> tmp = hotelList.stream().filter(t -> t.getPrice() >= values.get(0).longValue() && t.getPrice() <= values.get(1).longValue()).collect(Collectors.toList());
+                            tmp = new ArrayList<>();
+                            tmp = hotelList.stream().filter(t -> t.getPrice() >= values.get(0).longValue() && t.getPrice() <= values.get(1).longValue()).collect(Collectors.toList());
                             hotelAdapter.setData(tmp);
                             hotelAdapter.notifyDataSetChanged();
                             btnFilter.setBackground(getResources().getDrawable(R.drawable.custom_btn_filter));
@@ -166,7 +173,7 @@ public class ListHotelActivity extends AppCompatActivity {
                             sortAscend();
                             sortBottomSheetFragment.setState(0);
                             hotelAdapter.notifyDataSetChanged();
-                            btnSort.setBackground(getResources().getDrawable(R.drawable.custom_shape_2));
+                            btnSort.setBackgroundResource(0);
                         }
                     }
                 });
@@ -196,18 +203,34 @@ public class ListHotelActivity extends AppCompatActivity {
     }
 
     private void sortAscend() {
-        Collections.sort(hotelList, new Comparator<Hotel>() {
-            public int compare(Hotel obj1, Hotel obj2) {
-                return Integer.valueOf((int) obj1.getPrice()).compareTo(Integer.valueOf((int) obj2.getPrice())); // To compare string values
-            }
-        });
+        if(hasFiltered){
+            Collections.sort(tmp, new Comparator<Hotel>() {
+                public int compare(Hotel obj1, Hotel obj2) {
+                    return Integer.valueOf((int) obj1.getPrice()).compareTo(Integer.valueOf((int) obj2.getPrice())); // To compare string values
+                }
+            });
+        }else {
+            Collections.sort(hotelList, new Comparator<Hotel>() {
+                public int compare(Hotel obj1, Hotel obj2) {
+                    return Integer.valueOf((int) obj1.getPrice()).compareTo(Integer.valueOf((int) obj2.getPrice())); // To compare string values
+                }
+            });
+        }
     }
 
     private void sortDescend() {
-        Collections.sort(hotelList, new Comparator<Hotel>() {
-            public int compare(Hotel obj1, Hotel obj2) {
-                return Integer.valueOf((int) obj2.getPrice()).compareTo(Integer.valueOf((int) obj1.getPrice())); // To compare string values
-            }
-        });
+        if(hasFiltered){
+            Collections.sort(tmp, new Comparator<Hotel>() {
+                public int compare(Hotel obj1, Hotel obj2) {
+                    return Integer.valueOf((int) obj2.getPrice()).compareTo(Integer.valueOf((int) obj1.getPrice())); // To compare string values
+                }
+            });
+        }else {
+            Collections.sort(hotelList, new Comparator<Hotel>() {
+                public int compare(Hotel obj1, Hotel obj2) {
+                    return Integer.valueOf((int) obj2.getPrice()).compareTo(Integer.valueOf((int) obj1.getPrice())); // To compare string values
+                }
+            });
+        }
     }
 }

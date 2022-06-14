@@ -98,6 +98,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="@string/confirm_information"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -155,7 +156,7 @@
                 android:text="@string/ki_m_tra_t_ph_ng_c_a_b_n"
                 android:textColor="@color/black"
                 android:textSize="25dp"
-                 />
+                />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -185,6 +186,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:text="@string/check_in"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:textColor="#9B9797"
                             android:textSize="17dp" />
 
@@ -196,7 +198,7 @@
                             android:layout_marginTop="3dp"
                             android:text="08/05/2022"
                             android:textColor="#000000"
-                             />
+                            />
 
                         <TextView
                             android:id="@+id/txtTimeCheckIn"
@@ -207,7 +209,7 @@
                             android:text="14:00"
                             android:textColor="#000000"
                             android:textSize="17dp"
-                             />
+                            />
 
                     </LinearLayout>
 
@@ -224,6 +226,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
+                            android:fontFamily="@font/helveticaneue_medium"
                             android:text="@string/check_out"
                             android:textColor="#9B9797"
                             android:textSize="17dp" />
@@ -236,7 +239,7 @@
                             android:layout_marginTop="3dp"
                             android:text="08/05/2022"
                             android:textColor="#000000"
-                             />
+                            />
 
                         <TextView
                             android:id="@+id/txtTimeCheckOut"
@@ -247,7 +250,7 @@
                             android:text="12:00"
                             android:textColor="#000000"
                             android:textSize="17dp"
-                             />
+                            />
 
                     </LinearLayout>
                 </TableRow>
@@ -266,6 +269,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/booking_type" />
 
                 <TextView
@@ -275,7 +279,8 @@
                     android:layout_alignParentRight="true"
                     android:text="One night"
                     android:textColor="@color/black"
-                     />
+                    android:fontFamily="@font/helveticaneue_medium"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -286,6 +291,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/hotel_name" />
 
                 <TextView
@@ -295,8 +301,9 @@
                     android:layout_alignParentRight="true"
                     android:text="Kieu Hoang Yen Hotel"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:textDirection="rtl"
-                     />
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -307,6 +314,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/room_type" />
 
                 <TextView
@@ -314,10 +322,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:text="Kieu Hoang Yen Hotel"
                     android:textColor="@color/black"
                     android:textDirection="rtl"
-                     />
+                    />
             </RelativeLayout>
 
             <View
@@ -332,6 +341,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:text="@string/your_name" />
 
@@ -342,7 +352,8 @@
                     android:layout_alignParentRight="true"
                     android:text="One night"
                     android:textColor="@color/black"
-                     />
+                    android:fontFamily="@font/helveticaneue_medium"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -353,6 +364,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/mobile_number" />
 
                 <TextView
@@ -360,9 +372,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:text="One night"
                     android:textColor="@color/black"
-                     />
+                    />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
