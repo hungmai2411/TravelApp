@@ -10,7 +10,10 @@ Uit Trip là ứng dụng giúp bạn đặt phòng hotel theo ngày . Ứng d�
 - Tuỳ chọn ngôn ngữ (Anh, Việt)
 - Xem các voucher mình sở hữu
 - Xem thông báo 
+<<<<<<< HEAD
+=======
 - Đánh giá khách sạn
+>>>>>>> origin/QH
 
 Ứng dụng dành cho phía đối tác và admin
 - [https://github.com/hungmai2411/UitTripPartner]
