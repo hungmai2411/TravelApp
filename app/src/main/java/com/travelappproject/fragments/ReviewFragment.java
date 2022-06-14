@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +35,7 @@ public class ReviewFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Long idHotel;
     LinearLayout linear;
+    ShimmerFrameLayout shimmer;
 
     public ReviewFragment() {
         // Required empty public constructor
@@ -66,6 +68,7 @@ public class ReviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        shimmer = view.findViewById(R.id.shimmer);
         linear = view.findViewById(R.id.linear);
         rcvReviews = view.findViewById(R.id.rcvReviews);
         reviewAdapter = new ReviewAdapter(getContext());
@@ -75,6 +78,8 @@ public class ReviewFragment extends Fragment {
         rcvReviews.setLayoutManager(linearLayoutManager);
         reviewAdapter.addList(listReview);
         rcvReviews.setAdapter(reviewAdapter);
+
+        shimmer.startShimmer();
 
         db.collection("Hotels/" + idHotel + "/reviews/")
                 .get()
@@ -87,6 +92,9 @@ public class ReviewFragment extends Fragment {
                             listReview.add(review);
                         }
                         reviewAdapter.notifyDataSetChanged();
+                        shimmer.stopShimmer();
+                        shimmer.setVisibility(View.GONE);
+                        rcvReviews.setVisibility(View.VISIBLE);
                     }
                 });
 

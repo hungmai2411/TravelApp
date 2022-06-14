@@ -101,6 +101,7 @@ public class BookingFragment extends Fragment {
                 @Override
                 public void onCallBack(Booking booking) {
                     Intent intent = new Intent(getContext(), BookingDetailActivity.class);
+                    intent.putExtra("fromList",true);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("booking", booking);
                     intent.putExtras(bundle);

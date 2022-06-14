@@ -101,7 +101,6 @@ public class ReviewActivity extends AppCompatActivity {
             }
         }
 
-
         EditText edtReview = findViewById(R.id.edtReview);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReferenceFromUrl("gs://travel-81548.appspot.com");
@@ -148,7 +147,6 @@ public class ReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!edtReview.getText().equals("")) {
-
                     if(!hasReviewed) {
                         showDialog(ReviewActivity.this);
 
@@ -197,8 +195,6 @@ public class ReviewActivity extends AppCompatActivity {
                                     }
                                 });
                     }else{
-                        showDialog(ReviewActivity.this);
-
                         float rate = ratingBar.getRating();
                         String review = edtReview.getText().toString();
 
@@ -208,6 +204,11 @@ public class ReviewActivity extends AppCompatActivity {
 
                                 if(s.contains("https://firebasestorage.googleapis.")) {
                                     images.add(s);
+
+                                    if(images.size() == 0){
+                                        dismissDialog();
+                                        ToastPerfect.makeText(ReviewActivity.this,ToastPerfect.SUCCESS, getResources().getString(R.string.update_review), ToastPerfect.BOTTOM,Toast.LENGTH_SHORT).show();
+                                    }
                                     continue;
                                 }
 
@@ -271,7 +272,7 @@ public class ReviewActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 dismissDialog();
-                ToastPerfect.makeText(ReviewActivity.this, R.string.add_review, Toast.LENGTH_SHORT).show();
+                ToastPerfect.makeText(ReviewActivity.this,ToastPerfect.SUCCESS, getResources().getString(R.string.add_review),ToastPerfect.BOTTOM ,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -292,7 +293,7 @@ public class ReviewActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         dismissDialog();
-                        ToastPerfect.makeText(ReviewActivity.this, R.string.update_review, Toast.LENGTH_SHORT).show();
+                        ToastPerfect.makeText(ReviewActivity.this,ToastPerfect.SUCCESS, getResources().getString(R.string.update_review), ToastPerfect.BOTTOM,Toast.LENGTH_SHORT).show();
                     }
                 });
     }

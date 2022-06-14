@@ -381,8 +381,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/rounded_corner_button"
-                android:text="@string/qr_check_in"
                 android:fontFamily="@font/helveticaneue_medium"
+                android:text="@string/qr_check_in"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/primary" />
         </RelativeLayout>

@@ -86,16 +86,16 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
-                                        FirebaseUser user =mAuth.getCurrentUser();
-                                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, getString(R.string.emailsent), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, getString(R.string.failsentemail) + e.getMessage(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                            }
-                                        });
+                                        //FirebaseUser user =mAuth.getCurrentUser();
+//                                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void unused) {
+//                                                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.SUCCESS, getString(R.string.emailsent), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                            }
+//                                        }).addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                ToastPerfect.makeText(getApplicationContext(), ToastPerfect.ERROR, getString(R.string.failsentemail) + e.getMessage(), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                            }
+//                                        });
                                         String hashpass= BCrypt.withDefaults().hashToString(12,pass.toCharArray());
                                         userID=mAuth.getCurrentUser().getUid();
                                         DocumentReference documentReference =firestore.collection("users").document(userID);
@@ -114,7 +114,8 @@ public class SignUpActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        ToastPerfect.makeText(getApplicationContext(), ToastPerfect.INFORMATION, getString(R.string.verifyemail), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();                                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
+                                        //ToastPerfect.makeText(getApplicationContext(), ToastPerfect.INFORMATION, getString(R.string.verifyemail), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
                                         startActivity(intent);
 
                                     }

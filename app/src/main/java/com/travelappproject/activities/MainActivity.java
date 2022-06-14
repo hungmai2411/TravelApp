@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -23,6 +24,7 @@ import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -52,6 +54,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.travelappproject.Constants;
 import com.travelappproject.FetchAddressIntentService;
 import com.travelappproject.LanguageManager;
@@ -74,7 +78,7 @@ import java.util.concurrent.Executors;
 
 import vn.thanguit.toastperfect.ToastPerfect;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private static final int REQUEST_CODE_LOCATION = 1;
     BottomNavigationView bottom_navigation;
     FirebaseAuth firebaseAuth;
@@ -86,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     ExecutorService executorService;
     LocationUtils locationUtils;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +143,9 @@ public class MainActivity extends AppCompatActivity {
                             double latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
                             double longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
 
-                            state = locationUtils.getState(latitude,longitude);
+                            state = locationUtils.getState(latitude, longitude);
                             hotelViewModel.getList(state);
+                            hotelViewModel.getBanner();
                             addControls();
                             addEvents();
                             dismissDialog();
@@ -159,7 +165,8 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation();
             } else {
-                ToastPerfect.makeText(this, ToastPerfect.ERROR, getString(R.string.permissiondenied), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();            }
+                ToastPerfect.makeText(this, ToastPerfect.ERROR, getString(R.string.permissiondenied), ToastPerfect.BOTTOM, ToastPerfect.LENGTH_SHORT).show();
+            }
         }
     }
 

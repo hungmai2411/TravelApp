@@ -43,6 +43,7 @@ import com.travelappproject.activities.NotificationActivity;
 import com.travelappproject.activities.SearchActivity;
 import com.travelappproject.adapter.HotelAdapter;
 import com.travelappproject.adapter.ThumbnailAdapter;
+import com.travelappproject.model.hotel.Banner;
 import com.travelappproject.model.hotel.Hotel;
 import com.travelappproject.model.hotel.Image;
 import com.travelappproject.viewmodel.HotelViewModel;
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
     CardView redDot;
     ExecutorService executorService;
     ImageSlider imageSlider;
-
+    Banner banner;
 
     public HomeFragment() {
     }
@@ -117,22 +118,7 @@ public class HomeFragment extends Fragment {
 
         imageSlider = view.findViewById(R.id.image_slider);
 
-        db.collection("banners").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        List<SlideModel> slideModelList = new ArrayList<>();
-
-                        for(DocumentSnapshot documentSnapshot : task.getResult()){
-                            String uri = documentSnapshot.getString("image");
-                            SlideModel slideModel = new SlideModel(uri, null, ScaleTypes.CENTER_CROP);
-                            slideModelList.add(slideModel);
-                        }
-                        imageSlider.setImageList(slideModelList);
-
-                    }
-                });
-
+        observedBanners();
         redDot = view.findViewById(R.id.redDot);
         shimmerFrameLayout = view.findViewById(R.id.shimmer);
         shimmerFrameLayout.startShimmer();
@@ -316,6 +302,24 @@ public class HomeFragment extends Fragment {
                 rcvHotHotel.setVisibility(View.VISIBLE);
                 hotHotelAdapter.notifyDataSetChanged();
                 rcvHotHotel.setAdapter(hotHotelAdapter);
+            }
+        });
+    }
+
+    private void observedBanners() {
+        hotelViewModel.observedBannerLiveData().observe(getViewLifecycleOwner(), new Observer<Banner>() {
+            @Override
+            public void onChanged(Banner banner) {
+                imageSlider.setVisibility(View.VISIBLE);
+                List<SlideModel> slideModelList = new ArrayList<>();
+
+                
+                for(String s : banner.getImages()){
+                    SlideModel slideModel = new SlideModel(s, null, ScaleTypes.CENTER_CROP);
+                    slideModelList.add(slideModel);
+                }
+
+                imageSlider.setImageList(slideModelList);
             }
         });
     }

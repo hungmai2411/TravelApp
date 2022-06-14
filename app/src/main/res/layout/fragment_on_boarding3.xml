@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".fragments.OnBoarding3Fragment">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enjoy your trip!"
+        android:textSize="30dp"
+        android:fontFamily="@font/helveticaneue_bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sống cùng đam mê nào! Tận hưởng chuyến đi nhé"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:fontFamily="@font/helveticaneue_bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_corner_button"
+        android:fontFamily="@font/helveticaneue_medium"
+        android:text="Get started"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        app:backgroundTint="@color/primary" />
+</LinearLayout>

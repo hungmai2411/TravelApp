@@ -20,7 +20,10 @@ import com.travelappproject.R;
 import com.travelappproject.adapter.VouchersAdapter;
 import com.travelappproject.model.hotel.Voucher;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VoucherActivity extends AppCompatActivity {
@@ -57,13 +60,31 @@ public class VoucherActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userID = user.getUid();
         firestore = FirebaseFirestore.getInstance();
+
         firestore.collection("users/" + userID + "/vouchers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for(DocumentSnapshot snapshot : task.getResult()){
-                        Voucher voucher = snapshot.toObject(Voucher.class);
-                        voucherList.add(voucher);
+                        Date date = new Date();
+                        String endDate = snapshot.getString("endDate");
+
+                        Date end = null;
+
+                        try {
+                            end = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(end.getYear() >= date.getDate()){
+                            if(end.getMonth() >= date.getMonth()){
+                                if(end.getDay() >= date.getDay()){
+                                    Voucher voucher = snapshot.toObject(Voucher.class);
+                                    voucherList.add(voucher);
+                                }
+                            }
+                        }
                     }
                 }
                 vouchersAdapter.notifyDataSetChanged();

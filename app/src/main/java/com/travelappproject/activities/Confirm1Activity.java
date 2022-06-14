@@ -320,7 +320,8 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("phonenumber", user.getPhoneNumber());
         booksMap.put("status", "Booked");
         booksMap.put("idUser",uid);
-        long price = (long) (room.getPrice() - (room.getPrice() * discount * 0.01));
+
+        long price = (long) (room.getPrice() * daysDiff - (room.getPrice() * daysDiff * discount * 0.01));
         booksMap.put("price", price);
 
         db.collection("users/" + uid + "/booked").add(booksMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {

@@ -53,6 +53,8 @@ public class BookingDetailActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String uid,idReview;
     Review review;
+    boolean fromList = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,7 @@ public class BookingDetailActivity extends AppCompatActivity {
 
         if (intent != null) {
             booking = (Booking) intent.getSerializableExtra("booking");
+            fromList = intent.getBooleanExtra("fromList",false);
 
             if (booking != null) {
                 txtStatus.setText(booking.getStatus());
@@ -235,7 +238,11 @@ public class BookingDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(BookingDetailActivity.this, MainActivity.class));
+                if(fromList){
+                    finish();
+                }else {
+                    startActivity(new Intent(BookingDetailActivity.this, MainActivity.class));
+                }
             }
         });
     }
