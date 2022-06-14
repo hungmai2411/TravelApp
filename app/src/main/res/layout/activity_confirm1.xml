@@ -119,11 +119,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/thanh_toan"
                     android:fontFamily="@font/helveticaneue_medium"
+                    android:text="@string/thanh_toan"
                     android:textColor="@color/black"
-                    android:textSize="25dp"
-                     />
+                    android:textSize="25dp" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -131,20 +130,19 @@
                     android:layout_marginTop="10dp">
 
                     <TextView
-                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/booking_type" />
+                        android:text="@string/booking_type"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/txtBookingType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="@string/one_night"
                         android:fontFamily="@font/helveticaneue_medium"
-                        android:textColor="@color/black"
-                         />
+                        android:text="@string/one_night"
+                        android:textColor="@color/black" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -153,9 +151,9 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="@string/hotel_name" />
 
                     <TextView
@@ -163,10 +161,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="Kieu Hoang Yen Hotel"
                         android:fontFamily="@font/helveticaneue_medium"
-                        android:textColor="@color/black"
-                         />
+                        android:text="Kieu Hoang Yen Hotel"
+                        android:textColor="@color/black" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -175,9 +172,10 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+                        android:textColor="@color/black"
                         android:text="@string/room_type" />
 
                     <TextView
@@ -185,11 +183,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="@string/hotel"
                         android:fontFamily="@font/helveticaneue_medium"
+                        android:text="@string/hotel"
                         android:textColor="@color/black"
-                        android:textDirection="rtl"
-                         />
+                        android:textDirection="rtl" />
                 </RelativeLayout>
 
                 <View
@@ -201,11 +198,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:text="@string/ch_n_ph_ng_th_c_thanh_to_n"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/helveticaneue_medium"
-                     />
+                    android:textSize="20dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvPaymentMethod"
@@ -222,39 +218,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <EditText
                         android:id="@+id/edtDiscount"
-                        android:background="@drawable/custom_input"
                         android:layout_width="0dp"
-                        android:layout_weight="2"
                         android:layout_height="55dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/custom_input"
                         android:drawablePadding="12dp"
                         android:fontFamily="@font/helveticaneue_light"
-                        android:hint="@string/nh_p_m_voucher">
-                    </EditText>
+                        android:hint="@string/nh_p_m_voucher"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"></EditText>
 
                     <Button
+                        android:id="@+id/btnApply"
                         android:layout_width="wrap_content"
+                        android:layout_height="55dp"
+                        android:backgroundTint="@color/grey"
                         android:fontFamily="@font/helveticaneue_medium"
-                        android:text="@string/p_d_ng"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
-                        android:id="@+id/btnApply"
-                        android:backgroundTint="@color/grey"
-                        android:layout_height="55dp">
+                        android:text="@string/p_d_ng">
 
                     </Button>
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/txtDiscountStatus"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:id="@+id/txtDiscountStatus"/>
+                    android:layout_marginLeft="20dp"
+                    android:visibility="gone" />
 
                 <View
                     style="@style/Divider.Horizontal"
@@ -263,13 +259,13 @@
                     android:layout_marginVertical="15dp" />
 
                 <TextView
-                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
-                    android:textSize="20dp"
+                    android:fontFamily="@font/helveticaneue_medium"
+
                     android:text="@string/thanh_toan"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
                 <View
                     style="@style/Divider.Horizontal"
@@ -283,20 +279,19 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="@string/ti_n_ph_ng" />
 
                     <TextView
                         android:id="@+id/txtPrice"
-                        android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
-                        android:textDirection="rtl"
-                         />
+                        android:textDirection="rtl" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -305,32 +300,32 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:fontFamily="@font/helveticaneue_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+                        android:textColor="@color/black"
                         android:text="@string/giam_gia" />
 
                     <TextView
                         android:id="@+id/txtSale"
-                        android:fontFamily="@font/helveticaneue_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:fontFamily="@font/helveticaneue_medium"
                         android:textColor="@color/black"
-                        android:textDirection="rtl"
-                         />
+                        android:textDirection="rtl" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tong_cong"
                         android:fontFamily="@font/helveticaneue_medium"
+                        android:text="@string/tong_cong"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
@@ -339,11 +334,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="330 000"
                         android:fontFamily="@font/helveticaneue_medium"
+                        android:text="330 000"
                         android:textColor="@color/primary"
-                        android:textSize="25dp"
-                         />
+                        android:textSize="25dp" />
                 </RelativeLayout>
 
                 <View
@@ -353,29 +347,27 @@
                     android:layout_marginVertical="10dp" />
 
                 <TextView
-                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:text="@string/ch_nh_s_ch_amp_i_u_kho_n"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
-                     />
+                    android:textSize="20dp" />
 
                 <TextView
-                    android:fontFamily="@font/helveticaneue_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:text="@string/ch_nh_s_ch_hu_ph_ng"
                     android:textColor="@color/black"
-                    android:textSize="17dp"
-                     />
+                    android:textSize="17dp" />
 
                 <TextView
                     android:id="@+id/txtCancelPolicy"
-                    android:fontFamily="@font/helveticaneue_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:text="@string/room_type" />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -384,10 +376,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_margin="10dp"
+                    android:fontFamily="@font/helveticaneue_medium"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/x_c_nh_n"
-                    android:fontFamily="@font/helveticaneue_medium"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

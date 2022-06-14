@@ -84,8 +84,11 @@ public class FilterBottomSheetFragment extends BottomSheetDialogFragment {
             @SuppressLint("RestrictedApi")
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                Long start = slider.getValues().get(0).longValue();
-                Long end = slider.getValues().get(1).longValue();
+                Common.start = slider.getValues().get(0);
+                Common.end = slider.getValues().get(1);
+
+                long start = slider.getValues().get(0).longValue();
+                long end = slider.getValues().get(1).longValue();
 
                 txtStart.setText(new HandleCurrency().handle(start));
                 txtEnd.setText(new HandleCurrency().handle(end));

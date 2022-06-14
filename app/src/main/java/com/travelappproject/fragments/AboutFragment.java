@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -34,6 +35,7 @@ public class AboutFragment extends Fragment {
     boolean isExpanded;
     RelativeLayout expandable_layout;
     ImageView icon_expand;
+    ScrollView scroll;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -67,6 +69,7 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        scroll = view.findViewById(R.id.scroll);
         icon_expand = view.findViewById(R.id.icon_expand);
         linear_layout = view.findViewById(R.id.linear_layout);
         expandable_layout = view.findViewById(R.id.expandable_layout);
@@ -91,7 +94,11 @@ public class AboutFragment extends Fragment {
                 expandable_layout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
             }
         });
+    }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        scroll.requestLayout();
     }
 }

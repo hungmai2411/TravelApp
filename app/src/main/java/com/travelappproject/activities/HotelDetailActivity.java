@@ -523,6 +523,13 @@ public class HotelDetailActivity extends AppCompatActivity {
                     rcvRooms.setLayoutManager(linearLayoutManager);
                     rcvRooms.setAdapter(roomAdapter);
 
+                    viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                        @Override
+                        public void onPageSelected(int position) {
+                            super.onPageSelected(position);
+
+                        }
+                    });
 
                     new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
                         switch (position) {

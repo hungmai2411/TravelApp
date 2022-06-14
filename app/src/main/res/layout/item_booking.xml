@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/left"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="40dp"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -17,7 +18,8 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
             android:layout_marginBottom="5dp"
-            android:text="Cancelled"
+            android:text="Successfully"
+            android:layout_gravity="start"
             android:fontFamily="@font/helveticaneue_light"
             android:textColor="@color/cancelled_text"
             android:background="@color/cancelled_color"
@@ -42,10 +44,10 @@
     <LinearLayout
         android:layout_marginVertical="10dp"
         android:layout_toRightOf="@+id/left"
-        android:layout_marginRight="50dp"
         android:gravity="start"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
@@ -78,18 +80,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
-            
+
             android:text="200000"
             android:fontFamily="@font/helveticaneue_medium"/>
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_more_vertical"
-        android:layout_alignParentRight="true"/>
 
-</RelativeLayout>
+</LinearLayout>

@@ -69,12 +69,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.txtDate.setText(strDate);
         holder.txtTime.setText(strTime);
 
-        if(bookingList.get(position).getStatus().equals("Booked")){
-            holder.txtStatus.setTextColor(mContext.getResources().getColor(R.color.booked_text));
-            holder.txtStatus.setBackgroundColor(mContext.getResources().getColor(R.color.booked_color));
-        }else{
+        if(bookingList.get(position).getStatus().equals("Cancelled")){
             holder.txtStatus.setTextColor(mContext.getResources().getColor(R.color.cancelled_text));
             holder.txtStatus.setBackgroundColor(mContext.getResources().getColor(R.color.cancelled_color));
+        }else{
+            holder.txtStatus.setTextColor(mContext.getResources().getColor(R.color.booked_text));
+            holder.txtStatus.setBackgroundColor(mContext.getResources().getColor(R.color.booked_color));
         }
         holder.txtStatus.setText(bookingList.get(position).getStatus());
     }
@@ -107,4 +107,3 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         public void onCallBack(Booking booking);
     }
 }
-

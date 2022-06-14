@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="13dp"
+    android:layout_marginVertical="10dp"
     android:layout_marginHorizontal="5dp"
     android:backgroundTint="@color/white"
     android:layout_gravity="fill"
@@ -22,16 +22,17 @@
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgLocation"
+                android:id="@+id/imgUser"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/applogo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="17dp"
-                android:layout_toEndOf="@+id/imgLocation"
+                android:layout_toEndOf="@+id/imgUser"
                 android:orientation="vertical">
 
                 <TextView
@@ -42,7 +43,7 @@
                     android:fontFamily="@font/helveticaneue_medium"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                     />
+                    />
 
                 <TextView
                     android:id="@+id/txtLocationAddress"
@@ -87,8 +88,14 @@
             android:textSize="15dp"
             android:fontFamily="@font/helveticaneue_light"
             android:id="@+id/txtReview"
-            android:textColor="@color/detail_color"
+            android:textColor="@color/black"
             android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rcvImages"
+            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

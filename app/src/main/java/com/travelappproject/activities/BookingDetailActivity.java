@@ -1,5 +1,6 @@
 package com.travelappproject.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -32,6 +34,7 @@ import com.travelappproject.HandleCurrency;
 import com.travelappproject.QrCodeActivity;
 import com.travelappproject.R;
 import com.travelappproject.model.hotel.Booking;
+import com.travelappproject.model.hotel.Review;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,11 +48,11 @@ public class BookingDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     RelativeLayout relative;
     Dialog dialog;
-    Button btnCancel,btnGetQr;
+    Button btnCancel,btnGetQr,btnReview;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    String uid;
-
+    String uid,idReview;
+    Review review;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class BookingDetailActivity extends AppCompatActivity {
             uid = auth.getUid();
         }
 
+        btnReview = findViewById(R.id.btnReview);
         btnGetQr = findViewById(R.id.btnGetQr);
         btnCancel = findViewById(R.id.btnCancel);
         relative = findViewById(R.id.relative);
@@ -111,13 +115,57 @@ public class BookingDetailActivity extends AppCompatActivity {
             }
         }
 
-        if(txtStatus.getText().toString().equals("Booked")){
+        if(booking.getStatus().equals("Successfully")){
+            btnReview.setVisibility(View.VISIBLE);
+        }
+
+        db.collection("Hotels/" + booking.getIdHotel() + "/reviews")
+                .whereEqualTo("idUser",uid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(DocumentSnapshot doc : task.getResult()){
+                            if(doc.get("bookingID").equals(booking.getIdBooking())){
+                                review = doc.toObject(Review.class);
+                                idReview = doc.getId();
+                                btnReview.setText(R.string.view_review);
+                            }
+                        }
+                    }
+                });
+
+
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(BookingDetailActivity.this,ReviewActivity.class);
+                intent1.putExtra("idHotel",booking.getIdHotel());
+                intent1.putExtra("bookingID",booking.getIdBooking());
+
+                Bundle bundle = new Bundle();
+                if(review != null) {
+                    bundle.putSerializable("review", review);
+                    intent1.putExtra("hasReviewed",true);
+                    intent1.putExtra("idReview",idReview);
+                    intent1.putExtras(bundle);
+                }
+                startActivity(intent1);
+            }
+        });
+
+        if(txtStatus.getText().toString().equals("Cancelled")){
+            relative.setVisibility(View.GONE);
+            txtStatus.setTextColor(getResources().getColor(R.color.cancelled_text));
+            txtStatus.setBackgroundColor(getResources().getColor(R.color.cancelled_color));
+        }else if(txtStatus.getText().toString().equals("Booked")){
             txtStatus.setTextColor(getResources().getColor(R.color.booked_text));
             txtStatus.setBackgroundColor(getResources().getColor(R.color.booked_color));
         }else{
             relative.setVisibility(View.GONE);
-            txtStatus.setTextColor(getResources().getColor(R.color.cancelled_text));
-            txtStatus.setBackgroundColor(getResources().getColor(R.color.cancelled_color));
+            txtStatus.setTextColor(getResources().getColor(R.color.booked_text));
+            txtStatus.setBackgroundColor(getResources().getColor(R.color.booked_color));
         }
 
         btnGetQr.setOnClickListener(new View.OnClickListener() {

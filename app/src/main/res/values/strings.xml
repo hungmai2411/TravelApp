@@ -148,6 +148,12 @@
     <string name="ap_dung_ma_that_bai">Áp dụng mã thất bại</string>
     <string name="loading">Đang tải...</string>
     <string name="nhan_voucher">Bạn vừa nhận được 1 voucher</string>
+    <string name="nh_gi">Đánh giá</string>
+    <string name="choose_image">Chọn ảnh</string>
+    <string name="add_review">Thêm nhận xét thành công</string>
+    <string name="view_review">Xem đánh giá của bạn</string>
+    <string name="update_review">Cập nhật thành công</string>
+    <string name="delete_review">Xoá thành công</string>
 
 
 </resources>
