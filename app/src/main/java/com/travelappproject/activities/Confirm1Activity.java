@@ -312,7 +312,6 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("idHotel", mHotel.getId());
         booksMap.put("idRoom", room.getId());
         booksMap.put("nameRoom", room.getName());
-        booksMap.put("choice", choice);
         booksMap.put("startDate", startDate);
         booksMap.put("endDate", endDate);
         booksMap.put("startTime", mHotel.getCheckInTime());
@@ -323,10 +322,13 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("phonenumber", user.getPhoneNumber());
         booksMap.put("status", "Booked");
         booksMap.put("idUser",uid);
+
         if(choice.equals(getString(R.string.pay_at_hotel))){
             booksMap.put("paymentStatus",getString(R.string.trang_thai));
+            booksMap.put("choice", "Pay at hotel");
         }else{
-            booksMap.put("paymentStatus",getString(R.string.trang_thai));
+            booksMap.put("paymentStatus",getString(R.string.trang_thai_2));
+            booksMap.put("choice", "Pay with Zalo Pay");
         }
 
         long price = (long) (room.getPrice() * daysDiff - (room.getPrice() * daysDiff * discount * 0.01));

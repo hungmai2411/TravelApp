@@ -80,7 +80,7 @@ public class VoucherActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        if(end.getYear() >= date.getDate()){
+                        if(end.getYear() >= date.getYear()){
                             if(end.getMonth() >= date.getMonth()){
                                 if(end.getDay() >= date.getDay()){
                                     Voucher voucher = snapshot.toObject(Voucher.class);
