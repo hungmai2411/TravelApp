@@ -212,6 +212,8 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Map<String, Object> user1 = new HashMap<>();
                             user1.put("type", "Facebook");
+                            user1.put("image", "https://firebasestorage.googleapis.com/v0/b/travel-81548.appspot.com/o/image%2Fprofile.png?alt=media&token=cc15b7cb-6ea8-4522-bdb7-b21ed5f37070");
+
                             userID = mAuth.getCurrentUser().getUid();
 
                             firestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -317,6 +319,7 @@ public class SignInActivity extends AppCompatActivity {
                     userID = mAuth.getCurrentUser().getUid();
                     Map<String, Object> user1 = new HashMap<>();
                     user1.put("type", "Google");
+                    user1.put("image", "https://firebasestorage.googleapis.com/v0/b/travel-81548.appspot.com/o/image%2Fprofile.png?alt=media&token=cc15b7cb-6ea8-4522-bdb7-b21ed5f37070");
 
                     firestore.collection("users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override

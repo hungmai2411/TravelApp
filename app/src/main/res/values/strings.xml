@@ -154,6 +154,15 @@
     <string name="view_review">Xem đánh giá của bạn</string>
     <string name="update_review">Cập nhật thành công</string>
     <string name="delete_review">Xoá thành công</string>
+    <string name="plan_your_trip">Lên kế hoạch</string>
+    <string name="l_n_k_ho_ch_cho_nh_ng_chuy_n_i_xa_th_c_hi_n_am_m_c_a_b_n">Lên kế hoạch cho những chuyến đi xa, thực hiện đam mê của bạn</string>
+    <string name="book_your_hotel">Đặt khách sạn</string>
+    <string name="sau_khi_d_l_n_k_ho_ch_cho_chuy_n_i_h_y_t_ph_ng_n_o">Sau khi dã lên kế hoạch cho chuyện đi, hãy đặt phòng nào!</string>
+    <string name="enjoy_your_trip">Tận hưởng!</string>
+    <string name="s_ng_c_ng_am_m_n_o_t_n_h_ng_chuy_n_i_nh">Sống cùng đam mê nào! Tận hưởng chuyến đi nhé</string>
+    <string name="get_started">Bắt đầu</string>
+    <string name="GPS_title">Bật định vị</string>
+    <string name="GPS_content">Có vẻ như hệ thống định vị của bạn đã bị tắt, bạn có muốn bật nó lên không?</string>
 
 
 </resources>

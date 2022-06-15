@@ -153,6 +153,15 @@
     <string name="view_review">View your review</string>
     <string name="update_review">Update successfully</string>
     <string name="delete_review">Delete successfully</string>
+    <string name="plan_your_trip">Plan Your Trip</string>
+    <string name="l_n_k_ho_ch_cho_nh_ng_chuy_n_i_xa_th_c_hi_n_am_m_c_a_b_n">Plan for your long trips, fulfill your passion</string>
+    <string name="book_your_hotel">Book your Hotel</string>
+    <string name="sau_khi_d_l_n_k_ho_ch_cho_chuy_n_i_h_y_t_ph_ng_n_o">After planning for your trips, let\'s take a reservation!</string>
+    <string name="enjoy_your_trip">Enjoy your trip!</string>
+    <string name="s_ng_c_ng_am_m_n_o_t_n_h_ng_chuy_n_i_nh">Live with your passion! Enjoy your trip</string>
+    <string name="get_started">Get started</string>
+    <string name="GPS_title">Turn on GPS</string>
+    <string name="GPS_content">Your GPS seems to be disabled, do you want to enable it?</string>
 
 </resources>
 

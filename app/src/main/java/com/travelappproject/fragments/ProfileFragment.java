@@ -239,7 +239,7 @@ public class ProfileFragment extends Fragment {
                                 Name = user.getDisplayName();
                         }
                         txtName.setText(Name);
-                        Glide.with(getContext()).load(ImageURL).error(R.drawable.profile).into(imgAvatar);
+                        Glide.with(getContext()).load(ImageURL).into(imgAvatar);
                     }
                 }
             }
