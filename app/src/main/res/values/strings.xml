@@ -30,6 +30,7 @@
     <string name="tong_cong">Tổng cộng</string>
     <string name="trang_thai_thanh_toan">Trạng thái thanh toán</string>
     <string name="trang_thai">Đang chờ thanh toán</string>
+    <string name="trang_thai_2">Đã thanh toán</string>
     <string name="phuong_thuc">Thanh toán tại khách sạn</string>
     <string name="ph_ng_th_c_thanh_to_n">Phương thức thanh toán</string>
     <string name="please_select_area">Vui lòng chọn khu vực</string>
