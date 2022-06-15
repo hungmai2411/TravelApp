@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#f2f2f2"
     tools:context=".fragments.FavoriteFragment">
 
     <LinearLayout
@@ -15,6 +16,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             >
@@ -43,7 +45,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/rcvFavorite"/>
 
     <LinearLayout
