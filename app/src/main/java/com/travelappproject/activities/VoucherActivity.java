@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.travelappproject.R;
 import com.travelappproject.adapter.VouchersAdapter;
@@ -61,7 +62,9 @@ public class VoucherActivity extends AppCompatActivity {
         String userID = user.getUid();
         firestore = FirebaseFirestore.getInstance();
 
-        firestore.collection("users/" + userID + "/vouchers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("users/" + userID + "/vouchers")
+                .orderBy("endDate", Query.Direction.DESCENDING)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
