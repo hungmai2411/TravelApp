@@ -249,7 +249,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if(email != null){
                             edtEmail.setText(email);
                         }
-                        Glide.with(EditProfileActivity.this).load(image).error(R.drawable.profile).into(imgAvatar);
+                        Glide.with(EditProfileActivity.this).load(image).into(imgAvatar);
 
                     }
                 }

@@ -15,12 +15,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -33,7 +38,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -95,6 +106,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        statusCheck();
 
         locationUtils = new LocationUtils(getApplicationContext());
 
@@ -122,7 +134,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void getCurrentLocation() {
-        showDialog(this);
+        //showDialog(this);
 
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
@@ -148,10 +160,9 @@ public class MainActivity extends AppCompatActivity{
                             hotelViewModel.getBanner();
                             addControls();
                             addEvents();
-                            dismissDialog();
+//                            dismissDialog();
                         } else {
                             Log.d("111", "null");
-                            progressDialog.dismiss();
                         }
                     }
                 }, Looper.getMainLooper());
@@ -205,5 +216,63 @@ public class MainActivity extends AppCompatActivity{
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_container, HomeFragment.newInstance(state), null).commit();
         finalState = state;
+    }
+
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            openLocationDialog();
+        }else{
+            startActivity(new Intent(MainActivity.this, HomeFragment.class));
+        }
+    }
+
+
+    private void openLocationDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog_cancel);
+
+        Window window = dialog.getWindow();
+        if(window == null)
+            return;
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();;
+        windowAttributes.gravity = Gravity.CENTER;
+        window.setAttributes(windowAttributes);
+
+        dialog.setCancelable(false);
+        TextView txtTitle, txtContent;
+        Button btnOkay, btnCancel;
+
+        txtTitle = dialog.findViewById(R.id.textView);
+        txtContent = dialog.findViewById(R.id.textView2);
+
+        txtTitle.setText(R.string.GPS_title);
+        txtContent.setText(R.string.GPS_content);
+
+        btnOkay = dialog.findViewById(R.id.btn_okey);
+        btnCancel = dialog.findViewById(R.id.btn_cancel);
+
+        btnOkay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                dialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
     }
 }

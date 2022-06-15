@@ -102,6 +102,8 @@ public class SignUpActivity extends AppCompatActivity {
                                         Map<String,Object> user1 = new HashMap<>();
                                         user1.put("type","Email and password");
                                         user1.put("hashpass",hashpass);
+                                        user1.put("image", "https://firebasestorage.googleapis.com/v0/b/travel-81548.appspot.com/o/image%2Fprofile.png?alt=media&token=cc15b7cb-6ea8-4522-bdb7-b21ed5f37070");
+
                                         documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

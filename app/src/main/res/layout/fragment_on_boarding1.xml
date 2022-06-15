@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Plan Your Trip"
+        android:text="@string/plan_your_trip"
         android:fontFamily="@font/helveticaneue_bold"
         android:textSize="30dp"
         android:textColor="@color/black"
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lên kế hoạch cho những chuyến đi xa, thực hiện đam mê của bạn"
+        android:text="@string/l_n_k_ho_ch_cho_nh_ng_chuy_n_i_xa_th_c_hi_n_am_m_c_a_b_n"
         android:textSize="18dp"
         android:gravity="center"
         android:fontFamily="@font/helveticaneue_bold"

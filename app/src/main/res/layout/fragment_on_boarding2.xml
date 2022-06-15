@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Book your Hotel"
+        android:text="@string/book_your_hotel"
         android:textSize="30dp"
         android:fontFamily="@font/helveticaneue_bold"
         android:textColor="@color/black"
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sau khi dã lên kế hoạch cho chuyện đi, Hãy đặt phòng nào!"
+        android:text="@string/sau_khi_d_l_n_k_ho_ch_cho_chuy_n_i_h_y_t_ph_ng_n_o"
         android:textSize="18dp"
         android:gravity="center"
         android:textColor="@color/black"
