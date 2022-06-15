@@ -250,7 +250,9 @@ public class Confirm1Activity extends AppCompatActivity {
                         CreateOrder orderApi = new CreateOrder();
 
                         try {
-                            JSONObject data = orderApi.createOrder(txtTotal.getText().toString());
+                            long price = (long) (room.getPrice() * daysDiff - (room.getPrice() * daysDiff * discount * 0.01));
+
+                            JSONObject data = orderApi.createOrder(String.valueOf(price));
                             String code = data.getString("return_code");
 
                             if (code.equals("1")) {
