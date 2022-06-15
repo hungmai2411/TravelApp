@@ -24,20 +24,20 @@ Cài đặt Android Studio, link download: [https://developer.android.com/studio
 
 Tải ứng dụng Zalo Pay sand box và ZaloPay sdk, link download: [https://docs.zalopay.vn/v2/docs/apptoapp/demo.html]
 
-<img src="screens/image1"/>
-<img src="screens/image2"/>
+<img src="screens/image1.png"/>
+<img src="screens/image2.png"/>
 
 Chọn vào File trong Android Studio -> Project Structure -> Dependencies
 
-<img src="screens/image3"/>
+<img src="screens/image3.png"/>
 
 Import file .aar mới tải vào.
 
-<img src="screens/image4"/>
+<img src="screens/image4.png"/>
 
 Trong file ```build.gradle``` có câu lệnh sau là chúng ta đã import thành công
 
-<img src="screens/image5"/>
+<img src="screens/image5.png"/>
 
 Thanh toán Zalo Pay chỉ thực hiện được trên Real Device
 
