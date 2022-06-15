@@ -306,6 +306,7 @@ public class Confirm1Activity extends AppCompatActivity {
         Map<String, Object> booksMap = new HashMap<>();
 
         FieldValue timestamp = FieldValue.serverTimestamp();
+
         booksMap.put("addressHotel", mHotel.getFullAddress());
         booksMap.put("timestamp", timestamp);
         booksMap.put("idHotel", mHotel.getId());
@@ -322,6 +323,11 @@ public class Confirm1Activity extends AppCompatActivity {
         booksMap.put("phonenumber", user.getPhoneNumber());
         booksMap.put("status", "Booked");
         booksMap.put("idUser",uid);
+        if(choice.equals(getString(R.string.pay_at_hotel))){
+            booksMap.put("paymentStatus",getString(R.string.trang_thai));
+        }else{
+            booksMap.put("paymentStatus",getString(R.string.trang_thai));
+        }
 
         long price = (long) (room.getPrice() * daysDiff - (room.getPrice() * daysDiff * discount * 0.01));
         booksMap.put("price", price);

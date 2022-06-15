@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity{
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             openLocationDialog();
         }else{
-            startActivity(new Intent(MainActivity.this, HomeFragment.class));
+            //startActivity(new Intent(MainActivity.this, HomeFragment.class));
         }
     }
 
@@ -238,7 +239,7 @@ public class MainActivity extends AppCompatActivity{
         if(window == null)
             return;
 
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setLayout((int) (getResources().getDisplayMetrics().widthPixels*0.90), WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();;

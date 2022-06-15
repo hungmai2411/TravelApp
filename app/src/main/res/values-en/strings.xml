@@ -162,6 +162,7 @@
     <string name="get_started">Get started</string>
     <string name="GPS_title">Turn on GPS</string>
     <string name="GPS_content">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="trang_thai_2">Already paid</string>
 
 </resources>
 

@@ -100,7 +100,9 @@ public class BookingDetailActivity extends AppCompatActivity {
 
             if (booking != null) {
                 txtStatus.setText(booking.getStatus());
-
+                if(booking.getPaymentStatus() != null){
+                    txtStatusPayment.setText(booking.getPaymentStatus());
+                }
                 txtPrice.setText(new HandleCurrency().handle(booking.getPrice()));
                 txtChoice.setText(booking.getChoice());
                 txtNameHotel.setText(booking.getHotelName());
